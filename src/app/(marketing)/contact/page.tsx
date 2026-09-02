@@ -62,6 +62,7 @@ export default async function ContactPage() {
                   <li key={branch.id} className="text-sm text-ink/65">
                     {branch.name}
                     {branch.city && <span className="text-ink/40"> — {branch.city}</span>}
+                    {branch.status !== "active" && <span className="text-ink/40"> (Coming Soon)</span>}
                   </li>
                 ))}
               </ul>

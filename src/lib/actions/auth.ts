@@ -3,11 +3,9 @@
 import { createClient } from "@/lib/supabase/server";
 import {
   loginSchema,
-  registerSchema,
   forgotPasswordSchema,
   resetPasswordSchema,
   type LoginInput,
-  type RegisterInput,
   type ForgotPasswordInput,
   type ResetPasswordInput,
 } from "@/lib/validations/auth";
@@ -21,27 +19,8 @@ export interface AuthResult {
 function backendNotConfigured(): AuthResult {
   return {
     success: false,
-    error: "Accounts aren't connected yet — the site owner needs to configure Supabase.",
+    error: "Sign-in isn't connected yet — the site owner needs to configure Supabase.",
   };
-}
-
-export async function registerAction(input: RegisterInput): Promise<AuthResult> {
-  const parsed = registerSchema.safeParse(input);
-  if (!parsed.success) return { success: false, error: parsed.error.issues[0]?.message };
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return backendNotConfigured();
-
-  const supabase = await createClient();
-  const { error } = await supabase.auth.signUp({
-    email: parsed.data.email,
-    password: parsed.data.password,
-    options: {
-      data: { full_name: parsed.data.fullName, phone: parsed.data.phone },
-      emailRedirectTo: `${siteConfig.url}/login`,
-    },
-  });
-
-  if (error) return { success: false, error: error.message };
-  return { success: true };
 }
 
 export async function loginAction(input: LoginInput): Promise<AuthResult> {

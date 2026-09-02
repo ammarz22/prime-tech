@@ -5,7 +5,7 @@ const POINTS = [
   { icon: ShieldCheck, title: "No Payment Required", description: "Registering interest is free and non-binding." },
   { icon: MessageCircleHeart, title: "A Real Person, Not a Bot", description: "Every WhatsApp chat is answered by Prime Tech staff." },
   { icon: Eye, title: "Transparent About What's Confirmed", description: "We never present a rumour as a fact." },
-  { icon: Store, title: "A Genuine Colombo Retailer", description: "Collect in-branch or arrange delivery, your choice." },
+  { icon: Store, title: "A Genuine Colombo Retailer", description: "Delivery and collection details are arranged directly with you on WhatsApp." },
 ] as const;
 
 export function Iphone18TrustSection() {

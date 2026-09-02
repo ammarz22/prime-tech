@@ -7,21 +7,6 @@ const passwordSchema = z
   .regex(/[A-Z]/, "Add an uppercase letter")
   .regex(/[0-9]/, "Add a number");
 
-export const registerSchema = z
-  .object({
-    fullName: z.string().trim().min(2, "Enter your full name").max(120),
-    email: z.string().trim().email("Enter a valid email address"),
-    phone: z.string().trim().min(7, "Enter a valid phone number").max(20),
-    password: passwordSchema,
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
-
-export type RegisterInput = z.infer<typeof registerSchema>;
-
 export const loginSchema = z.object({
   email: z.string().trim().email("Enter a valid email address"),
   password: z.string().min(1, "Enter your password"),

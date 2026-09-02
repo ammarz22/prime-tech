@@ -28,14 +28,14 @@ export default function LoginPage() {
       setServerError(result.error ?? "Something went wrong.");
       return;
     }
-    router.push("/account");
+    router.push("/admin");
     router.refresh();
   }
 
   return (
     <div className="rounded-3xl border border-ink/8 bg-paper p-8">
-      <h1 className="text-2xl font-semibold tracking-tight">Welcome back</h1>
-      <p className="mt-1.5 text-sm text-ink/55">Sign in to your Prime Tech account.</p>
+      <h1 className="text-2xl font-semibold tracking-tight">Admin Sign In</h1>
+      <p className="mt-1.5 text-sm text-ink/55">Sign in to manage Prime Tech.</p>
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-4">
         <div className="space-y-1.5">
@@ -61,13 +61,6 @@ export default function LoginPage() {
           Sign In
         </Button>
       </form>
-
-      <p className="mt-6 text-center text-sm text-ink/55">
-        Don&apos;t have an account?{" "}
-        <Link href="/register" className="font-medium text-brand hover:underline">
-          Create one
-        </Link>
-      </p>
     </div>
   );
 }

@@ -54,8 +54,9 @@ export function generateProductFaqs(product: ProductWithRelations, branches: Bra
     answer: `Prime Tech honours the manufacturer's standard warranty on ${product.name}. Ask at enquiry for full terms.`,
   });
 
-  if (branches.length > 0) {
-    const names = branches.map((b) => b.name).join(", ");
+  const activeBranches = branches.filter((b) => b.status === "active");
+  if (activeBranches.length > 0) {
+    const names = activeBranches.map((b) => b.name).join(", ");
     faqs.push({
       question: "Where can I collect the product?",
       answer: `Select a preferred branch when you enquire. Prime Tech branches: ${names}.`,

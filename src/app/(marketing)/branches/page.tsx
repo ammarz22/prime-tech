@@ -13,6 +13,7 @@ export const metadata: Metadata = {
 export default async function BranchesPage() {
   const branches = await getBranches();
   const branch = branches[0];
+  const isActive = branch?.status === "active";
 
   return (
     <div className="pt-28">
@@ -23,7 +24,9 @@ export default async function BranchesPage() {
             {branch?.name ?? "Visit Prime Tech"}
           </h1>
           <p className="mt-3 text-ink/60">
-            See devices in person, get advice, and complete your purchase.
+            {isActive
+              ? "See devices in person, get advice, and complete your purchase."
+              : "Our first showroom is opening soon — reach us on WhatsApp in the meantime."}
           </p>
         </AnimatedSection>
 

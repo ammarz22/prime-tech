@@ -19,7 +19,11 @@ export function BranchCard({ branch }: { branch: Branch }) {
       <div className="mt-4 space-y-2.5 text-sm text-ink/60">
         <div className="flex items-start gap-2.5">
           <MapPin className="mt-0.5 size-4 shrink-0" />
-          <span>{branch.address ?? "Address to be confirmed"}{branch.city ? `, ${branch.city}` : ""}</span>
+          <span>
+            {isActive
+              ? `${branch.address ?? ""}${branch.city ? `, ${branch.city}` : ""}`
+              : `Opening soon${branch.city ? ` in ${branch.city}` : ""}`}
+          </span>
         </div>
         {branch.phone && (
           <div className="flex items-center gap-2.5">

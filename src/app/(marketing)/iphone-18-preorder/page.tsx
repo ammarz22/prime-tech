@@ -57,10 +57,6 @@ const FAQS = [
     q: "Is a deposit required to pre-order?",
     a: "No deposit is required to register interest. Any payment terms for an actual order are agreed directly with you on WhatsApp once pricing is confirmed.",
   },
-  {
-    q: "Can I ask about a specific branch?",
-    a: "Yes — mention your preferred Prime Tech branch when you message us and we'll arrange collection or an in-person chat there.",
-  },
 ];
 
 const HERO_COPY: Record<CampaignStage, { eyebrow: string; ctaLabel: string }> = {

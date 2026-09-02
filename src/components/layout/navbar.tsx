@@ -44,11 +44,9 @@ export function Navbar() {
         <div
           className={cn(
             "flex items-center justify-between rounded-full border px-4 py-2.5 transition-colors duration-300",
-            scrolled
-              ? "border-ink/10 bg-paper/85 text-ink shadow-[0_8px_30px_-12px_rgba(0,0,0,0.18)] backdrop-blur-xl"
-              : showLight
-                ? "border-white/10 bg-white/[0.06] text-white shadow-[0_8px_30px_-14px_rgba(0,0,0,0.5)] backdrop-blur-md"
-                : "border-ink/8 bg-white/70 text-ink shadow-[0_8px_24px_-16px_rgba(0,0,0,0.12)] backdrop-blur-md",
+            showLight
+              ? "border-white/10 bg-white/[0.06] text-white shadow-[0_8px_30px_-14px_rgba(0,0,0,0.5)] backdrop-blur-md"
+              : "border-ink/10 bg-paper/85 text-ink shadow-[0_8px_30px_-12px_rgba(0,0,0,0.18)] backdrop-blur-xl",
           )}
         >
           <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="Prime Tech home">
