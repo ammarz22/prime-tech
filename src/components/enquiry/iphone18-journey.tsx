@@ -6,7 +6,7 @@ const STEPS = [
   { n: "02", title: "Select", description: "Choose the model, colour, storage or package that suits you." },
   { n: "03", title: "Enquire", description: "Message Prime Tech on WhatsApp — takes seconds, no form." },
   { n: "04", title: "Confirm", description: "A real person confirms pricing, stock and pre-order details with you." },
-  { n: "05", title: "Receive", description: "Collect in-branch or arrange delivery, once the product is available." },
+  { n: "05", title: "Receive", description: "Delivery or collection is arranged directly with you, once the product is available." },
 ] as const;
 
 /** The pre-order journey, replacing a plain numbered list — five honest

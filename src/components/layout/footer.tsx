@@ -102,8 +102,11 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 border-t border-white/10 pt-8 text-center sm:text-left">
+        <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-8 text-center sm:flex-row sm:text-left">
           <p className="text-xs text-white/40">© {new Date().getFullYear()} Prime Tech. All rights reserved.</p>
+          <Link href="/privacy" className="text-xs text-white/40 transition hover:text-white/70">
+            Privacy Policy
+          </Link>
         </div>
       </div>
     </footer>
