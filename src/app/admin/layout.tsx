@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { LayoutDashboard, Package, Tag, LayoutGrid, Building2, Inbox, Star, Settings, ExternalLink, Boxes } from "lucide-react";
+import { LayoutDashboard, Package, Tag, LayoutGrid, Building2, Inbox, Star, Settings, ExternalLink, Boxes, BellRing } from "lucide-react";
 import { PrimeTechLogo } from "@/components/brand/prime-tech-logo";
 import { createClient } from "@/lib/supabase/server";
 
@@ -11,6 +11,7 @@ const LINKS = [
   { label: "Categories", href: "/admin/categories", icon: LayoutGrid },
   { label: "Branches", href: "/admin/branches", icon: Building2 },
   { label: "Enquiries", href: "/admin/enquiries", icon: Inbox },
+  { label: "Stock Notifications", href: "/admin/stock-notifications", icon: BellRing },
   { label: "Reviews", href: "/admin/reviews", icon: Star },
   { label: "iPhone 18 Packages", href: "/admin/iphone18-packages", icon: Boxes },
   { label: "Site Settings", href: "/admin/settings", icon: Settings },
