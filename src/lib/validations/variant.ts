@@ -8,6 +8,7 @@ export const variantSchema = z.object({
   colour: z.string().trim().max(120).optional().or(z.literal("")),
   screenSize: z.string().trim().max(40).optional().or(z.literal("")),
   chip: z.string().trim().max(60).optional().or(z.literal("")),
+  simType: z.string().trim().max(60).optional().or(z.literal("")),
   price: z
     .string()
     .optional()

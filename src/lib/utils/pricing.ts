@@ -36,6 +36,7 @@ export function getDisplayPrice(product: ProductWithRelations): {
 export interface VariantSelection {
   chip?: string | null;
   storage?: string | null;
+  simType?: string | null;
   colour?: string | null;
 }
 
@@ -49,6 +50,7 @@ export function resolveVariant(variants: ProductVariant[], selection: VariantSel
   return variants.find((v) => {
     if (selection.chip != null && v.chip !== selection.chip) return false;
     if (selection.storage != null && v.storage !== selection.storage) return false;
+    if (selection.simType != null && v.sim_type !== selection.simType) return false;
     if (selection.colour != null && v.colour !== selection.colour) return false;
     return true;
   });

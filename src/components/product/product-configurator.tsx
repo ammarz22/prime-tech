@@ -44,7 +44,12 @@ export function ProductConfigurator({
 
   const byStorage = storages.length > 1 ? byChip.filter((v) => v.storage === selectedStorage) : byChip;
 
-  const colours = dimension(byStorage, "colour");
+  const simTypes = dimension(byStorage, "sim_type");
+  const [selectedSimType, setSelectedSimType] = useState<string | null>(simTypes[0] ?? null);
+
+  const bySimType = simTypes.length > 1 ? byStorage.filter((v) => v.sim_type === selectedSimType) : byStorage;
+
+  const colours = dimension(bySimType, "colour");
   const [selectedColour, setSelectedColour] = useState<string | null>(colours[0] ?? null);
 
   // Only constrain on dimensions this product actually has more than one
@@ -53,6 +58,7 @@ export function ProductConfigurator({
   const selected = resolveVariant(variants, {
     chip: chips.length > 1 ? selectedChip : undefined,
     storage: storages.length > 1 ? selectedStorage : undefined,
+    simType: simTypes.length > 1 ? selectedSimType : undefined,
     colour: colours.length > 1 ? selectedColour : undefined,
   });
 
@@ -67,14 +73,29 @@ export function ProductConfigurator({
     const nextStorage = selectedStorage && nextStorages.includes(selectedStorage) ? selectedStorage : (nextStorages[0] ?? null);
     setSelectedStorage(nextStorage);
     const nextByStorage = nextStorages.length > 1 ? nextByChip.filter((v) => v.storage === nextStorage) : nextByChip;
-    const nextColours = dimension(nextByStorage, "colour");
+    const nextSimTypes = dimension(nextByStorage, "sim_type");
+    const nextSimType = selectedSimType && nextSimTypes.includes(selectedSimType) ? selectedSimType : (nextSimTypes[0] ?? null);
+    setSelectedSimType(nextSimType);
+    const nextBySimType = nextSimTypes.length > 1 ? nextByStorage.filter((v) => v.sim_type === nextSimType) : nextByStorage;
+    const nextColours = dimension(nextBySimType, "colour");
     setSelectedColour(selectedColour && nextColours.includes(selectedColour) ? selectedColour : (nextColours[0] ?? null));
   }
 
   function handleStorageSelect(storage: string) {
     setSelectedStorage(storage);
     const nextByStorage = byChip.filter((v) => v.storage === storage);
-    const nextColours = dimension(nextByStorage, "colour");
+    const nextSimTypes = dimension(nextByStorage, "sim_type");
+    const nextSimType = selectedSimType && nextSimTypes.includes(selectedSimType) ? selectedSimType : (nextSimTypes[0] ?? null);
+    setSelectedSimType(nextSimType);
+    const nextBySimType = nextSimTypes.length > 1 ? nextByStorage.filter((v) => v.sim_type === nextSimType) : nextByStorage;
+    const nextColours = dimension(nextBySimType, "colour");
+    setSelectedColour(selectedColour && nextColours.includes(selectedColour) ? selectedColour : (nextColours[0] ?? null));
+  }
+
+  function handleSimTypeSelect(simType: string) {
+    setSelectedSimType(simType);
+    const nextBySimType = byStorage.filter((v) => v.sim_type === simType);
+    const nextColours = dimension(nextBySimType, "colour");
     setSelectedColour(selectedColour && nextColours.includes(selectedColour) ? selectedColour : (nextColours[0] ?? null));
   }
 
@@ -82,14 +103,19 @@ export function ProductConfigurator({
     return byChip.some((v) => v.storage === storage);
   }
 
+  function isSimTypeAvailable(simType: string) {
+    return byStorage.some((v) => v.sim_type === simType);
+  }
+
   function isColourAvailable(colour: string) {
-    return byStorage.some((v) => v.colour === colour);
+    return bySimType.some((v) => v.colour === colour);
   }
 
   const configurationLabel = selected
     ? [
         selected.colour && `Colour: ${selected.colour}`,
         selected.storage && `Storage: ${selected.storage}`,
+        selected.sim_type && `SIM Type: ${selected.sim_type}`,
         selected.chip && `Chip: ${selected.chip}`,
         `Price: ${selected.price != null ? formatLKR(selected.price) : "Price on Request"}`,
         `Status: ${availabilityLabel(selected.availability)}`,
@@ -149,6 +175,24 @@ export function ProductConfigurator({
         </div>
       )}
 
+      {simTypes.length > 1 && (
+        <div>
+          <p className="mb-2 text-sm font-medium text-ink">SIM Type</p>
+          <div className="flex flex-wrap gap-2">
+            {simTypes.map((simType) => (
+              <SelectPill
+                key={simType}
+                active={simType === selectedSimType}
+                disabled={!isSimTypeAvailable(simType)}
+                onClick={() => handleSimTypeSelect(simType)}
+              >
+                {simType}
+              </SelectPill>
+            ))}
+          </div>
+        </div>
+      )}
+
       {colours.length > 1 ? (
         <div>
           <p className="mb-2 text-sm font-medium text-ink">Colour</p>
@@ -194,6 +238,11 @@ export function ProductConfigurator({
               {selected.storage && (
                 <span>
                   Storage: <span className="font-medium text-ink">{selected.storage}</span>
+                </span>
+              )}
+              {selected.sim_type && (
+                <span>
+                  SIM Type: <span className="font-medium text-ink">{selected.sim_type}</span>
                 </span>
               )}
             </div>

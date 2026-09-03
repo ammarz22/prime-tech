@@ -37,6 +37,7 @@ const EMPTY_VALUES: VariantInput = {
   colour: "",
   screenSize: "",
   chip: "",
+  simType: "",
   price: "",
   availability: "coming_soon",
 };
@@ -135,7 +136,7 @@ export function VariantManager({
                       </td>
                       <td className="px-2 py-2.5">{variant.colour || "—"}</td>
                       <td className="px-2 py-2.5 text-ink/60">
-                        {[variant.storage, variant.memory, variant.chip, variant.screen_size].filter(Boolean).join(" · ") || "—"}
+                        {[variant.storage, variant.memory, variant.chip, variant.screen_size, variant.sim_type].filter(Boolean).join(" · ") || "—"}
                       </td>
                       <td className="px-2 py-2.5 tabular-nums">
                         {variant.price != null ? `LKR ${variant.price.toLocaleString()}` : <span className="text-ink/40">—</span>}
@@ -227,6 +228,7 @@ function VariantFormDialog({
           colour: variant.colour ?? "",
           screenSize: variant.screen_size ?? "",
           chip: variant.chip ?? "",
+          simType: variant.sim_type ?? "",
           price: variant.price != null ? String(variant.price) : "",
           availability: variant.availability,
         }
@@ -292,6 +294,11 @@ function VariantFormDialog({
               <Label htmlFor="v-sku">SKU</Label>
               <Input id="v-sku" {...register("sku")} />
             </div>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="v-sim-type">SIM Type</Label>
+            <Input id="v-sim-type" placeholder="e.g. Physical SIM + eSIM, or eSIM Only" {...register("simType")} />
           </div>
 
           <div className="grid grid-cols-2 gap-3">

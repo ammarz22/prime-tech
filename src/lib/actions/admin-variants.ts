@@ -19,6 +19,7 @@ function toRow(data: VariantInput) {
     colour: data.colour || null,
     screen_size: data.screenSize || null,
     chip: data.chip || null,
+    sim_type: data.simType || null,
     price: data.price ? Number(data.price) : null,
     availability: data.availability,
   };

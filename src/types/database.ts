@@ -70,6 +70,7 @@ export interface ProductVariant {
   colour: string | null;
   screen_size: string | null;
   chip: string | null;
+  sim_type: string | null;
   price: number | null;
   compare_at_price: number | null;
   availability: Availability;
