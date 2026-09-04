@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Menu, X, ChevronRight, ChevronDown, Heart } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { SearchCommand } from "@/components/search/search-command";
@@ -16,38 +17,38 @@ interface MobileMenuProps {
 export function MobileMenu({ links, light = false }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
   const [productsExpanded, setProductsExpanded] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const otherLinks = links.filter((l) => l.href !== "/");
 
-  return (
-    <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className={cn(
-          "flex size-9 items-center justify-center rounded-full transition lg:hidden",
-          light ? "text-white/75 hover:bg-white/10 hover:text-white" : "text-ink/70 hover:bg-ink/5 hover:text-ink",
-        )}
-        aria-label="Open menu"
-      >
-        <Menu className="size-5" />
-      </button>
+  // The navbar pill uses `backdrop-blur`, and `backdrop-filter` on an
+  // ancestor creates a new containing block for `position: fixed`
+  // descendants (same as `transform`/`filter`/`will-change`) — so a fixed
+  // drawer left nested inside it resolves against that small pill instead
+  // of the viewport, collapsing to a tiny floating box instead of a
+  // full-height panel. Portaling straight to `document.body` escapes that
+  // ancestor chain entirely. `mounted` avoids an SSR/hydration mismatch
+  // since `document` doesn't exist on the server.
+  useEffect(() => setMounted(true), []);
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-ink/40 backdrop-blur-sm lg:hidden"
-            onClick={() => setOpen(false)}
-          >
+  const menu = (
+    <AnimatePresence>
+      {open && (
+        <>
             <motion.div
+              key="mobile-menu-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[60] bg-ink/40 backdrop-blur-sm lg:hidden"
+              onClick={() => setOpen(false)}
+            />
+            <motion.div
+              key="mobile-menu-drawer"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 34 }}
-              className="absolute inset-y-0 right-0 flex w-full max-w-sm flex-col bg-paper p-6"
-              onClick={(e) => e.stopPropagation()}
+              className="fixed inset-y-0 right-0 z-[61] flex w-full max-w-sm flex-col bg-paper p-6 lg:hidden"
             >
               <div className="flex items-center justify-between">
                 <span className="text-sm font-semibold text-ink/50">Menu</span>
@@ -161,9 +162,26 @@ export function MobileMenu({ links, light = false }: MobileMenuProps) {
                 </Link>
               </div>
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
+  );
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className={cn(
+          "flex size-9 items-center justify-center rounded-full transition lg:hidden",
+          light ? "text-white/75 hover:bg-white/10 hover:text-white" : "text-ink/70 hover:bg-ink/5 hover:text-ink",
+        )}
+        aria-label="Open menu"
+      >
+        <Menu className="size-5" />
+      </button>
+
+      {mounted && createPortal(menu, document.body)}
     </>
   );
 }
