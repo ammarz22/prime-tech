@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   description: "How Prime Tech collects, uses and protects your information.",
 };
 
+// Pure content plus a rarely-changing contact email/phone — worth caching
+// for speed at the cost of up to 5 minutes' lag on that one detail.
+export const revalidate = 300;
+
 const SECTIONS = [
   {
     heading: "What we collect",

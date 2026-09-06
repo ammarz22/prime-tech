@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   description: "Prime Tech is a technology-focused business based in Colombo, Sri Lanka, helping customers discover reliable technology products and solutions.",
 };
 
+// Pure static content, no live data — safe to cache and re-serve from the
+// CDN instead of re-rendering on every visit.
+export const revalidate = 300;
+
 export default function AboutPage() {
   return (
     <div className="pt-28">

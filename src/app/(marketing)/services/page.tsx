@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   description: "Device consultation, setup, business technology, technical support and accessories at Prime Tech Colombo.",
 };
 
+// The WhatsApp number shown here only changes rarely — worth caching this
+// page for speed at the cost of up to 5 minutes' lag on that one detail.
+export const revalidate = 300;
+
 const SERVICES = [
   {
     icon: Compass,
