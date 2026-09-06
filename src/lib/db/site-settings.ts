@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { siteConfig } from "@/lib/config/site";
 
@@ -21,8 +22,12 @@ export interface EffectiveContact {
  * non-empty row in `site_settings` (editable from the admin dashboard)
  * overrides it. Falls back cleanly to env-only when Supabase isn't
  * configured yet, so the site works before a backend is connected.
+ *
+ * Wrapped in `cache()` — the footer and the floating WhatsApp button both
+ * call this on every single page, so without per-request memoization a
+ * single page load fires this same query 2-4 times.
  */
-export async function getEffectiveContact(): Promise<EffectiveContact> {
+export const getEffectiveContact = cache(async function getEffectiveContact(): Promise<EffectiveContact> {
   const base: EffectiveContact = {
     phone: siteConfig.contact.phone,
     email: siteConfig.contact.email,
@@ -57,14 +62,14 @@ export async function getEffectiveContact(): Promise<EffectiveContact> {
   } catch {
     return base;
   }
-}
+});
 
 /**
  * Reads the iPhone 18 campaign stage from `site_settings` (key
  * `iphone18_campaign_stage`). Defaults to `"announcement"` — the safe,
  * least-revealing state — whenever unset or Supabase isn't configured.
  */
-export async function getCampaignStage(): Promise<CampaignStage> {
+export const getCampaignStage = cache(async function getCampaignStage(): Promise<CampaignStage> {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return "announcement";
 
   try {
@@ -79,4 +84,4 @@ export async function getCampaignStage(): Promise<CampaignStage> {
   } catch {
     return "announcement";
   }
-}
+});

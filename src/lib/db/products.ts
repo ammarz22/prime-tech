@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 import type { ProductGroup, ProductWithRelations } from "@/types/database";
 
@@ -99,7 +100,11 @@ export async function getProducts(filters: ProductFilters = {}): Promise<Product
   return data.map(normalize);
 }
 
-export async function getProductBySlug(slug: string): Promise<ProductWithRelations | null> {
+// Wrapped in `cache()` — every product page's `generateMetadata` and the
+// page component itself both call this independently with the same slug,
+// so without per-request memoization every product view fires this query
+// twice.
+export const getProductBySlug = cache(async function getProductBySlug(slug: string): Promise<ProductWithRelations | null> {
   if (!isSupabaseConfigured()) return null;
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -110,7 +115,7 @@ export async function getProductBySlug(slug: string): Promise<ProductWithRelatio
     .maybeSingle();
   if (error || !data) return null;
   return normalize(data);
-}
+});
 
 /** Cross-sell categories to blend in alongside same-category matches, per
  * category slug — kept deliberately narrow (e.g. Galaxy phones only ever
@@ -177,16 +182,16 @@ export async function searchProducts(term: string, limit = 8): Promise<ProductWi
   return data.map(normalize);
 }
 
-export async function getCategories() {
+export const getCategories = cache(async function getCategories() {
   if (!isSupabaseConfigured()) return [];
   const supabase = await createClient();
   const { data } = await supabase.from("categories").select("*").order("sort_order");
   return data ?? [];
-}
+});
 
-export async function getBrands() {
+export const getBrands = cache(async function getBrands() {
   if (!isSupabaseConfigured()) return [];
   const supabase = await createClient();
   const { data } = await supabase.from("brands").select("*").order("name");
   return data ?? [];
-}
+});
