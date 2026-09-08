@@ -54,6 +54,7 @@ export function HeroTeaser() {
           src={VIDEO_SRC}
           muted
           playsInline
+          preload="auto"
           autoPlay={!reduced}
           onTimeUpdate={handleTimeUpdate}
           onError={() => setVideoFailed(true)}
