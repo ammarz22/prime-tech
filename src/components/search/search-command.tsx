@@ -30,7 +30,7 @@ const CATEGORY_ICONS: Record<string, typeof Smartphone> = {
   ipad: Tablet,
   "apple-watch": Watch,
   airpods: Headphones,
-  "apple-accessories": Package,
+  accessories: Package,
 };
 
 function iconFor(categorySlug: string | null) {

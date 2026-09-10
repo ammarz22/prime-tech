@@ -13,18 +13,17 @@ import { getProducts } from "@/lib/db/products";
 export const metadata: Metadata = {
   title: { absolute: "Apple Products Sri Lanka | iPhone, Mac, iPad & More | Prime Tech" },
   description:
-    "Explore the complete Apple ecosystem at Prime Tech Colombo — iPhone, Mac, iPad, Apple Watch, AirPods and Accessories.",
+    "Explore the complete Apple ecosystem at Prime Tech Colombo — iPhone, Mac, iPad, Apple Watch and AirPods.",
 };
 
 export default async function ApplePage() {
-  const [iphoneProducts, macProducts, ipadProducts, watchProducts, airpodsProducts, accessoryProducts, macComingSoon] =
+  const [iphoneProducts, macProducts, ipadProducts, watchProducts, airpodsProducts, macComingSoon] =
     await Promise.all([
       getProducts({ productGroup: "APPLE", categorySlug: "iphone", sort: "featured" }),
       getProducts({ productGroup: "APPLE", categorySlug: "mac", sort: "featured" }),
       getProducts({ productGroup: "APPLE", categorySlug: "ipad", sort: "featured" }),
       getProducts({ productGroup: "APPLE", categorySlug: "apple-watch", sort: "featured" }),
       getProducts({ productGroup: "APPLE", categorySlug: "airpods", sort: "featured" }),
-      getProducts({ productGroup: "APPLE", categorySlug: "apple-accessories", sort: "featured" }),
       // iMac is the one Mac still awaiting a verified current-design photo —
       // stays coming-soon rather than being promoted without a real image.
       getProducts({ productGroup: "APPLE", categorySlug: "mac", sort: "newest", includeComingSoon: true }).then((all) =>
@@ -71,7 +70,6 @@ export default async function ApplePage() {
               { label: "iPad", value: "ipad" },
               { label: "Apple Watch", value: "apple-watch" },
               { label: "AirPods", value: "airpods" },
-              { label: "Accessories", value: "apple-accessories" },
             ]}
           />
         </Suspense>
@@ -162,21 +160,6 @@ export default async function ApplePage() {
           ]}
         >
           <ProductGrid products={airpodsProducts} emptyTitle="AirPods availability updating." />
-        </ProductStory>
-
-        <div className="border-t border-ink/8" />
-
-        <ProductStory
-          id="apple-accessories"
-          eyebrow="Accessories"
-          title="Accessories"
-          description="The essentials for every Apple setup — from Studio Display to chargers and cables."
-          highlights={[
-            "Studio Display — 27\" 5K Retina with Center Stage camera",
-            "Genuine Apple chargers and cables",
-          ]}
-        >
-          <ProductGrid products={accessoryProducts} emptyTitle="Accessories availability updating." />
         </ProductStory>
 
         <Link

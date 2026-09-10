@@ -91,8 +91,8 @@ function getRecommendations(device: Device, priority: Priority): Recommendation[
     },
     accessories: {
       name: "Accessories at Prime Tech",
-      href: "/products/apple?category=apple-accessories",
-      reason: "Browse Apple accessories, from Studio Display to chargers and cables.",
+      href: "/accessories",
+      reason: "Browse accessories, from Studio Display to chargers and cables.",
       cta: "Browse Accessories",
     },
   };

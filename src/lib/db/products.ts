@@ -121,9 +121,9 @@ export const getProductBySlug = cache(async function getProductBySlug(slug: stri
  * category slug — kept deliberately narrow (e.g. Galaxy phones only ever
  * relate to other Galaxy phones, never an Apple accessory). */
 const CROSS_SELL_CATEGORIES: Record<string, string[]> = {
-  iphone: ["airpods", "apple-accessories"],
-  mac: ["apple-accessories"],
-  ipad: ["apple-accessories"],
+  iphone: ["airpods", "accessories"],
+  mac: ["accessories"],
+  ipad: ["accessories"],
   "galaxy-s25": ["galaxy-s26"],
   "galaxy-s26": ["galaxy-s25"],
 };

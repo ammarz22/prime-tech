@@ -27,7 +27,6 @@ export const PRODUCT_GROUPS: ProductNavGroup[] = [
       { label: "iPad", href: "/products/apple?category=ipad" },
       { label: "Apple Watch", href: "/products/apple?category=apple-watch" },
       { label: "AirPods", href: "/products/apple?category=airpods" },
-      { label: "Accessories", href: "/products/apple?category=apple-accessories" },
     ],
   },
   {
@@ -45,6 +44,7 @@ export const PRODUCT_GROUPS: ProductNavGroup[] = [
 export const PRIMARY_NAV_LINKS: NavLinkItem[] = [
   { label: "Home", href: "/" },
   { label: "iPhone 18", href: "/iphone-18-preorder" },
+  { label: "Accessories", href: "/accessories" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
