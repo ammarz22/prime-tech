@@ -5,11 +5,11 @@ import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedSection } from "@/components/motion/animated-section";
-import { ConceptVideoPlayer } from "@/components/common/concept-video-player";
+import { OfficialVideoPlayer } from "@/components/common/official-video-player";
 
 /** Distinct, cinematic launch-campaign treatment — deliberately separate
  * from the curated Featured Products section, since iPhone 18 isn't part
- * of the current catalogue. Boxed, not full-bleed — the source video is
+ * of the regular catalogue yet. Boxed, not full-bleed — the source video is
  * 1280x720 and would look soft stretched across a wide viewport. */
 export function IphoneEighteenCampaign() {
   return (
@@ -29,16 +29,12 @@ export function IphoneEighteenCampaign() {
         <AnimatedSection>
           <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-brand-cyan">
             <span className="size-1.5 rounded-full bg-brand-cyan" aria-hidden />
-            The Next Generation Is Coming
+            Pre-Orders Open September 12
           </p>
           <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tight sm:text-6xl">iPhone 18 Series</h2>
 
           <div className="mx-auto mt-10 max-w-2xl">
-            <ConceptVideoPlayer
-              src="/videos/iphone-18-pro-max-trailer-first-look.mp4"
-              title="iPhone 18 Series — Unofficial Concept"
-              disclaimer="Unofficial concept — not affiliated with Apple"
-            />
+            <OfficialVideoPlayer src="/videos/iphone-18-pro-official-trailer.mp4" title="iPhone 18 Pro — Official Apple Video" />
           </div>
 
           <Button
