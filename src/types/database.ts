@@ -87,6 +87,9 @@ export interface ProductImage {
   alt_text: string | null;
   sort_order: number;
   is_primary: boolean;
+  /** CSS object-position (e.g. "75% 50%") for off-center source photos, so a
+   * square crop doesn't cut off the subject. Null uses the default center. */
+  object_position: string | null;
 }
 
 export interface Branch {

@@ -80,6 +80,7 @@ export function ProductGallery({
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
+              style={active.object_position ? { objectPosition: active.object_position } : undefined}
               priority={index === 0}
             />
           </motion.div>
@@ -140,7 +141,14 @@ export function ProductGallery({
               )}
               aria-label={`View image ${i + 1}`}
             >
-              <Image src={img.url} alt="" fill sizes="64px" className="object-cover" />
+              <Image
+                src={img.url}
+                alt=""
+                fill
+                sizes="64px"
+                className="object-cover"
+                style={img.object_position ? { objectPosition: img.object_position } : undefined}
+              />
             </button>
           ))}
         </div>

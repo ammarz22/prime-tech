@@ -12,7 +12,7 @@ import { getDisplayPrice } from "@/lib/utils/pricing";
 import type { ProductWithRelations } from "@/types/database";
 
 export function ProductCard({ product }: { product: ProductWithRelations }) {
-  const primaryImage = product.images.find((img) => img.is_primary)?.url ?? product.images[0]?.url;
+  const primaryImage = product.images.find((img) => img.is_primary) ?? product.images[0];
   const availability = product.variants[0]?.availability ?? "coming_soon";
   const displayPrice = getDisplayPrice(product);
   const href =
@@ -25,11 +25,12 @@ export function ProductCard({ product }: { product: ProductWithRelations }) {
           {primaryImage ? (
             <div className="relative aspect-square w-full overflow-hidden bg-paper-soft">
               <Image
-                src={primaryImage}
+                src={primaryImage.url}
                 alt={product.name}
                 fill
                 sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                 className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                style={primaryImage.object_position ? { objectPosition: primaryImage.object_position } : undefined}
               />
             </div>
           ) : (
