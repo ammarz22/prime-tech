@@ -18,6 +18,14 @@ import type { ProductImage, ProductVariant } from "@/types/database";
 
 const NO_VARIANT = "none";
 
+/** Encodes the combined dropdown value understood by the server action —
+ * see `decodeTarget` in `admin-images.ts`. */
+function targetValueFor(image: { variant_id: string | null; colour: string | null }) {
+  if (image.colour) return `colour:${image.colour}`;
+  if (image.variant_id) return `variant:${image.variant_id}`;
+  return NO_VARIANT;
+}
+
 export function ImageManager({
   productId,
   images,
@@ -32,12 +40,18 @@ export function ImageManager({
   const [pendingId, setPendingId] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const altInputRef = useRef<HTMLInputElement>(null);
-  const [uploadVariantId, setUploadVariantId] = useState<string>(NO_VARIANT);
+  const [uploadTarget, setUploadTarget] = useState<string>(NO_VARIANT);
 
-  function variantLabel(variantId: string | null) {
-    if (!variantId) return null;
-    const v = variants.find((x) => x.id === variantId);
-    return v ? [v.colour, v.storage].filter(Boolean).join(" · ") || v.name : null;
+  // Distinct colours across this product's variants — assigning an image to
+  // a colour applies it across every storage/SIM-type/chip row that shares
+  // it, rather than requiring one photo per exact variant combination.
+  const colours = Array.from(new Set(variants.map((v) => v.colour).filter((c): c is string => Boolean(c))));
+
+  function targetLabel(value: string) {
+    if (value === NO_VARIANT) return "All variants";
+    if (value.startsWith("colour:")) return `Colour: ${value.slice("colour:".length)}`;
+    const v = variants.find((x) => `variant:${x.id}` === value);
+    return v ? [v.colour, v.storage].filter(Boolean).join(" · ") || v.name : "All variants";
   }
 
   async function handleUpload(e: React.FormEvent) {
@@ -53,7 +67,7 @@ export function ImageManager({
     const formData = new FormData();
     formData.set("file", file);
     formData.set("altText", altInputRef.current?.value ?? "");
-    if (uploadVariantId !== NO_VARIANT) formData.set("variantId", uploadVariantId);
+    formData.set("target", uploadTarget);
 
     const result = await uploadProductImageAction(productId, formData);
     setUploading(false);
@@ -63,7 +77,7 @@ export function ImageManager({
     }
     if (fileInputRef.current) fileInputRef.current.value = "";
     if (altInputRef.current) altInputRef.current.value = "";
-    setUploadVariantId(NO_VARIANT);
+    setUploadTarget(NO_VARIANT);
   }
 
   async function handleDelete(imageId: string) {
@@ -79,9 +93,9 @@ export function ImageManager({
     setPendingId(null);
   }
 
-  async function handleAssignVariant(imageId: string, variantId: string) {
+  async function handleAssignVariant(imageId: string, targetValue: string) {
     setPendingId(imageId);
-    await assignImageVariantAction(productId, imageId, variantId === NO_VARIANT ? null : variantId);
+    await assignImageVariantAction(productId, imageId, targetValue);
     setPendingId(null);
   }
 
@@ -131,17 +145,26 @@ export function ImageManager({
               </div>
               {variants.length > 0 && (
                 <Select
-                  value={image.variant_id ?? NO_VARIANT}
+                  value={targetValueFor(image)}
                   onValueChange={(v) => handleAssignVariant(image.id, v as string)}
                 >
                   <SelectTrigger className={cn("h-7 w-full text-xs")}>
-                    <SelectValue>{() => variantLabel(image.variant_id) ?? "All variants"}</SelectValue>
+                    <SelectValue>{(v: string) => targetLabel(v)}</SelectValue>
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value={NO_VARIANT}>All variants</SelectItem>
+                    {colours.length > 0 && (
+                      <>
+                        {colours.map((c) => (
+                          <SelectItem key={`colour:${c}`} value={`colour:${c}`}>
+                            Colour: {c}
+                          </SelectItem>
+                        ))}
+                      </>
+                    )}
                     {variants.map((v) => (
-                      <SelectItem key={v.id} value={v.id}>
-                        {[v.colour, v.storage].filter(Boolean).join(" · ") || v.name}
+                      <SelectItem key={v.id} value={`variant:${v.id}`}>
+                        {[v.colour, v.storage, v.sim_type].filter(Boolean).join(" · ") || v.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -165,15 +188,20 @@ export function ImageManager({
           {variants.length > 0 && (
             <div className="space-y-1.5">
               <Label>Assign to Variant</Label>
-              <Select value={uploadVariantId} onValueChange={(v) => setUploadVariantId(v as string)}>
+              <Select value={uploadTarget} onValueChange={(v) => setUploadTarget(v as string)}>
                 <SelectTrigger className="w-full">
-                  <SelectValue>{() => variantLabel(uploadVariantId === NO_VARIANT ? null : uploadVariantId) ?? "All variants"}</SelectValue>
+                  <SelectValue>{(v: string) => targetLabel(v)}</SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value={NO_VARIANT}>All variants</SelectItem>
+                  {colours.map((c) => (
+                    <SelectItem key={`colour:${c}`} value={`colour:${c}`}>
+                      Colour: {c}
+                    </SelectItem>
+                  ))}
                   {variants.map((v) => (
-                    <SelectItem key={v.id} value={v.id}>
-                      {[v.colour, v.storage].filter(Boolean).join(" · ") || v.name}
+                    <SelectItem key={v.id} value={`variant:${v.id}`}>
+                      {[v.colour, v.storage, v.sim_type].filter(Boolean).join(" · ") || v.name}
                     </SelectItem>
                   ))}
                 </SelectContent>

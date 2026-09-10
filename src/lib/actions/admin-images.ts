@@ -15,13 +15,24 @@ function extensionFor(mimeType: string) {
   return { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" }[mimeType] ?? "jpg";
 }
 
+/** Decodes the combined "assign to" select value used by the image manager:
+ * `"none"`, `"colour:<name>"`, or `"variant:<id>"`. A colour target applies
+ * the photo across every variant that shares that colour (any storage/SIM
+ * type/chip), while a variant target is for an exact single row. */
+function decodeTarget(raw: FormDataEntryValue | string | null): { variantId: string | null; colour: string | null } {
+  if (typeof raw !== "string" || !raw || raw === "none") return { variantId: null, colour: null };
+  if (raw.startsWith("colour:")) return { variantId: null, colour: raw.slice("colour:".length) };
+  if (raw.startsWith("variant:")) return { variantId: raw.slice("variant:".length), colour: null };
+  return { variantId: null, colour: null };
+}
+
 export async function uploadProductImageAction(
   productId: string,
   formData: FormData,
 ): Promise<ActionResult> {
   const file = formData.get("file");
   const altText = formData.get("altText");
-  const variantId = formData.get("variantId");
+  const target = decodeTarget(formData.get("target"));
 
   if (!(file instanceof File) || file.size === 0) {
     return { success: false, error: "Choose an image file." };
@@ -52,7 +63,8 @@ export async function uploadProductImageAction(
 
   const { error: insertError } = await supabase.from("product_images").insert({
     product_id: productId,
-    variant_id: typeof variantId === "string" && variantId ? variantId : null,
+    variant_id: target.variantId,
+    colour: target.colour,
     url: publicUrl.publicUrl,
     alt_text: typeof altText === "string" && altText ? altText : null,
     sort_order: count ?? 0,
@@ -64,13 +76,19 @@ export async function uploadProductImageAction(
   return { success: true };
 }
 
+/** `targetValue` is the same encoded "none" / "colour:<name>" / "variant:<id>"
+ * format used on upload — see `decodeTarget`. */
 export async function assignImageVariantAction(
   productId: string,
   imageId: string,
-  variantId: string | null,
+  targetValue: string | null,
 ): Promise<ActionResult> {
+  const target = decodeTarget(targetValue);
   const supabase = await createClient();
-  const { error } = await supabase.from("product_images").update({ variant_id: variantId }).eq("id", imageId);
+  const { error } = await supabase
+    .from("product_images")
+    .update({ variant_id: target.variantId, colour: target.colour })
+    .eq("id", imageId);
   if (error) return { success: false, error: error.message };
 
   revalidatePath(`/admin/products/${productId}`);

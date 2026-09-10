@@ -82,6 +82,7 @@ export interface ProductImage {
   id: string;
   product_id: string;
   variant_id: string | null;
+  colour: string | null;
   url: string;
   alt_text: string | null;
   sort_order: number;
