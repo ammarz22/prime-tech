@@ -15,9 +15,12 @@ export const metadata: Metadata = {
 };
 
 export default async function SamsungPage() {
-  const [s25Products, s26Products] = await Promise.all([
+  const [s25Products, s26Products, tabProducts, watchProducts, budsProducts] = await Promise.all([
     getProducts({ productGroup: "OTHER", categorySlug: "galaxy-s25", sort: "featured" }),
     getProducts({ productGroup: "OTHER", categorySlug: "galaxy-s26", sort: "featured" }),
+    getProducts({ productGroup: "OTHER", categorySlug: "galaxy-tab", sort: "featured" }),
+    getProducts({ productGroup: "OTHER", categorySlug: "galaxy-watch", sort: "featured" }),
+    getProducts({ productGroup: "OTHER", categorySlug: "galaxy-buds", sort: "featured" }),
   ]);
 
   return (
@@ -61,6 +64,9 @@ export default async function SamsungPage() {
             categories={[
               { label: "Galaxy S25 Series", value: "galaxy-s25" },
               { label: "Galaxy S26 Series", value: "galaxy-s26" },
+              { label: "Galaxy Tab", value: "galaxy-tab" },
+              { label: "Galaxy Watch", value: "galaxy-watch" },
+              { label: "Galaxy Buds", value: "galaxy-buds" },
             ]}
           />
         </Suspense>
@@ -95,6 +101,54 @@ export default async function SamsungPage() {
           ]}
         >
           <ProductGrid products={s26Products} emptyTitle="Galaxy S26 availability updating." />
+        </ProductStory>
+
+        <div className="border-t border-ink/8" />
+
+        <ProductStory
+          id="galaxy-tab"
+          eyebrow="Galaxy Tab"
+          title="Galaxy Tab"
+          description="From the Galaxy Tab S11 to the larger Ultra, both with S Pen support built in."
+          highlights={[
+            "S Pen included in the box",
+            "Large AMOLED displays for work and creativity",
+            "Samsung DeX for a desktop-style experience",
+          ]}
+        >
+          <ProductGrid products={tabProducts} emptyTitle="Galaxy Tab availability updating." />
+        </ProductStory>
+
+        <div className="border-t border-ink/8" />
+
+        <ProductStory
+          id="galaxy-watch"
+          eyebrow="Galaxy Watch"
+          title="Galaxy Watch"
+          description="From the everyday Galaxy Watch9 to the rugged, titanium Watch Ultra 2."
+          highlights={[
+            "Wear OS with comprehensive health and fitness tracking",
+            "Titanium build on the Ultra for extreme durability",
+            "Classic rotating bezel on the Watch8 Classic",
+          ]}
+        >
+          <ProductGrid products={watchProducts} emptyTitle="Galaxy Watch availability updating." />
+        </ProductStory>
+
+        <div className="border-t border-ink/8" />
+
+        <ProductStory
+          id="galaxy-buds"
+          eyebrow="Galaxy Buds"
+          title="Galaxy Buds"
+          description="Samsung's current true wireless earbuds lineup, from the accessible Buds3 FE to the premium Buds4 Pro."
+          highlights={[
+            "Active and adaptive noise cancellation options",
+            "Seamless pairing with Galaxy phones and tablets",
+            "Compact, comfortable all-day fit",
+          ]}
+        >
+          <ProductGrid products={budsProducts} emptyTitle="Galaxy Buds availability updating." />
         </ProductStory>
 
         <Link

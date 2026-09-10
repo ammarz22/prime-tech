@@ -28,8 +28,11 @@ const CATEGORY_ICONS: Record<string, typeof Smartphone> = {
   "galaxy-s26": Smartphone,
   mac: Laptop,
   ipad: Tablet,
+  "galaxy-tab": Tablet,
   "apple-watch": Watch,
+  "galaxy-watch": Watch,
   airpods: Headphones,
+  "galaxy-buds": Headphones,
   accessories: Package,
 };
 

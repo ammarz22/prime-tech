@@ -124,8 +124,11 @@ const CROSS_SELL_CATEGORIES: Record<string, string[]> = {
   iphone: ["airpods", "accessories"],
   mac: ["accessories"],
   ipad: ["accessories"],
-  "galaxy-s25": ["galaxy-s26"],
-  "galaxy-s26": ["galaxy-s25"],
+  "galaxy-s25": ["galaxy-s26", "galaxy-buds", "galaxy-watch"],
+  "galaxy-s26": ["galaxy-s25", "galaxy-buds", "galaxy-watch"],
+  "galaxy-tab": ["galaxy-buds", "accessories"],
+  "galaxy-watch": ["accessories"],
+  "galaxy-buds": ["accessories"],
 };
 
 async function fetchPublishedByCategoryIds(
