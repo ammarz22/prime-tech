@@ -109,10 +109,10 @@ export default async function IPhone18PreorderPage() {
           />
         </div>
 
-        <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
+        <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:mx-0 lg:max-w-lg lg:pl-6 lg:text-left xl:pl-12">
           <AnimatedSection>
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-brand-cyan">{hero.eyebrow}</p>
-            <h1 className="text-balance text-5xl font-semibold tracking-tight sm:text-7xl">iPhone 18 Series</h1>
+            <h1 className="text-balance text-5xl font-semibold tracking-tight sm:text-7xl lg:text-6xl">iPhone 18 Series</h1>
             {/* A plain anchor, not next/link — this either scrolls to an
                 in-page target (Link doesn't reliably do that on click) or
                 opens WhatsApp directly, neither of which is a route change. */}
@@ -124,7 +124,7 @@ export default async function IPhone18PreorderPage() {
               {hero.ctaLabel}
               <ArrowRight className="size-4" />
             </Button>
-            <div className="mt-10">
+            <div className="mt-10 lg:flex lg:justify-start [&_>_div]:lg:mx-0 [&_>_div]:lg:justify-start">
               <CampaignStageNotice stage={stage} />
             </div>
           </AnimatedSection>
