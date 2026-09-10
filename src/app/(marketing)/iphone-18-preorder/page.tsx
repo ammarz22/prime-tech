@@ -91,17 +91,20 @@ export default async function IPhone18PreorderPage() {
           style={{ background: "radial-gradient(circle, var(--brand) 0%, transparent 70%)" }}
           aria-hidden
         />
-        {/* Apple's own official iPhone 18 Pro lineup photo, published after
-            the September 9, 2026 announcement. Hidden below `lg` so it
-            never competes with the hero text, matching the homepage hero's
+        {/* Apple's own official iPhone 18 Pro photo (Burgundy), published
+            after the September 9, 2026 announcement. Faded at the edges via
+            mask-image so its black background blends into the hero instead
+            of sitting in a visible box. Hidden below `lg` so it never
+            competes with the hero text, matching the homepage hero's
             pattern. */}
-        <div className="pointer-events-none absolute -right-6 top-1/2 hidden w-[420px] -translate-y-1/2 lg:block xl:right-12 xl:w-[480px]">
+        <div className="pointer-events-none absolute -right-10 top-1/2 hidden w-[560px] -translate-y-1/2 [mask-image:radial-gradient(ellipse_65%_65%_at_50%_50%,black_45%,transparent_85%)] lg:block xl:right-4 xl:w-[680px]">
           <Image
-            src="/iphone-18/lineup-hero.jpg"
-            alt="iPhone 18 Pro in Deep Black, Silver, Glacier Blue and Burgundy"
-            width={2000}
-            height={1125}
-            className="w-full rounded-2xl opacity-95"
+            src="/iphone-18/burgundy-hero.png"
+            alt="iPhone 18 Pro in Burgundy"
+            width={2048}
+            height={1152}
+            sizes="680px"
+            className="w-full"
             priority
           />
         </div>
