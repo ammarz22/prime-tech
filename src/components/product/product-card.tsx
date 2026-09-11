@@ -9,6 +9,7 @@ import { ImagePending } from "@/components/product/image-pending";
 import { ProductPrice } from "@/components/product/product-price";
 import { SaveButton } from "@/components/product/save-button";
 import { getDisplayPrice } from "@/lib/utils/pricing";
+import { cn } from "@/lib/utils";
 import type { ProductWithRelations } from "@/types/database";
 
 export function ProductCard({ product }: { product: ProductWithRelations }) {
@@ -29,7 +30,10 @@ export function ProductCard({ product }: { product: ProductWithRelations }) {
                 alt={product.name}
                 fill
                 sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-                className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                className={cn(
+                  "transition-transform duration-500 ease-out group-hover:scale-105",
+                  primaryImage.object_fit === "contain" ? "object-contain p-6" : "object-cover",
+                )}
                 style={primaryImage.object_position ? { objectPosition: primaryImage.object_position } : undefined}
               />
             </div>

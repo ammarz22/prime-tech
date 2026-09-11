@@ -79,7 +79,7 @@ export function ProductGallery({
               alt={active.alt_text ?? productName}
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
+              className={active.object_fit === "contain" ? "object-contain p-10" : "object-cover"}
               style={active.object_position ? { objectPosition: active.object_position } : undefined}
               priority={index === 0}
             />

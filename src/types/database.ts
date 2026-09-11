@@ -90,6 +90,9 @@ export interface ProductImage {
   /** CSS object-position (e.g. "75% 50%") for off-center source photos, so a
    * square crop doesn't cut off the subject. Null uses the default center. */
   object_position: string | null;
+  /** CSS object-fit override ("contain") for photos that would lose their
+   * subject entirely if cropped to a square. Null uses the default "cover". */
+  object_fit: "cover" | "contain" | null;
 }
 
 export interface Branch {
