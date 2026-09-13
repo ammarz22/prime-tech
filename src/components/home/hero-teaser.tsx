@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
@@ -79,45 +78,30 @@ export function HeroTeaser() {
       <AnimatePresence>
         {contentVisible && (
           <div key="reveal" className="relative flex flex-col items-center px-4 text-center">
-            {/* (1) icon appears alone, at a bigger-than-resting size — (2) the
-                wordmark, stacked directly behind the icon via z-index, slides
-                out from underneath it — (3) once both have settled, the whole
-                group scales down together to its resting size. */}
-            <motion.div
-              initial={{ scale: 1.7 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.7, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-flex h-14 items-center sm:h-20"
-            >
-              <motion.span
-                initial={{ opacity: 0, scale: 0.7 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0 }}
-                className="relative z-10 aspect-square h-full shrink-0 overflow-hidden rounded-[0.55em] bg-black ring-1 ring-black/10"
-              >
-                <Image src="/brand/prime-tech-logo.jpeg" alt="Prime Tech" fill sizes="80px" className="object-cover" priority />
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0, x: -88 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="relative z-0 ml-2.5 whitespace-nowrap text-3xl font-bold leading-none tracking-tight sm:text-5xl"
-              >
-                PRIME<span className="text-brand"> TECH</span>
-              </motion.span>
-            </motion.div>
+            {/* The logo-build moment now belongs to `BrandIntro` (plays once
+                per session ahead of this video); this reveal picks up right
+                after it, so it opens straight on the tagline + CTA rather
+                than repeating the logo a second time. */}
             <motion.p
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 2.5, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-4 text-xs font-medium uppercase tracking-[0.3em] text-white/60"
+              transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="text-xs font-medium uppercase tracking-[0.3em] text-white/60"
             >
               Colombo
             </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-3 text-balance text-3xl font-bold tracking-tight sm:text-5xl"
+            >
+              Prime Tech
+            </motion.h1>
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 2.8, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
             >
               <Button render={<Link href="/products" />} size="lg" className="mt-8 h-12 gap-2 rounded-full px-7 text-base">
                 Explore Products

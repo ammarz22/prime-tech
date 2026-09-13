@@ -50,7 +50,12 @@ export function Navbar() {
           )}
         >
           <Link href="/" className="flex items-center gap-2 shrink-0" aria-label="Prime Tech home">
-            <PrimeTechLogo className="h-8 w-auto sm:h-9.5" />
+            {/* id is a landing target for BrandIntro's logo-shrink animation
+                on the homepage — it measures this element's position to
+                animate the built-up mark into this exact spot. */}
+            <span id="prime-navbar-logo" className="inline-flex">
+              <PrimeTechLogo className="h-8 w-auto sm:h-9.5" />
+            </span>
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">

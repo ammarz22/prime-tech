@@ -1,3 +1,4 @@
+import { BrandIntro } from "@/components/home/brand-intro";
 import { HeroTeaser } from "@/components/home/hero-teaser";
 import { CategoryDiscovery } from "@/components/home/category-discovery";
 import { ProductShowcase } from "@/components/home/product-showcase";
@@ -18,6 +19,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <BrandIntro />
       <HeroTeaser />
       <CategoryDiscovery />
       <ProductShowcase
