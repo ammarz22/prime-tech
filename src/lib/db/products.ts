@@ -136,12 +136,14 @@ async function fetchPublishedByCategoryIds(
   categoryIds: string[],
   excludeId: string,
   limit: number,
+  productGroup: ProductGroup,
 ) {
   if (categoryIds.length === 0 || limit <= 0) return [];
   const { data } = await supabase
     .from("products")
     .select(PRODUCT_SELECT)
     .eq("status", "published")
+    .eq("product_group", productGroup)
     .neq("price_label", "coming_soon")
     .neq("id", excludeId)
     .in("category_id", categoryIds)
@@ -153,8 +155,12 @@ export async function getRelatedProducts(product: ProductWithRelations, limit = 
   if (!isSupabaseConfigured()) return [];
   const supabase = await createClient();
 
+  // "accessories" is a shared category slug across both brands — without
+  // this filter, an Apple product's cross-sell (or vice versa) could pull
+  // in the other brand's accessories, e.g. a Samsung watch page
+  // recommending Apple's Studio Display.
   const sameCategory = product.category_id
-    ? await fetchPublishedByCategoryIds(supabase, [product.category_id], product.id, limit)
+    ? await fetchPublishedByCategoryIds(supabase, [product.category_id], product.id, limit, product.product_group)
     : [];
 
   if (sameCategory.length >= limit) return sameCategory.slice(0, limit);
@@ -165,7 +171,13 @@ export async function getRelatedProducts(product: ProductWithRelations, limit = 
   const { data: crossCategories } = await supabase.from("categories").select("id").in("slug", crossSellSlugs);
   const crossCategoryIds = (crossCategories ?? []).map((c) => c.id);
   const remaining = limit - sameCategory.length;
-  const crossSell = await fetchPublishedByCategoryIds(supabase, crossCategoryIds, product.id, remaining);
+  const crossSell = await fetchPublishedByCategoryIds(
+    supabase,
+    crossCategoryIds,
+    product.id,
+    remaining,
+    product.product_group,
+  );
 
   const seen = new Set(sameCategory.map((p) => p.id));
   return [...sameCategory, ...crossSell.filter((p) => !seen.has(p.id))].slice(0, limit);

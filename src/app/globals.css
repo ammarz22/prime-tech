@@ -10,6 +10,7 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-sans);
+  --font-hand: var(--font-handwriting);
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);
   --color-brand-cyan: var(--brand-cyan);
@@ -63,7 +64,7 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: #2e7dff;
+  --primary: #c41e3a;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -74,10 +75,17 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: #2e7dff;
-  --brand: #2e7dff;
+  --ring: #c41e3a;
+  /* Prime Tech's signature cherry-red — the site's one accent color, used
+     sparingly (CTAs, badges, small highlights) against mostly light/dark
+     neutral surfaces. Replaces the earlier blue site-wide (deliberate
+     brand decision, not a per-page choice). */
+  --brand: #c41e3a;
   --brand-foreground: #ffffff;
-  --brand-cyan: #56c2f0;
+  /* A lighter tint of the same red family — used for eyebrows/secondary
+     accents on dark surfaces where the full-strength brand red would be
+     too heavy. Not a second hue; keep it in the cherry-red family. */
+  --brand-cyan: #f07a88;
   /* Samsung's own brand blue — used only for the Samsung products page hero
      glow/eyebrow, to give it a distinct visual personality from Apple's
      page. Never used for buttons/links/CTAs — those stay Prime Tech's own
@@ -167,6 +175,9 @@
   .bg-dot-grid {
     background-image: radial-gradient(color-mix(in oklch, currentColor 14%, transparent) 1px, transparent 1px);
     background-size: 22px 22px;
+  }
+  .animate-marquee {
+    animation: marquee 22s linear infinite;
   }
   .text-gradient-brand {
     background-image: linear-gradient(90deg, var(--brand), var(--brand-cyan));

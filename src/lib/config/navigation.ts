@@ -43,8 +43,17 @@ export const PRODUCT_GROUPS: ProductNavGroup[] = [
 /** Top-level nav links outside the Products mega-menu. */
 export const PRIMARY_NAV_LINKS: NavLinkItem[] = [
   { label: "Home", href: "/" },
-  { label: "iPhone 18", href: "/iphone-18-preorder" },
-  { label: "Accessories", href: "/accessories" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
+];
+
+/**
+ * The site's main sections — Home, Apple, Samsung, Accessories — with no
+ * individual product/category links (iPhone, Mac, iPad, Watch, etc.). Those
+ * are handled within each section's own page, not the top-level nav.
+ */
+export const CATEGORY_NAV_LINKS: NavLinkItem[] = [
+  { label: "Apple", href: "/products/apple" },
+  { label: "Samsung", href: "/products/samsung" },
+  { label: "Accessories", href: "/accessories" },
 ];

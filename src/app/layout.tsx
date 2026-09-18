@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Caveat } from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
@@ -7,6 +7,15 @@ import { siteConfig } from "@/lib/config/site";
 
 const inter = Inter({
   variable: "--font-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+/** Used sparingly as a single decorative accent line (e.g. the "Comparing
+ * options?" card) — never for real body copy or anything that needs to
+ * stay legible at small sizes. */
+const caveat = Caveat({
+  variable: "--font-handwriting",
   subsets: ["latin"],
   display: "swap",
 });
@@ -38,7 +47,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${inter.variable} ${caveat.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
       <body className="min-h-full flex flex-col bg-paper text-ink">
         <TooltipProvider delay={200}>
           {children}

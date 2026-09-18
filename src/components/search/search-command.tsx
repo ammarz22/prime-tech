@@ -108,7 +108,7 @@ export function SearchCommand() {
         aria-label="Search Prime Tech"
       >
         <Search className="size-4" aria-hidden />
-        <span className="hidden sm:inline">Search</span>
+        <span className="hidden sm:inline">Search products...</span>
         <kbd className="hidden rounded border border-current/20 px-1.5 py-0.5 text-[10px] font-medium sm:inline">
           /
         </kbd>

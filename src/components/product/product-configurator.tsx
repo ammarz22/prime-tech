@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { ShieldCheck, Truck, Headset } from "lucide-react";
 import { AvailabilityBadge, availabilityCta, availabilityLabel } from "@/components/product/availability-badge";
 import { ProductPrice, formatLKR } from "@/components/product/product-price";
-import { ProductSpecifications } from "@/components/product/product-specifications";
 import { SaveButton } from "@/components/product/save-button";
 import { ShareButton } from "@/components/product/share-button";
 import { WhatsAppButton } from "@/components/common/whatsapp-button";
@@ -15,6 +15,12 @@ import { resolveVariant } from "@/lib/utils/pricing";
 import { getColourSwatch } from "@/lib/utils/colour-swatches";
 import { productEnquiryMessage } from "@/lib/config/site";
 import type { Product, ProductVariant } from "@/types/database";
+
+const TRUST_ITEMS = [
+  { icon: ShieldCheck, label: "100% Genuine Products" },
+  { icon: Truck, label: "Islandwide Delivery" },
+  { icon: Headset, label: "Expert Guidance" },
+] as const;
 
 function dimension<K extends keyof ProductVariant>(variants: ProductVariant[], key: K) {
   const values = Array.from(new Set(variants.map((v) => v[key]).filter(Boolean)));
@@ -39,10 +45,15 @@ export function ProductConfigurator({
 
   const byChip = chips.length > 1 ? variants.filter((v) => v.chip === selectedChip) : variants;
 
-  const storages = dimension(byChip, "storage");
+  const screenSizes = dimension(byChip, "screen_size");
+  const [selectedScreenSize, setSelectedScreenSize] = useState<string | null>(screenSizes[0] ?? null);
+
+  const byScreenSize = screenSizes.length > 1 ? byChip.filter((v) => v.screen_size === selectedScreenSize) : byChip;
+
+  const storages = dimension(byScreenSize, "storage");
   const [selectedStorage, setSelectedStorage] = useState<string | null>(storages[0] ?? null);
 
-  const byStorage = storages.length > 1 ? byChip.filter((v) => v.storage === selectedStorage) : byChip;
+  const byStorage = storages.length > 1 ? byScreenSize.filter((v) => v.storage === selectedStorage) : byScreenSize;
 
   const simTypes = dimension(byStorage, "sim_type");
   const [selectedSimType, setSelectedSimType] = useState<string | null>(simTypes[0] ?? null);
@@ -57,6 +68,7 @@ export function ProductConfigurator({
   // combination shows "Configuration Not Available" rather than a wrong price.
   const selected = resolveVariant(variants, {
     chip: chips.length > 1 ? selectedChip : undefined,
+    screenSize: screenSizes.length > 1 ? selectedScreenSize : undefined,
     storage: storages.length > 1 ? selectedStorage : undefined,
     simType: simTypes.length > 1 ? selectedSimType : undefined,
     colour: colours.length > 1 ? selectedColour : undefined,
@@ -69,10 +81,30 @@ export function ProductConfigurator({
   function handleChipSelect(chip: string) {
     setSelectedChip(chip);
     const nextByChip = variants.filter((v) => v.chip === chip);
-    const nextStorages = dimension(nextByChip, "storage");
+    const nextScreenSizes = dimension(nextByChip, "screen_size");
+    const nextScreenSize =
+      selectedScreenSize && nextScreenSizes.includes(selectedScreenSize) ? selectedScreenSize : (nextScreenSizes[0] ?? null);
+    setSelectedScreenSize(nextScreenSize);
+    const nextByScreenSize = nextScreenSizes.length > 1 ? nextByChip.filter((v) => v.screen_size === nextScreenSize) : nextByChip;
+    const nextStorages = dimension(nextByScreenSize, "storage");
     const nextStorage = selectedStorage && nextStorages.includes(selectedStorage) ? selectedStorage : (nextStorages[0] ?? null);
     setSelectedStorage(nextStorage);
-    const nextByStorage = nextStorages.length > 1 ? nextByChip.filter((v) => v.storage === nextStorage) : nextByChip;
+    const nextByStorage = nextStorages.length > 1 ? nextByScreenSize.filter((v) => v.storage === nextStorage) : nextByScreenSize;
+    const nextSimTypes = dimension(nextByStorage, "sim_type");
+    const nextSimType = selectedSimType && nextSimTypes.includes(selectedSimType) ? selectedSimType : (nextSimTypes[0] ?? null);
+    setSelectedSimType(nextSimType);
+    const nextBySimType = nextSimTypes.length > 1 ? nextByStorage.filter((v) => v.sim_type === nextSimType) : nextByStorage;
+    const nextColours = dimension(nextBySimType, "colour");
+    setSelectedColour(selectedColour && nextColours.includes(selectedColour) ? selectedColour : (nextColours[0] ?? null));
+  }
+
+  function handleScreenSizeSelect(screenSize: string) {
+    setSelectedScreenSize(screenSize);
+    const nextByScreenSize = byChip.filter((v) => v.screen_size === screenSize);
+    const nextStorages = dimension(nextByScreenSize, "storage");
+    const nextStorage = selectedStorage && nextStorages.includes(selectedStorage) ? selectedStorage : (nextStorages[0] ?? null);
+    setSelectedStorage(nextStorage);
+    const nextByStorage = nextStorages.length > 1 ? nextByScreenSize.filter((v) => v.storage === nextStorage) : nextByScreenSize;
     const nextSimTypes = dimension(nextByStorage, "sim_type");
     const nextSimType = selectedSimType && nextSimTypes.includes(selectedSimType) ? selectedSimType : (nextSimTypes[0] ?? null);
     setSelectedSimType(nextSimType);
@@ -83,7 +115,7 @@ export function ProductConfigurator({
 
   function handleStorageSelect(storage: string) {
     setSelectedStorage(storage);
-    const nextByStorage = byChip.filter((v) => v.storage === storage);
+    const nextByStorage = byScreenSize.filter((v) => v.storage === storage);
     const nextSimTypes = dimension(nextByStorage, "sim_type");
     const nextSimType = selectedSimType && nextSimTypes.includes(selectedSimType) ? selectedSimType : (nextSimTypes[0] ?? null);
     setSelectedSimType(nextSimType);
@@ -99,8 +131,12 @@ export function ProductConfigurator({
     setSelectedColour(selectedColour && nextColours.includes(selectedColour) ? selectedColour : (nextColours[0] ?? null));
   }
 
+  function isScreenSizeAvailable(screenSize: string) {
+    return byChip.some((v) => v.screen_size === screenSize);
+  }
+
   function isStorageAvailable(storage: string) {
-    return byChip.some((v) => v.storage === storage);
+    return byScreenSize.some((v) => v.storage === storage);
   }
 
   function isSimTypeAvailable(simType: string) {
@@ -113,6 +149,7 @@ export function ProductConfigurator({
 
   const configurationLabel = selected
     ? [
+        selected.screen_size && `Size: ${selected.screen_size}`,
         selected.colour && `Colour: ${selected.colour}`,
         selected.storage && `Storage: ${selected.storage}`,
         selected.sim_type && `SIM Type: ${selected.sim_type}`,
@@ -130,13 +167,21 @@ export function ProductConfigurator({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected?.id]);
 
+  const displayName = selected?.screen_size
+    ? `${product.name} ${selected.screen_size}`
+    : selected?.chip
+      ? `${product.name} (${selected.chip})`
+      : product.name;
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-xs font-medium uppercase tracking-wide text-ink/45">{product.name}</p>
-          <h1 className="mt-1 text-3xl font-semibold tracking-tight sm:text-4xl">{selected?.chip ? `${product.name} (${selected.chip})` : product.name}</h1>
-          {product.short_description && <p className="mt-2 text-ink/60">{product.short_description}</p>}
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-ink/45">{product.name}</p>
+          <h1 className="mt-1.5 text-3xl font-semibold tracking-tight sm:text-4xl">{displayName}</h1>
+          {product.short_description && (
+            <p className="mt-2 text-base font-medium text-ink/70">{product.short_description}</p>
+          )}
         </div>
         <div className="mt-1 flex shrink-0 items-center gap-1.5">
           <ShareButton productName={product.name} className="border border-ink/8" />
@@ -146,12 +191,30 @@ export function ProductConfigurator({
 
       {chips.length > 1 && (
         <div>
-          <p className="mb-2 text-sm font-medium text-ink">Chip</p>
+          <p className="mb-2.5 text-sm font-medium text-ink">Choose your chip</p>
           <div className="flex flex-wrap gap-2">
             {chips.map((chip) => (
-              <SelectPill key={chip} active={chip === selectedChip} onClick={() => handleChipSelect(chip)}>
+              <BoxOption key={chip} active={chip === selectedChip} onClick={() => handleChipSelect(chip)}>
                 {chip}
-              </SelectPill>
+              </BoxOption>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {screenSizes.length > 1 && (
+        <div>
+          <p className="mb-2.5 text-sm font-medium text-ink">Choose your size</p>
+          <div className="flex flex-wrap gap-2">
+            {screenSizes.map((screenSize) => (
+              <BoxOption
+                key={screenSize}
+                active={screenSize === selectedScreenSize}
+                disabled={!isScreenSizeAvailable(screenSize)}
+                onClick={() => handleScreenSizeSelect(screenSize)}
+              >
+                {screenSize}
+              </BoxOption>
             ))}
           </div>
         </div>
@@ -159,17 +222,17 @@ export function ProductConfigurator({
 
       {storages.length > 1 && (
         <div>
-          <p className="mb-2 text-sm font-medium text-ink">Storage</p>
+          <p className="mb-2.5 text-sm font-medium text-ink">Choose your storage</p>
           <div className="flex flex-wrap gap-2">
             {storages.map((storage) => (
-              <SelectPill
+              <BoxOption
                 key={storage}
                 active={storage === selectedStorage}
                 disabled={!isStorageAvailable(storage)}
                 onClick={() => handleStorageSelect(storage)}
               >
                 {storage}
-              </SelectPill>
+              </BoxOption>
             ))}
           </div>
         </div>
@@ -177,17 +240,17 @@ export function ProductConfigurator({
 
       {simTypes.length > 1 && (
         <div>
-          <p className="mb-2 text-sm font-medium text-ink">SIM Type</p>
+          <p className="mb-2.5 text-sm font-medium text-ink">SIM Type</p>
           <div className="flex flex-wrap gap-2">
             {simTypes.map((simType) => (
-              <SelectPill
+              <BoxOption
                 key={simType}
                 active={simType === selectedSimType}
                 disabled={!isSimTypeAvailable(simType)}
                 onClick={() => handleSimTypeSelect(simType)}
               >
                 {simType}
-              </SelectPill>
+              </BoxOption>
             ))}
           </div>
         </div>
@@ -195,18 +258,17 @@ export function ProductConfigurator({
 
       {colours.length > 1 ? (
         <div>
-          <p className="mb-2 text-sm font-medium text-ink">Colour</p>
-          <div className="flex flex-wrap gap-2">
+          <p className="mb-2.5 text-sm font-medium text-ink">Choose your colour</p>
+          <div className="flex flex-wrap gap-4">
             {colours.map((colour) => (
-              <SelectPill
+              <ColourOption
                 key={colour}
                 active={colour === selectedColour}
                 disabled={!isColourAvailable(colour)}
                 onClick={() => setSelectedColour(colour)}
                 swatch={getColourSwatch(colour)}
-              >
-                {colour}
-              </SelectPill>
+                label={colour}
+              />
             ))}
           </div>
         </div>
@@ -219,40 +281,19 @@ export function ProductConfigurator({
         )
       )}
 
-      <motion.div
-        key={selected?.id ?? "unavailable"}
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.25 }}
-        className="rounded-2xl border border-ink/8 bg-paper-soft p-4"
-      >
+      <motion.div key={selected?.id ?? "unavailable"} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
         {selected ? (
-          <>
-            <p className="text-xs font-medium uppercase tracking-wide text-ink/40">Selected Configuration</p>
-            <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-0.5 text-sm text-ink/60">
-              {selected.colour && (
-                <span>
-                  Colour: <span className="font-medium text-ink">{selected.colour}</span>
-                </span>
-              )}
-              {selected.storage && (
-                <span>
-                  Storage: <span className="font-medium text-ink">{selected.storage}</span>
-                </span>
-              )}
-              {selected.sim_type && (
-                <span>
-                  SIM Type: <span className="font-medium text-ink">{selected.sim_type}</span>
-                </span>
-              )}
-            </div>
-            <div className="mt-3 flex items-center justify-between">
-              <ProductPrice price={selected.price} label={selected.price != null ? "exact" : product.price_label} size="lg" />
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <ProductPrice price={selected.price} label={selected.price != null ? "exact" : product.price_label} size="lg" />
+            <div className="flex flex-col gap-0.5">
               <AvailabilityBadge status={selected.availability} />
+              {selected.availability === "in_stock" && (
+                <span className="text-xs text-ink/45">Ready for Islandwide Delivery</span>
+              )}
             </div>
-          </>
+          </div>
         ) : (
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between rounded-2xl border border-ink/8 bg-paper-soft p-4">
             <p className="font-medium text-ink/60">Configuration Not Available</p>
             <span className="text-xs text-ink/40">Try a different combination</span>
           </div>
@@ -271,7 +312,14 @@ export function ProductConfigurator({
         className="h-12 w-full rounded-full text-base"
       />
 
-      <ProductSpecifications variant={selected} />
+      <ul className="grid grid-cols-3 gap-3 border-t border-ink/8 pt-5">
+        {TRUST_ITEMS.map(({ icon: Icon, label }) => (
+          <li key={label} className="flex items-center gap-1.5 text-xs text-ink/60">
+            <Icon className="size-4 shrink-0 text-ink/40" strokeWidth={1.5} />
+            {label}
+          </li>
+        ))}
+      </ul>
 
       {selected?.price != null && (
         <p className="flex items-center gap-1.5 text-xs text-ink/40">
@@ -289,17 +337,15 @@ export function ProductConfigurator({
   );
 }
 
-function SelectPill({
+function BoxOption({
   active,
   disabled,
   onClick,
-  swatch,
   children,
 }: {
   active: boolean;
   disabled?: boolean;
   onClick: () => void;
-  swatch?: string | null;
   children: React.ReactNode;
 }) {
   return (
@@ -309,19 +355,50 @@ function SelectPill({
       disabled={disabled}
       title={disabled ? "Not available in this configuration" : undefined}
       className={cn(
-        "flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition",
-        active ? "border-ink bg-ink text-white" : "border-ink/15 text-ink/70 hover:border-ink/30",
-        disabled && "cursor-not-allowed opacity-35 line-through hover:border-ink/15",
+        "rounded-xl border-2 px-4 py-2.5 text-sm font-medium transition",
+        active ? "border-brand text-ink" : "border-ink/12 text-ink/70 hover:border-ink/25",
+        disabled && "cursor-not-allowed opacity-35 line-through hover:border-ink/12",
       )}
     >
-      {swatch && (
+      {children}
+    </button>
+  );
+}
+
+function ColourOption({
+  active,
+  disabled,
+  onClick,
+  swatch,
+  label,
+}: {
+  active: boolean;
+  disabled?: boolean;
+  onClick: () => void;
+  swatch?: string | null;
+  label: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      title={disabled ? "Not available in this configuration" : label}
+      className={cn("flex flex-col items-center gap-1.5", disabled && "cursor-not-allowed opacity-35")}
+    >
+      <span
+        className={cn(
+          "flex size-9 items-center justify-center rounded-full border-2 transition",
+          active ? "border-brand" : "border-transparent hover:border-ink/20",
+        )}
+      >
         <span
-          className="size-3.5 shrink-0 rounded-full border border-black/10"
-          style={{ backgroundColor: swatch }}
+          className="size-7 rounded-full border border-black/10"
+          style={{ backgroundColor: swatch ?? "#9ca3af" }}
           aria-hidden
         />
-      )}
-      {children}
+      </span>
+      <span className="text-[11px] text-ink/55">{label}</span>
     </button>
   );
 }

@@ -19,11 +19,16 @@ import { getEffectiveContact } from "@/lib/db/site-settings";
 import { getVisibleIphone18Packages } from "@/lib/db/iphone18-packages";
 import { whatsappLink, preorderEnquiryMessage } from "@/lib/config/site";
 
-export const metadata: Metadata = {
-  title: { absolute: "iPhone 18 Series | Prime Tech" },
-  description:
-    "The iPhone 18 Series, announced by Apple on September 9, 2026 — register your interest with Prime Tech Colombo and pre-order with no payment required.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const stage = await getCampaignStage();
+  return {
+    title: { absolute: "iPhone 18 Series | Prime Tech" },
+    description:
+      stage === "available"
+        ? "The iPhone 18 Series is now available at Prime Tech Colombo — enquire on WhatsApp for real Sri Lankan pricing and stock."
+        : "The iPhone 18 Series, announced by Apple on September 9, 2026 — register your interest with Prime Tech Colombo and pre-order with no payment required.",
+  };
+}
 
 const FAQS = [
   {
@@ -62,6 +67,12 @@ const HERO_COPY: Record<CampaignStage, { eyebrow: string; ctaLabel: string }> = 
   available: { eyebrow: "Now Available", ctaLabel: "View the Lineup" },
 };
 
+const FAQ_HEADING: Record<CampaignStage, string> = {
+  announcement: "Pre-Order Questions",
+  preorder_open: "Pre-Order Questions",
+  available: "iPhone 18 Questions",
+};
+
 const WEARABLE_SLUGS = ["apple-watch-series-12", "apple-watch-ultra-4", "airpods-5"];
 
 export default async function IPhone18PreorderPage() {
@@ -78,9 +89,16 @@ export default async function IPhone18PreorderPage() {
   const modelNames = hasLineup ? products.map((p) => p.name) : undefined;
   const hero = HERO_COPY[stage];
   const scrollToLineup = stage === "available" && hasLineup;
+  const available = stage === "available";
   const ctaHref = scrollToLineup
     ? "#lineup"
-    : (whatsappLink(preorderEnquiryMessage(modelNames && modelNames.length > 0 ? { model: modelNames.join(", ") } : undefined), contact.whatsappNumber) ?? "#");
+    : (whatsappLink(
+        preorderEnquiryMessage({
+          ...(modelNames && modelNames.length > 0 ? { model: modelNames.join(", ") } : {}),
+          available,
+        }),
+        contact.whatsappNumber,
+      ) ?? "#");
 
   return (
     <>
@@ -180,7 +198,7 @@ export default async function IPhone18PreorderPage() {
         </div>
       )}
 
-      <Iphone18Journey />
+      <Iphone18Journey available={available} />
 
       <Iphone18OfficialTrailer />
 
@@ -189,6 +207,7 @@ export default async function IPhone18PreorderPage() {
         models={modelNames}
         packages={packages}
         showPackages={stage !== "announcement"}
+        available={available}
       />
 
       <Iphone18TrustSection />
@@ -196,7 +215,7 @@ export default async function IPhone18PreorderPage() {
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
         <AnimatedSection>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">FAQ</p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight">Pre-Order Questions</h2>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight">{FAQ_HEADING[stage]}</h2>
         </AnimatedSection>
 
         <Accordion className="mt-6" defaultValue={[]}>

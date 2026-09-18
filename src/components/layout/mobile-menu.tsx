@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { Menu, X, ChevronRight, ChevronDown, Heart } from "lucide-react";
+import { Menu, X, ChevronRight, Heart } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { SearchCommand } from "@/components/search/search-command";
 import { cn } from "@/lib/utils";
-import { PRODUCT_GROUPS } from "@/lib/config/navigation";
+import { CATEGORY_NAV_LINKS } from "@/lib/config/navigation";
 
 interface MobileMenuProps {
   links: { label: string; href: string }[];
@@ -16,7 +16,6 @@ interface MobileMenuProps {
 
 export function MobileMenu({ links, light = false }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
-  const [productsExpanded, setProductsExpanded] = useState(false);
   const [mounted, setMounted] = useState(false);
   const otherLinks = links.filter((l) => l.href !== "/");
 
@@ -78,56 +77,23 @@ export function MobileMenu({ links, light = false }: MobileMenuProps) {
                   </Link>
                 </motion.div>
 
-                <motion.div initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 }}>
-                  <button
-                    type="button"
-                    onClick={() => setProductsExpanded((prev) => !prev)}
-                    aria-expanded={productsExpanded}
-                    className="flex w-full items-center justify-between rounded-xl px-3 py-3.5 text-lg font-medium text-ink transition hover:bg-ink/5"
+                {CATEGORY_NAV_LINKS.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: 16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 * (i + 1) }}
                   >
-                    Products
-                    <ChevronDown className={cn("size-4 text-ink/30 transition-transform", productsExpanded && "rotate-180")} />
-                  </button>
-                  <AnimatePresence>
-                    {productsExpanded && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden pl-3"
-                      >
-                        {PRODUCT_GROUPS.map((group) => (
-                          <div key={group.href} className="mb-1">
-                            <Link
-                              href={group.href}
-                              onClick={() => setOpen(false)}
-                              className="block rounded-xl px-3 py-2 text-sm font-semibold text-ink/80 transition hover:bg-ink/5 hover:text-ink"
-                            >
-                              {group.label}
-                            </Link>
-                            {group.links.map((link) => (
-                              <Link
-                                key={link.href}
-                                href={link.href}
-                                onClick={() => setOpen(false)}
-                                className="block rounded-xl py-2 pl-6 pr-3 text-base text-ink/65 transition hover:bg-ink/5 hover:text-ink"
-                              >
-                                {link.label}
-                              </Link>
-                            ))}
-                          </div>
-                        ))}
-                        <Link
-                          href="/products"
-                          onClick={() => setOpen(false)}
-                          className="block rounded-xl px-3 py-2.5 text-sm font-medium text-brand transition hover:bg-ink/5"
-                        >
-                          View All Products
-                        </Link>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
+                    <Link
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className="flex items-center justify-between rounded-xl px-3 py-3.5 text-lg font-medium text-ink transition hover:bg-ink/5"
+                    >
+                      {link.label}
+                      <ChevronRight className="size-4 text-ink/30" />
+                    </Link>
+                  </motion.div>
+                ))}
 
                 {otherLinks.map((link, i) => (
                   <motion.div

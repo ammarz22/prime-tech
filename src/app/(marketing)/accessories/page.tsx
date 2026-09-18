@@ -1,37 +1,34 @@
 import type { Metadata } from "next";
-import { AnimatedSection } from "@/components/motion/animated-section";
-import { Breadcrumbs } from "@/components/common/breadcrumbs";
-import { ProductGrid } from "@/components/product/product-grid";
+import { AccessoriesHero } from "@/components/accessories/accessories-hero";
+import { AccessoriesCatalog } from "@/components/accessories/accessories-catalog";
+import { AccessoriesHelpCta } from "@/components/accessories/accessories-help-cta";
+import { BrandTrustStrip } from "@/components/common/brand-trust-strip";
 import { getProducts } from "@/lib/db/products";
 
 export const metadata: Metadata = {
-  title: "Accessories",
-  description: "Chargers, cables, displays and other accessories at Prime Tech Colombo.",
+  title: { absolute: "Accessories | Prime Tech" },
+  description: "Premium accessories for your Apple, Samsung and everyday devices — genuine products at Prime Tech Colombo.",
 };
 
+/**
+ * The Accessories page — matches the supplied reference design's layout
+ * and functionality (category tabs, brand/category/price filters, sort,
+ * live product count) but is populated only with what's actually in the
+ * catalogue today: 6 real accessories across 2 real brands (Apple,
+ * Samsung), not the reference's illustrative 24 products across 7 brands
+ * including ones Prime Tech doesn't carry (Anker, Belkin, Spigen, Ugreen,
+ * Baseus). The filter UI is fully real and will scale automatically as
+ * more accessories are added to the catalogue.
+ */
 export default async function AccessoriesPage() {
-  const products = await getProducts({ categorySlug: "accessories", sort: "featured" });
+  const products = await getProducts({ categorySlug: "accessories", sort: "newest" });
 
   return (
-    <div className="pt-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Accessories" }]} />
-
-        <AnimatedSection>
-          <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-brand">Accessories</p>
-          <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-            Everything Around Your Devices
-          </h1>
-          <p className="mt-3 max-w-xl text-ink/60">
-            Chargers, cables, displays and more — genuine accessories, sourced with the same care as everything else at
-            Prime Tech.
-          </p>
-        </AnimatedSection>
-
-        <div className="mt-10 pb-16">
-          <ProductGrid products={products} emptyTitle="Accessories availability updating." />
-        </div>
-      </div>
-    </div>
+    <>
+      <AccessoriesHero />
+      <AccessoriesCatalog products={products} />
+      <AccessoriesHelpCta />
+      <BrandTrustStrip />
+    </>
   );
 }

@@ -70,7 +70,7 @@ export function OfficialVideoPlayer({
         <span
           className={cn(
             "flex size-14 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm transition",
-            playing ? "opacity-0 group-hover:opacity-100" : "opacity-100",
+            playing ? "opacity-40 group-hover:opacity-100" : "opacity-100",
           )}
         >
           {playing ? <Pause className="size-5 text-white" /> : <Play className="ml-0.5 size-5 text-white" />}

@@ -13,6 +13,7 @@ const EXACT_SWATCHES: Record<string, string> = {
   graphite: "#54524f",
   "space grey": "#55565a",
   "space gray": "#55565a",
+  "space black": "#3a3a3c",
   starlight: "#f0e6d8",
   midnight: "#1b1b1f",
   "deep blue": "#1c3a5e",
@@ -27,6 +28,42 @@ const EXACT_SWATCHES: Record<string, string> = {
   "titanium black": "#3a3a3c",
   "cobalt violet": "#4b3f6b",
   "sky blue": "#a9c9dc",
+  // Apple Watch aluminum/titanium finish tiers (Series 11 & 12)
+  "aluminum — jet black": "#2b2b2d",
+  "aluminum — rose gold": "#e8bfae",
+  "aluminum — silver": "#e3e4e5",
+  "aluminum — space gray": "#55565a",
+  "aluminum — olive": "#6e6650",
+  "aluminum — slate": "#8a8d90",
+  "titanium — gold": "#c8a86a",
+  "titanium — natural": "#c9c2b6",
+  "titanium — slate": "#6d6d70",
+  "natural titanium": "#c9c2b6",
+  "black titanium": "#3a3a3c",
+  // Apple Watch Series 12 Ceramic
+  "ceramic — white": "#f0ece4",
+  "ceramic — blue": "#9eabc6",
+  // MacBook Neo
+  blush: "#e7c9c2",
+  citrus: "#e8c05a",
+  indigo: "#4b4f7a",
+  // iPhone 18 series
+  "glacier blue": "#a9c4d8",
+  burgundy: "#5c2331",
+  "deep black": "#161717",
+  // iPhone Duo
+  "star white": "#ece8e0",
+  "night sky": "#20222b",
+  // iMac (2026 colourways)
+  blue: "#5a8fd6",
+  purple: "#a98fc7",
+  pink: "#f0a8b8",
+  yellow: "#f0d060",
+  green: "#8fbf8a",
+  // iPhone Air
+  "light gold": "#e8dcc4",
+  // Apple Watch Hermès
+  noir: "#1d1d1f",
 };
 
 const KEYWORD_SWATCHES: [RegExp, string][] = [

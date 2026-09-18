@@ -10,18 +10,27 @@ export function Iphone18PreorderInteractive({
   models,
   packages,
   showPackages,
+  available,
 }: {
   whatsappNumber: string | null;
   models?: string[];
   packages: Package[];
   showPackages: boolean;
+  available: boolean;
 }) {
+  const heading = available ? "Enquire About the iPhone 18 Series" : "Chat About Pre-Order";
+
   return (
     <>
       {showPackages && packages.length > 0 && (
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <SectionHeading eyebrow="Pre-Order Packages" title="Choose How You Reserve" align="center" className="mx-auto" />
+            <SectionHeading
+              eyebrow={available ? "Packages" : "Pre-Order Packages"}
+              title="Choose How You Reserve"
+              align="center"
+              className="mx-auto"
+            />
           </AnimatedSection>
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {packages.map((pkg) => (
@@ -34,13 +43,16 @@ export function Iphone18PreorderInteractive({
       <div className="border-t border-ink/8 bg-paper-soft py-16">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand">Chat With Us</p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight">Chat About Pre-Order</h2>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight">{heading}</h2>
 
           <div className="mx-auto mt-8 max-w-sm">
             <WhatsAppButton
               number={whatsappNumber}
-              message={preorderEnquiryMessage(models && models.length > 0 ? { model: models.join(", ") } : undefined)}
-              label="Chat About Pre-Order"
+              message={preorderEnquiryMessage({
+                ...(models && models.length > 0 ? { model: models.join(", ") } : {}),
+                available,
+              })}
+              label={heading}
               variant="default"
               size="lg"
               className="h-12 w-full rounded-full text-base"

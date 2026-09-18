@@ -74,17 +74,22 @@ export function preorderEnquiryMessage(selection?: {
   storage?: string;
   packageName?: string;
   price?: string;
+  available?: boolean;
 }) {
-  const hasSelection = selection && Object.values(selection).some(Boolean);
+  const { available, ...fields } = selection ?? {};
+  const intro = available
+    ? "Hello Prime Tech, I am interested in the iPhone 18 Series"
+    : "Hello Prime Tech, I am interested in the iPhone 18 Series pre-order";
+  const hasSelection = Object.values(fields).some(Boolean);
   if (!hasSelection) {
-    return "Hello Prime Tech, I am interested in the iPhone 18 Series pre-order. Please provide me with more information.";
+    return `${intro}. Please provide me with more information.`;
   }
-  const lines = ["Hello Prime Tech, I am interested in the iPhone 18 Series pre-order:", ""];
-  if (selection?.model) lines.push(`Model: ${selection.model}`);
-  if (selection?.colour) lines.push(`Colour: ${selection.colour}`);
-  if (selection?.storage) lines.push(`Storage: ${selection.storage}`);
-  if (selection?.packageName) lines.push(`Package: ${selection.packageName}`);
-  if (selection?.price) lines.push(`Price: ${selection.price}`);
+  const lines = [`${intro}:`, ""];
+  if (fields.model) lines.push(`Model: ${fields.model}`);
+  if (fields.colour) lines.push(`Colour: ${fields.colour}`);
+  if (fields.storage) lines.push(`Storage: ${fields.storage}`);
+  if (fields.packageName) lines.push(`Package: ${fields.packageName}`);
+  if (fields.price) lines.push(`Price: ${fields.price}`);
   lines.push("", "Please provide me with more information.");
   return lines.join("\n");
 }
