@@ -14,7 +14,7 @@ export default async function AdminStockNotificationsPage() {
     <div>
       <h1 className="text-2xl font-semibold tracking-tight">Stock Notifications</h1>
       <p className="mt-1 text-sm text-ink/55">
-        Customers who asked to be notified when an out-of-stock item is back. Tick "Notified" once you've reached out.
+        Customers who asked to be notified when an out-of-stock item is back. Tick &quot;Notified&quot; once you&apos;ve reached out.
       </p>
 
       <div className="mt-8">

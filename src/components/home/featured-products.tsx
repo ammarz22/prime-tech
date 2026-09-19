@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { StaggerGroup, StaggerItem } from "@/components/motion/animated-section";
 import { cn } from "@/lib/utils";
+import { cardImageUrl } from "@/lib/utils/card-image";
 import type { ProductWithRelations } from "@/types/database";
 
 const FILTERS = [
@@ -18,32 +19,6 @@ const FILTERS = [
   { label: "Accessories", test: (p: ProductWithRelations) => p.category?.slug === "accessories" },
 ] as const;
 
-/**
- * Every JPEG in the catalogue has its studio background baked into the
- * pixels (JPEG can't hold transparency), which always leaves a faint
- * rectangle wherever the card's own background isn't an exact colour
- * match. Rather than fight that per-card, each of these points the tile
- * at a real, already-existing photo of the same product — re-exported as
- * a PNG with its background erased by flooding out from the image edges
- * (so an enclosed light area, like the AirPods case, is untouched; only
- * background connected to the border is removed) — no content is drawn,
- * cropped, or altered otherwise. A few of these (iPhone 17 Pro, iPad
- * Pro, Apple Watch Series 11) also swap away from their `is_primary`
- * photo first, since that one is a dramatic, off-centre PDP hero crop
- * that reads as a stray black/grey box once shrunk into a small grid
- * tile — this points at a different real photo from the same product's
- * image set that actually shows the whole device. Any product not
- * listed here just uses its normal primary image, untouched.
- */
-const TILE_IMAGE_OVERRIDES: Record<string, string> = {
-  "mac-studio": "/products/mac-studio/colors/silver-cutout.png",
-  "iphone-17-pro": "/products/apple/iphone-17-pro-cutout.png",
-  "airpods-4": "/products/airpods-4/colors/white-cutout.png",
-  "ipad-pro": "/products/apple/ipad-pro-cutout.png",
-  "apple-watch-series-11": "/products/apple/apple-watch-series-11-cutout.png",
-  "galaxy-s26": "/products/galaxy-s26/colors/black-cutout.png",
-};
-
 /** A card built around a soft neutral "stage" behind the product photo
  * (echoing the ecosystem cards' swoosh treatment) instead of the old
  * thin-bordered thumbnail. The "NEW" badge and the tagline line are both
@@ -51,10 +26,8 @@ const TILE_IMAGE_OVERRIDES: Record<string, string> = {
  * fabricated per-card copy — so a product with neither just renders
  * without them. */
 function FeaturedProductCard({ product }: { product: ProductWithRelations }) {
-  const overrideUrl = TILE_IMAGE_OVERRIDES[product.slug];
-  const primaryImage = overrideUrl
-    ? { url: overrideUrl }
-    : (product.images.find((img) => img.is_primary) ?? product.images[0]);
+  const original = product.images.find((img) => img.is_primary) ?? product.images[0];
+  const imageUrl = cardImageUrl(product.slug, original?.url);
   const href =
     product.product_group === "APPLE" ? `/products/apple/product/${product.slug}` : `/products/${product.slug}`;
 
@@ -85,13 +58,13 @@ function FeaturedProductCard({ product }: { product: ProductWithRelations }) {
           </span>
         )}
 
-        {primaryImage && (
+        {imageUrl && (
           <Image
-            src={primaryImage.url}
+            src={imageUrl}
             alt={product.name}
             fill
             sizes="220px"
-            className="relative object-contain p-6 transition-transform duration-500 group-hover:scale-105"
+            className="relative object-contain p-4 mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
           />
         )}
       </div>

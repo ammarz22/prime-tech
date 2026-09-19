@@ -1,6 +1,7 @@
 "use server";
 
 import { searchProducts } from "@/lib/db/products";
+import { cardImageUrl } from "@/lib/utils/card-image";
 
 export interface SearchResult {
   id: string;
@@ -21,7 +22,7 @@ export async function searchAction(term: string): Promise<SearchResult[]> {
     name: p.name,
     shortDescription: p.short_description,
     productGroup: p.product_group,
-    primaryImage: p.images.find((img) => img.is_primary)?.url ?? p.images[0]?.url ?? null,
+    primaryImage: cardImageUrl(p.slug, p.images.find((img) => img.is_primary)?.url ?? p.images[0]?.url),
     categorySlug: p.category?.slug ?? null,
     brandName: p.brand?.name ?? null,
   }));

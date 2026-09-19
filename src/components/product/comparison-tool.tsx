@@ -6,6 +6,7 @@ import { X } from "lucide-react";
 import { ProductPrice } from "@/components/product/product-price";
 import { AvailabilityBadge } from "@/components/product/availability-badge";
 import { cn } from "@/lib/utils";
+import { cardImageUrl } from "@/lib/utils/card-image";
 import { getDisplayPrice } from "@/lib/utils/pricing";
 import { getFullSpecs } from "@/lib/data/product-specs";
 import type { ProductWithRelations } from "@/types/database";
@@ -127,13 +128,13 @@ export function ComparisonTool({
                 <th className="w-32" />
                 {compared.map((p) => {
                   const displayPrice = getDisplayPrice(p);
-                  const thumbnail = p.images.find((img) => img.is_primary)?.url ?? p.images[0]?.url;
+                  const thumbnail = cardImageUrl(p.slug, p.images.find((img) => img.is_primary)?.url ?? p.images[0]?.url);
                   return (
                     <th key={p.id} className="border-b border-ink/8 px-4 pb-4 text-left align-bottom">
                       <div className="flex items-start justify-between gap-2">
                         {thumbnail ? (
                           <div className="relative size-12 shrink-0 overflow-hidden rounded-lg bg-paper-soft">
-                            <Image src={thumbnail} alt="" fill sizes="48px" className="object-cover" />
+                            <Image src={thumbnail} alt="" fill sizes="48px" className="object-contain p-1 mix-blend-multiply" />
                           </div>
                         ) : (
                           <div className="size-12 shrink-0 rounded-lg bg-paper-soft" />

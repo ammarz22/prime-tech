@@ -19,7 +19,9 @@ export const APPLE_CATALOGUE_CATEGORIES: CatalogueCategory[] = [
     heroTitle: "iPhone",
     heroSubtitle: "Powerful. Beautiful. Built for what's next.",
     heroDescription: "Explore the full iPhone lineup. Genuine products. Expert guidance. Only at Prime Tech.",
-    heroBackground: "/apple-page/iphone-spotlight-device-raw.png",
+    heroBackground: "/apple-page/hero-background.png",
+    heroDevice: "/apple-page/iphone-spotlight-device-raw.png",
+    heroDeviceFit: "bleed",
     heroSideWords: ["Bigger", "Brighter", "Smarter", "Beyond"],
   },
   {
@@ -33,6 +35,7 @@ export const APPLE_CATALOGUE_CATEGORIES: CatalogueCategory[] = [
     heroDescription:
       "Power for work, creativity and everything in between — from the entry MacBook Neo to the M5 Max MacBook Pro and M3 Ultra Mac Studio.",
     heroBackground: "/apple-page/mac-background.png",
+    heroDevice: "/apple-page/mac-device-cutout.png",
     heroSideWords: ["Faster", "Lighter", "Further", "Beyond"],
   },
   {
@@ -46,6 +49,7 @@ export const APPLE_CATALOGUE_CATEGORIES: CatalogueCategory[] = [
     heroDescription:
       "From the pocketable iPad mini to the OLED iPad Pro, every iPad supports Apple Pencil Pro for notes, sketches and markup.",
     heroBackground: "/apple-page/ipad-background.png",
+    heroDevice: "/apple-page/ipad-device-cutout.png",
     heroSideWords: ["Create", "Sketch", "Explore", "Beyond"],
   },
   {
@@ -58,6 +62,7 @@ export const APPLE_CATALOGUE_CATEGORIES: CatalogueCategory[] = [
     heroSubtitle: "A brighter tomorrow, on your wrist.",
     heroDescription: "From the accessible SE to the rugged, titanium Ultra — Apple's full current Watch lineup.",
     heroBackground: "/apple-page/watch-background.png",
+    heroDevice: "/apple-page/watch-device-cutout.png",
     heroSideWords: ["Track", "Train", "Thrive", "Beyond"],
   },
   {
@@ -70,6 +75,7 @@ export const APPLE_CATALOGUE_CATEGORIES: CatalogueCategory[] = [
     heroSubtitle: "Immersive, all day.",
     heroDescription: "Apple's current in-ear AirPods, available with or without Active Noise Cancellation.",
     heroBackground: "/apple-page/airpods-background.png",
+    heroDevice: "/apple-page/airpods-device-cutout.png",
     heroSideWords: ["Listen", "Focus", "Unwind", "Beyond"],
   },
   {

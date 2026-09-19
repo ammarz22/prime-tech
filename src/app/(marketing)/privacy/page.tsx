@@ -50,8 +50,8 @@ export default async function PrivacyPage() {
             Your privacy
           </h1>
           <p className="mt-3 text-ink/60">
-            Prime Tech is an enquiry-based business — there's no online checkout or customer
-            account system, so we collect far less than a typical online store. Here's exactly
+            Prime Tech is an enquiry-based business — there&apos;s no online checkout or customer
+            account system, so we collect far less than a typical online store. Here&apos;s exactly
             what we do collect and why.
           </p>
         </AnimatedSection>
@@ -67,7 +67,7 @@ export default async function PrivacyPage() {
           <AnimatedSection className="rounded-3xl border border-ink/8 bg-paper-soft p-6">
             <h2 className="text-lg font-semibold text-ink">Questions about your data?</h2>
             <p className="mt-2 text-sm leading-relaxed text-ink/65">
-              Contact us and we'll help directly.
+              Contact us and we&apos;ll help directly.
             </p>
             <ul className="mt-4 space-y-1.5 text-sm text-ink/70">
               {contact.email && <li>Email: {contact.email}</li>}

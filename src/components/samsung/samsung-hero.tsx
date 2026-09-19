@@ -16,7 +16,7 @@ export async function SamsungHero() {
   const ctaHref = whatsappLink(serviceEnquiryMessage("Samsung products"), contact.whatsappNumber) ?? "#";
 
   return (
-    <section className="relative overflow-hidden bg-paper pb-10 pt-32 sm:pb-14 sm:pt-40">
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-paper pb-10 pt-32 sm:pb-14 sm:pt-40">
       <Image
         src="/samsung-page/hero-background.png"
         alt=""
@@ -27,7 +27,7 @@ export async function SamsungHero() {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-paper via-paper/30 to-transparent" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-16">
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-16">
         <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-8">
           <AnimatedSection>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-ink/50">Innovation Lives Here.</p>

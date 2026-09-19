@@ -16,23 +16,27 @@ export function CatalogueTabs({
 }) {
   return (
     <nav className="sticky top-[72px] z-30 border-b border-ink/8 bg-paper/95 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4 py-2 [scrollbar-width:none] sm:px-6 lg:px-10 xl:px-16 [&::-webkit-scrollbar]:hidden">
-        {categories.map(({ slug, label, icon: Icon }) => {
-          const active = slug === activeSlug;
-          return (
-            <Link
-              key={slug}
-              href={categoryHref(slug)}
-              className={cn(
-                "flex shrink-0 flex-col items-center gap-1.5 rounded-xl border-b-2 px-5 py-3 text-xs font-medium transition",
-                active ? "border-brand text-brand" : "border-transparent text-ink/50 hover:text-ink",
-              )}
-            >
-              <Icon className="size-4.5" strokeWidth={1.5} />
-              {label}
-            </Link>
-          );
-        })}
+      <div className="overflow-x-auto px-4 py-3 [scrollbar-width:none] sm:px-6 lg:px-10 xl:px-16 [&::-webkit-scrollbar]:hidden">
+        <div className="mx-auto flex w-max gap-3">
+          {categories.map(({ slug, label, icon: Icon }) => {
+            const active = slug === activeSlug;
+            return (
+              <Link
+                key={slug}
+                href={categoryHref(slug)}
+                className={cn(
+                  "flex min-w-[104px] shrink-0 flex-col items-center gap-2 rounded-2xl border px-6 py-4 text-sm font-medium transition",
+                  active
+                    ? "border-brand/40 bg-brand/5 text-brand"
+                    : "border-ink/8 bg-paper-soft text-ink/60 hover:border-ink/15 hover:text-ink",
+                )}
+              >
+                <Icon className="size-7" strokeWidth={1.5} />
+                {label}
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );

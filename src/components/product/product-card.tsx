@@ -9,11 +9,13 @@ import { ImagePending } from "@/components/product/image-pending";
 import { ProductPrice } from "@/components/product/product-price";
 import { SaveButton } from "@/components/product/save-button";
 import { getDisplayPrice } from "@/lib/utils/pricing";
+import { cardImageUrl } from "@/lib/utils/card-image";
 import { cn } from "@/lib/utils";
 import type { ProductWithRelations } from "@/types/database";
 
 export function ProductCard({ product }: { product: ProductWithRelations }) {
   const primaryImage = product.images.find((img) => img.is_primary) ?? product.images[0];
+  const cardUrl = cardImageUrl(product.slug, null);
   const availability = product.variants[0]?.availability ?? "coming_soon";
   const displayPrice = getDisplayPrice(product);
   const href =
@@ -26,15 +28,16 @@ export function ProductCard({ product }: { product: ProductWithRelations }) {
           {primaryImage ? (
             <div className="relative aspect-square w-full overflow-hidden bg-paper-soft">
               <Image
-                src={primaryImage.url}
+                src={cardUrl ?? primaryImage.url}
                 alt={product.name}
                 fill
                 sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                 className={cn(
                   "transition-transform duration-500 ease-out group-hover:scale-105",
-                  primaryImage.object_fit === "contain" ? "object-contain p-6" : "object-cover",
+                  cardUrl || primaryImage.object_fit === "contain" ? "object-contain p-5" : "object-cover",
+                  cardUrl && "mix-blend-multiply",
                 )}
-                style={primaryImage.object_position ? { objectPosition: primaryImage.object_position } : undefined}
+                style={!cardUrl && primaryImage.object_position ? { objectPosition: primaryImage.object_position } : undefined}
               />
             </div>
           ) : (

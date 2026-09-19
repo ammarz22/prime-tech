@@ -44,3 +44,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# private / raw working files (not part of the site)
+/recovery-codes.txt
+/Invoices/
+/PrimeTech_Invoice_Generator*
+/INSTA/
+/New Images/

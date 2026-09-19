@@ -4,22 +4,20 @@ import { ArrowRight } from "lucide-react";
 import { ImagePending } from "@/components/product/image-pending";
 import { ProductPrice } from "@/components/product/product-price";
 import { StaggerGroup, StaggerItem } from "@/components/motion/animated-section";
-import { getProducts } from "@/lib/db/products";
+import { getProductBySlug } from "@/lib/db/products";
 import { getDisplayPrice } from "@/lib/utils/pricing";
+import { cardImageUrl } from "@/lib/utils/card-image";
 
-/** Real product photos, re-exported as background-erased PNGs where the
- * source was a plain studio shot — same technique used across the site's
- * other card grids. No fabricated device (e.g. a foldable) is added just
- * to fill a fourth slot; the real Galaxy S26 series is three phones. */
-const IMAGE_OVERRIDES: Record<string, string> = {
-  "galaxy-s26-ultra": "/products/samsung/galaxy-s26-ultra-cutout.png",
-};
+/** The featured line-up: both current Galaxy S26 phones, plus the real
+ * current tablet and watch from the catalogue (the same phone / tablet /
+ * watch mix as the hero). Every entry is an existing product with its real
+ * price — nothing is invented to fill a slot. */
+const FEATURED_SLUGS = ["galaxy-s26", "galaxy-s26-ultra", "galaxy-tab-s11-ultra", "galaxy-watch9"] as const;
 
-/** The Samsung hub's "Featured Samsung Products" grid — the real, current
- * Galaxy S26 series (S26, S26+, S26 Ultra) with real catalogue prices, not
- * a fabricated fourth flagship (there is no Z Fold in this catalogue). */
+/** The Samsung hub's "Featured Samsung Products" grid. */
 export async function FeaturedSamsungProducts() {
-  const products = await getProducts({ productGroup: "OTHER", categorySlug: "galaxy-s26", sort: "featured" });
+  const found = await Promise.all(FEATURED_SLUGS.map((slug) => getProductBySlug(slug)));
+  const products = found.filter((product) => product !== null);
 
   return (
     <section className="bg-paper px-4 py-14 sm:px-6 sm:py-20 lg:px-10 xl:px-16">
@@ -41,12 +39,10 @@ export async function FeaturedSamsungProducts() {
           </Link>
         </div>
 
-        <StaggerGroup className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        <StaggerGroup className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {products.map((product) => {
-            const overrideUrl = IMAGE_OVERRIDES[product.slug];
-            const primaryImage = overrideUrl
-              ? { url: overrideUrl }
-              : (product.images.find((img) => img.is_primary) ?? product.images[0]);
+            const original = product.images.find((img) => img.is_primary) ?? product.images[0];
+            const imageUrl = cardImageUrl(product.slug, original?.url);
             const displayPrice = getDisplayPrice(product);
 
             return (
@@ -55,26 +51,26 @@ export async function FeaturedSamsungProducts() {
                   href={`/products/${product.slug}`}
                   className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ink/8 bg-white transition hover:border-ink/20 hover:shadow-[0_16px_40px_-20px_rgba(0,0,0,0.2)]"
                 >
-                  {primaryImage ? (
-                    <div className="relative aspect-square w-full bg-paper-soft">
+                  {imageUrl ? (
+                    <div className="relative aspect-[4/3] w-full bg-paper-soft">
                       <Image
-                        src={primaryImage.url}
+                        src={imageUrl}
                         alt={product.name}
                         fill
-                        sizes="(min-width: 640px) 30vw, 45vw"
-                        className="object-contain p-6 transition-transform duration-500 group-hover:scale-105"
+                        sizes="(min-width: 1024px) 22vw, 45vw"
+                        className="object-contain p-4 mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   ) : (
-                    <ImagePending className="aspect-square rounded-none border-0" />
+                    <ImagePending className="aspect-[4/3] rounded-none border-0" />
                   )}
-                  <div className="flex items-center justify-between gap-2 p-4">
+                  <div className="flex items-center justify-between gap-2 p-3.5">
                     <div className="min-w-0">
                       <p className="truncate text-sm font-semibold text-ink">{product.name}</p>
                       <ProductPrice price={displayPrice.price} label={displayPrice.label} size="sm" className="mt-0.5" />
                     </div>
-                    <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink/50 transition group-hover:border-brand group-hover:bg-brand group-hover:text-white">
-                      <ArrowRight className="size-3.5" />
+                    <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-ink/15 text-ink/50 transition group-hover:border-brand group-hover:bg-brand group-hover:text-white">
+                      <ArrowRight className="size-3" />
                     </span>
                   </div>
                 </Link>

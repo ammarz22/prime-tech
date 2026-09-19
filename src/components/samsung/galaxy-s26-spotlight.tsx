@@ -21,7 +21,7 @@ export function GalaxyS26Spotlight() {
       />
       <div className="absolute inset-0 bg-ink/50" />
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_auto_1fr] lg:gap-8 lg:px-10 xl:px-16">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(320px,400px)_minmax(0,0.5fr)] lg:gap-8 lg:px-10 xl:px-16">
         <AnimatedSection>
           <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
             <span className="h-px w-4 bg-brand" aria-hidden />
@@ -38,13 +38,20 @@ export function GalaxyS26Spotlight() {
           </Link>
         </AnimatedSection>
 
-        <div className="relative mx-auto aspect-square w-full max-w-[280px] sm:max-w-[360px]">
+        <div
+          className="relative mx-auto aspect-[3/2] w-full max-w-[320px] sm:max-w-[420px]"
+          style={{
+            mixBlendMode: "lighten",
+            maskImage: "radial-gradient(ellipse 52% 52% at 50% 50%, black 60%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(ellipse 52% 52% at 50% 50%, black 60%, transparent 100%)",
+          }}
+        >
           <Image
-            src="/samsung-page/s26-spotlight-device-cutout.png"
-            alt="Galaxy S26 Ultra"
+            src="/samsung-page/s26-spotlight-all-products.jpg"
+            alt="Galaxy Ultra with S Pen"
             fill
-            sizes="360px"
-            className="object-contain"
+            sizes="420px"
+            className="object-cover"
           />
         </div>
 

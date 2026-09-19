@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,9 +28,10 @@ const CAMPAIGN_STAGE_OPTIONS = [
 
 export function SettingsForm({ initialValues }: { initialValues: Record<string, string> }) {
   const [saved, setSaved] = useState(false);
-  const { register, handleSubmit, setValue, watch, formState: { isSubmitting } } = useForm<Record<string, string>>({
+  const { register, handleSubmit, setValue, control, formState: { isSubmitting } } = useForm<Record<string, string>>({
     defaultValues: { iphone18_campaign_stage: "announcement", ...initialValues },
   });
+  const campaignStage = useWatch({ control, name: "iphone18_campaign_stage" });
 
   async function onSubmit(data: Record<string, string>) {
     setSaved(false);
@@ -43,7 +44,7 @@ export function SettingsForm({ initialValues }: { initialValues: Record<string, 
       <div className="space-y-1.5">
         <Label htmlFor="iphone18_campaign_stage">iPhone 18 Campaign Stage</Label>
         <Select
-          value={watch("iphone18_campaign_stage")}
+          value={campaignStage}
           onValueChange={(value) => setValue("iphone18_campaign_stage", value as string)}
         >
           <SelectTrigger id="iphone18_campaign_stage" className="w-full">

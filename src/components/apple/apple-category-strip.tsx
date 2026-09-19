@@ -21,7 +21,7 @@ export function AppleCategoryStrip() {
           <Link
             key={label}
             href={href}
-            className="group flex flex-col items-center gap-3.5 rounded-2xl bg-paper-soft px-4 py-8 text-center transition hover:bg-ink/5"
+            className="group flex flex-col items-center gap-3.5 rounded-2xl border border-ink/8 bg-paper-soft px-4 py-8 text-center transition hover:border-ink/15 hover:bg-ink/5"
           >
             <Icon className="size-8 text-ink/70 transition group-hover:text-brand" strokeWidth={1.5} />
             <span className="text-sm font-medium text-ink/70">{label}</span>

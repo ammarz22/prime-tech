@@ -6,6 +6,7 @@ import { ProductPrice } from "@/components/product/product-price";
 import { StaggerGroup, StaggerItem } from "@/components/motion/animated-section";
 import { getProducts, getProductBySlug } from "@/lib/db/products";
 import { getDisplayPrice } from "@/lib/utils/pricing";
+import { cardImageUrl } from "@/lib/utils/card-image";
 
 /** Tightly-cropped photos for the spotlight row — the same real product
  * shots used on each product's own page, re-cropped close to the device so
@@ -83,7 +84,9 @@ export async function IphoneSpotlight() {
             const overrideUrl = IMAGE_OVERRIDES[product.slug];
             const primaryImage = overrideUrl
               ? { url: overrideUrl }
-              : (product.images.find((img) => img.is_primary) ?? product.images[0]);
+              : ((url) => (url ? { url } : undefined))(
+                  cardImageUrl(product.slug, (product.images.find((img) => img.is_primary) ?? product.images[0])?.url),
+                );
             const displayPrice = getDisplayPrice(product);
 
             return (
@@ -99,7 +102,7 @@ export async function IphoneSpotlight() {
                         alt={product.name}
                         fill
                         sizes="(min-width: 640px) 14vw, 30vw"
-                        className="object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+                        className="object-contain p-3 mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                   ) : (

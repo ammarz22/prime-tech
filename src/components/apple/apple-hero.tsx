@@ -17,7 +17,7 @@ export async function AppleHero() {
   const ctaHref = whatsappLink(serviceEnquiryMessage("Apple products"), contact.whatsappNumber) ?? "#";
 
   return (
-    <section className="relative overflow-hidden bg-ink pb-10 pt-32 text-white sm:pb-14 sm:pt-40">
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-ink pb-10 pt-32 text-white sm:pb-14 sm:pt-40">
       <Image
         src="/apple-page/hero-background.png"
         alt=""
@@ -28,8 +28,8 @@ export async function AppleHero() {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-16">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-8">
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-16">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-8">
           <AnimatedSection>
             <p className="text-xs font-semibold uppercase leading-relaxed tracking-[0.25em] text-white/50">
               More Than Devices.
@@ -84,7 +84,7 @@ export async function AppleHero() {
                 src="/apple-page/hero-device-cutout.png"
                 alt="MacBook Pro, iPhone, iPad Pro, Apple Watch and AirPods"
                 fill
-                sizes="45vw"
+                sizes="60vw"
                 priority
                 className="object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
               />

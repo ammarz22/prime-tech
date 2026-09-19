@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Clock } from "lucide-react";
+import { cardImageUrl } from "@/lib/utils/card-image";
 import type { ProductWithRelations } from "@/types/database";
 
 export function ComingSoonGrid({ products }: { products: ProductWithRelations[] }) {
@@ -17,7 +18,7 @@ export function ComingSoonGrid({ products }: { products: ProductWithRelations[] 
           >
             {image ? (
               <div className="relative size-16">
-                <Image src={image.url} alt={image.alt_text ?? product.name} fill sizes="64px" className="object-contain" />
+                <Image src={cardImageUrl(product.slug, image.url) ?? image.url} alt={image.alt_text ?? product.name} fill sizes="64px" className="object-contain mix-blend-multiply" />
               </div>
             ) : (
               <div className="flex size-10 items-center justify-center rounded-full bg-ink/5">

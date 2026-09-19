@@ -20,7 +20,8 @@ export const SAMSUNG_CATALOGUE_CATEGORIES: CatalogueCategory[] = [
     heroSubtitle: "More power. More intelligence. More you.",
     heroDescription:
       "Samsung's current and previous flagship generations — from the accessible Galaxy S25 to the latest Galaxy S26 Ultra.",
-    heroBackground: "/samsung-page/s26-spotlight-device-raw.png",
+    heroBackground: "/samsung-page/s26-spotlight-background.png",
+    heroDevice: "/samsung-page/s26-spotlight-device-cutout.png",
     heroSideWords: ["Bolder", "Smarter", "Brighter", "Beyond"],
   },
   {
@@ -33,6 +34,7 @@ export const SAMSUNG_CATALOGUE_CATEGORIES: CatalogueCategory[] = [
     heroSubtitle: "Go further, on a bigger screen.",
     heroDescription: "From the Galaxy Tab S11 to the larger Ultra, both with S Pen support built in.",
     heroBackground: "/samsung-page/tablet-background.png",
+    heroDevice: "/samsung-page/tablet-device-cutout.png",
     heroSideWords: ["Create", "Sketch", "Explore", "Beyond"],
   },
   {
@@ -45,6 +47,7 @@ export const SAMSUNG_CATALOGUE_CATEGORIES: CatalogueCategory[] = [
     heroSubtitle: "A smarter, healthier everyday.",
     heroDescription: "From the everyday Galaxy Watch9 to the rugged, titanium Watch Ultra 2.",
     heroBackground: "/samsung-page/wearables-background.png",
+    heroDevice: "/samsung-page/wearables-device-cutout.png",
     heroSideWords: ["Track", "Train", "Thrive", "Beyond"],
   },
   {
@@ -57,6 +60,7 @@ export const SAMSUNG_CATALOGUE_CATEGORIES: CatalogueCategory[] = [
     heroSubtitle: "Immersive, all day.",
     heroDescription: "Samsung's current true wireless earbuds lineup, from the accessible Buds3 FE to the premium Buds4 Pro.",
     heroBackground: "/samsung-page/wearables-background.png",
+    heroDevice: "/samsung-page/wearables-device-cutout.png",
     heroSideWords: ["Listen", "Focus", "Unwind", "Beyond"],
   },
   {

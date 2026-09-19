@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ImagePending } from "@/components/product/image-pending";
 import { ProductPrice, formatLKR } from "@/components/product/product-price";
 import { getDisplayPrice } from "@/lib/utils/pricing";
+import { cardImageUrl } from "@/lib/utils/card-image";
 import { cn } from "@/lib/utils";
 import type { ProductWithRelations } from "@/types/database";
 
@@ -267,7 +268,8 @@ export function ProductCatalogueGrid({ products }: { products: ProductWithRelati
           ) : (
             <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {filtered.map(({ product, specs, displayPrice }) => {
-                const primaryImage = product.images.find((img) => img.is_primary) ?? product.images[0];
+                const original = product.images.find((img) => img.is_primary) ?? product.images[0];
+                const imageUrl = cardImageUrl(product.slug, original?.url);
 
                 return (
                   <Link
@@ -275,7 +277,7 @@ export function ProductCatalogueGrid({ products }: { products: ProductWithRelati
                     href={productHref(product)}
                     className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-ink/8 bg-white transition hover:border-ink/20 hover:shadow-[0_16px_40px_-20px_rgba(0,0,0,0.2)]"
                   >
-                    {primaryImage ? (
+                    {imageUrl ? (
                       <div className="relative aspect-square w-full bg-paper-soft">
                         {product.new_arrival && (
                           <span className="absolute left-3 top-3 z-10 rounded-full bg-brand px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
@@ -283,11 +285,11 @@ export function ProductCatalogueGrid({ products }: { products: ProductWithRelati
                           </span>
                         )}
                         <Image
-                          src={primaryImage.url}
+                          src={imageUrl}
                           alt={product.name}
                           fill
                           sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
-                          className="object-contain p-6 transition-transform duration-500 group-hover:scale-105"
+                          className="object-contain p-5 mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
                         />
                       </div>
                     ) : (

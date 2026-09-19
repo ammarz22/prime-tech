@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ImagePending } from "@/components/product/image-pending";
 import { ProductPrice } from "@/components/product/product-price";
+import { cardImageUrl } from "@/lib/utils/card-image";
 import { getDisplayPrice } from "@/lib/utils/pricing";
 import type { ProductWithRelations } from "@/types/database";
 
@@ -34,7 +35,8 @@ export function CompleteYourSetup({
 
       <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
         {products.slice(0, 5).map((product) => {
-          const primaryImage = product.images.find((img) => img.is_primary) ?? product.images[0];
+          const original = product.images.find((img) => img.is_primary) ?? product.images[0];
+          const imageUrl = cardImageUrl(product.slug, original?.url);
           const displayPrice = getDisplayPrice(product);
           const href =
             product.product_group === "APPLE" ? `/products/apple/product/${product.slug}` : `/products/${product.slug}`;
@@ -45,14 +47,14 @@ export function CompleteYourSetup({
               href={href}
               className="group flex flex-col overflow-hidden rounded-2xl border border-ink/8 bg-white transition hover:border-ink/20 hover:shadow-[0_16px_40px_-20px_rgba(0,0,0,0.2)]"
             >
-              {primaryImage ? (
+              {imageUrl ? (
                 <div className="relative aspect-square w-full bg-paper-soft">
                   <Image
-                    src={primaryImage.url}
+                    src={imageUrl}
                     alt={product.name}
                     fill
                     sizes="(min-width: 1024px) 18vw, 30vw"
-                    className="object-contain p-6 transition-transform duration-500 group-hover:scale-105"
+                    className="object-contain p-5 mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
               ) : (

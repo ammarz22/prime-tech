@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,9 +18,10 @@ export default function ResetPasswordPage() {
   const {
     register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<ResetPasswordInput>({ resolver: zodResolver(resetPasswordSchema) });
+  const password = useWatch({ control, name: "password" });
 
   async function onSubmit(data: ResetPasswordInput) {
     setServerError(null);
@@ -41,7 +42,7 @@ export default function ResetPasswordPage() {
         <div className="space-y-1.5">
           <Label htmlFor="reset-password">New Password</Label>
           <Input id="reset-password" type="password" {...register("password")} aria-invalid={!!errors.password} />
-          <PasswordStrength password={watch("password") ?? ""} />
+          <PasswordStrength password={password ?? ""} />
           {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
         </div>
         <div className="space-y-1.5">

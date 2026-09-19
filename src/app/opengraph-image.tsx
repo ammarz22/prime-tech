@@ -36,7 +36,7 @@ export default async function Image() {
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={logoSrc} width={128} height={128} style={{ objectFit: "cover" }} />
+          <img src={logoSrc} alt="Prime Tech" width={128} height={128} style={{ objectFit: "cover" }} />
         </div>
         <div
           style={{

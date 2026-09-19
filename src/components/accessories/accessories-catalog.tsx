@@ -10,6 +10,7 @@ import { ImagePending } from "@/components/product/image-pending";
 import { ProductPrice } from "@/components/product/product-price";
 import { getDisplayPrice } from "@/lib/utils/pricing";
 import { formatLKR } from "@/components/product/product-price";
+import { cardImageUrl } from "@/lib/utils/card-image";
 import { cn } from "@/lib/utils";
 import type { ProductWithRelations } from "@/types/database";
 
@@ -115,15 +116,16 @@ export function AccessoriesCatalog({ products }: { products: ProductWithRelation
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-10 xl:px-16">
       {/* Quick-jump category tabs — single-tap shortcuts into the same
           category filter the sidebar checkboxes control. */}
-      <div className="flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mx-auto flex w-max gap-2">
         <button
           type="button"
           onClick={() => setActiveCategories([])}
           className={cn(
-            "flex shrink-0 flex-col items-center gap-1.5 rounded-2xl border-b-2 px-5 py-3 text-xs font-medium transition",
+            "flex shrink-0 flex-col items-center gap-1.5 rounded-2xl border px-5 py-3 text-xs font-medium transition",
             activeCategories.length === 0
-              ? "border-brand text-brand"
-              : "border-transparent text-ink/50 hover:text-ink",
+              ? "border-brand/40 bg-brand/5 text-brand"
+              : "border-ink/8 bg-paper-soft text-ink/60 hover:border-ink/15 hover:text-ink",
           )}
         >
           <LayoutGrid className="size-4.5" strokeWidth={1.5} />
@@ -135,16 +137,17 @@ export function AccessoriesCatalog({ products }: { products: ProductWithRelation
             type="button"
             onClick={() => setActiveCategories([label])}
             className={cn(
-              "flex shrink-0 flex-col items-center gap-1.5 rounded-2xl border-b-2 px-5 py-3 text-xs font-medium transition",
+              "flex shrink-0 flex-col items-center gap-1.5 rounded-2xl border px-5 py-3 text-xs font-medium transition",
               activeCategories.length === 1 && activeCategories[0] === label
-                ? "border-brand text-brand"
-                : "border-transparent text-ink/50 hover:text-ink",
+                ? "border-brand/40 bg-brand/5 text-brand"
+                : "border-ink/8 bg-paper-soft text-ink/60 hover:border-ink/15 hover:text-ink",
             )}
           >
             <Icon className="size-4.5" strokeWidth={1.5} />
             {label}
           </button>
         ))}
+        </div>
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[240px_1fr]">
@@ -238,7 +241,8 @@ export function AccessoriesCatalog({ products }: { products: ProductWithRelation
           ) : (
             <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {filtered.map(({ product, brand, displayPrice }) => {
-                const primaryImage = product.images.find((img) => img.is_primary) ?? product.images[0];
+                const original = product.images.find((img) => img.is_primary) ?? product.images[0];
+                const imageUrl = cardImageUrl(product.slug, original?.url);
                 const href =
                   product.product_group === "APPLE"
                     ? `/products/apple/product/${product.slug}`
@@ -250,14 +254,14 @@ export function AccessoriesCatalog({ products }: { products: ProductWithRelation
                     href={href}
                     className="group flex flex-col overflow-hidden rounded-2xl border border-ink/8 bg-white transition hover:border-ink/20 hover:shadow-[0_16px_40px_-20px_rgba(0,0,0,0.2)]"
                   >
-                    {primaryImage ? (
+                    {imageUrl ? (
                       <div className="relative aspect-square w-full bg-paper-soft">
                         <Image
-                          src={primaryImage.url}
+                          src={imageUrl}
                           alt={product.name}
                           fill
                           sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 45vw"
-                          className="object-contain p-6 transition-transform duration-500 group-hover:scale-105"
+                          className="object-contain p-5 mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
                         />
                       </div>
                     ) : (

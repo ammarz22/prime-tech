@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { Menu, X, ChevronRight, Heart } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
@@ -16,7 +16,11 @@ interface MobileMenuProps {
 
 export function MobileMenu({ links, light = false }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
   const otherLinks = links.filter((l) => l.href !== "/");
 
   // The navbar pill uses `backdrop-blur`, and `backdrop-filter` on an
@@ -27,7 +31,6 @@ export function MobileMenu({ links, light = false }: MobileMenuProps) {
   // full-height panel. Portaling straight to `document.body` escapes that
   // ancestor chain entirely. `mounted` avoids an SSR/hydration mismatch
   // since `document` doesn't exist on the server.
-  useEffect(() => setMounted(true), []);
 
   const menu = (
     <AnimatePresence>
