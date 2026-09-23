@@ -115,9 +115,9 @@ export function CategoryDiscovery() {
             </span>
           </div>
 
-          <div className="relative z-10 mt-4 aspect-[693/357] w-full sm:hidden">
+          <div className="relative z-10 mt-4 aspect-[1600/825] w-full sm:hidden">
             <Image
-              src="/hero/samsung-ecosystem-collage-cutout.png"
+              src="/hero/samsung-ecosystem-collage-cutout.webp"
               alt=""
               fill
               sizes="90vw"
@@ -134,9 +134,9 @@ export function CategoryDiscovery() {
           </div>
 
           <div className="pointer-events-none absolute inset-y-0 right-[4%] hidden w-[48%] items-center sm:flex">
-            <div className="relative aspect-[693/357] w-full">
+            <div className="relative aspect-[1600/825] w-full">
               <Image
-                src="/hero/samsung-ecosystem-collage-cutout.png"
+                src="/hero/samsung-ecosystem-collage-cutout.webp"
                 alt=""
                 fill
                 sizes="(min-width: 1024px) 28vw, 45vw"

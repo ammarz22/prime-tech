@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ImagePending } from "@/components/product/image-pending";
 import { ProductPrice, formatLKR } from "@/components/product/product-price";
 import { getDisplayPrice } from "@/lib/utils/pricing";
+import { getColourSwatch } from "@/lib/utils/colour-swatches";
 import { cardImageUrl } from "@/lib/utils/card-image";
 import { cn } from "@/lib/utils";
 import type { ProductWithRelations } from "@/types/database";
@@ -211,7 +212,7 @@ export function ProductCatalogueGrid({ products }: { products: ProductWithRelati
                     >
                       <span
                         className="block size-full rounded-full border border-ink/10"
-                        style={{ background: colourSwatch(colour) }}
+                        style={{ background: getColourSwatch(colour) ?? "#9ca3af" }}
                       />
                     </button>
                   );
@@ -327,38 +328,4 @@ export function ProductCatalogueGrid({ products }: { products: ProductWithRelati
       </div>
     </div>
   );
-}
-
-/** Best-effort swatch colour for a real variant colour name — cosmetic
- * only (which dot to paint), not a claim about anything. Falls back to a
- * neutral grey for a name not in the map rather than guessing wrong. */
-function colourSwatch(name: string): string {
-  const map: Record<string, string> = {
-    black: "#1d1d1f",
-    white: "#f5f5f7",
-    silver: "#e3e4e5",
-    "space black": "#2b2b2d",
-    "space gray": "#5f5f60",
-    "space grey": "#5f5f60",
-    "mist blue": "#a9c2d1",
-    sage: "#a7b596",
-    lavender: "#cfc6e0",
-    "deep blue": "#2b3a55",
-    "cosmic orange": "#c9622e",
-    "soft pink": "#f0c9cf",
-    "rose gold": "#e6c2c2",
-    gold: "#e7d2a7",
-    graphite: "#54524f",
-    starlight: "#f0e6d3",
-    midnight: "#1e2130",
-    "sky blue": "#bcd6e8",
-    "pink gold": "#e9c7c0",
-    "cobalt violet": "#5c4a8a",
-    "silver-shadow": "#c6c7c9",
-    "jet black": "#0a0a0a",
-    natural: "#c9bfae",
-    slate: "#54524f",
-    titanium: "#8a8a86",
-  };
-  return map[name.toLowerCase()] ?? "#9ca3af";
 }

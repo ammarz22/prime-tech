@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { ProductGallery } from "@/components/product/product-gallery";
 import { ProductConfigurator } from "@/components/product/product-configurator";
+import { curatedGalleryImages } from "@/lib/utils/curated-gallery";
 import type { ProductWithRelations, ProductVariant, Product360Frame } from "@/types/database";
 
 /**
@@ -30,6 +31,8 @@ export function ProductGalleryConfigurator({
   const [activeVariant, setActiveVariant] = useState<ProductVariant | undefined>(product.variants[0]);
 
   const images = useMemo(() => {
+    const curated = curatedGalleryImages(product.slug, product.name, activeVariant?.colour ?? null);
+    if (curated) return curated;
     if (activeVariant?.colour) {
       const colourImages = product.images.filter((img) => img.colour === activeVariant.colour);
       if (colourImages.length > 0) return colourImages;
@@ -40,7 +43,7 @@ export function ProductGalleryConfigurator({
     }
     const genericImages = product.images.filter((img) => !img.variant_id && !img.colour);
     return genericImages.length > 0 ? genericImages : product.images;
-  }, [product.images, activeVariant]);
+  }, [product.images, product.slug, product.name, activeVariant]);
 
   return (
     <>
