@@ -36,7 +36,7 @@ export async function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
           <div className="col-span-2 sm:col-span-1">
-            <PrimeTechLogo className="h-8" wordmarkClassName="text-white" />
+            <PrimeTechLogo className="h-9" dark />
             <p className="mt-3 text-sm text-white/55">
               Premium technology.
               <br />

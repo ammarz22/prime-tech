@@ -131,14 +131,15 @@ export function BrandIntro() {
               : { duration: 1.2, ease: EASE_PRIME }
           }
         >
-          <div className="flex items-center gap-3">
-            <p className="text-3xl font-bold uppercase tracking-[0.15em] text-white sm:text-5xl">
-              Prime <span className="text-white">Tech</span>
-            </p>
-            <span className="size-2.5 shrink-0 rounded-full bg-brand shadow-[0_0_14px_2px_var(--brand)] sm:size-3.5" aria-hidden />
-          </div>
-          <span className="mt-3 h-px w-56 bg-gradient-to-r from-transparent via-brand/70 to-transparent sm:w-72" aria-hidden />
-          <p className="mt-3 text-[11px] font-medium uppercase tracking-[0.5em] text-white/55 sm:text-xs">
+          <Image
+            src="/brand/logo-dark.png"
+            alt="Prime Tech Colombo"
+            width={1322}
+            height={227}
+            priority
+            className="h-auto w-[78vw] max-w-[560px] drop-shadow-[0_0_30px_rgba(196,30,58,0.25)]"
+          />
+          <p className="mt-5 text-[11px] font-medium uppercase tracking-[0.5em] text-white/55 sm:text-xs">
             Technology Lives Here
           </p>
         </motion.div>
