@@ -16,15 +16,8 @@ interface PrimeTechLogoProps {
 export function PrimeTechLogo({ className, showWordmark = true, wordmarkClassName }: PrimeTechLogoProps) {
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <span className="relative aspect-square h-full shrink-0 overflow-hidden rounded-[0.55em] bg-black ring-1 ring-black/10">
-        <Image
-          src="/brand/prime-tech-logo.jpeg"
-          alt="Prime Tech"
-          fill
-          sizes="40px"
-          className="object-cover"
-          priority
-        />
+      <span className="relative aspect-square h-full shrink-0">
+        <Image src="/brand/icon.png" alt="Prime Tech" fill sizes="40px" className="object-contain" priority />
       </span>
       {showWordmark && (
         <span className={cn("flex flex-col leading-none", wordmarkClassName)}>
