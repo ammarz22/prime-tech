@@ -21,7 +21,7 @@ export function CampaignStageNotice({ stage }: { stage: CampaignStage }) {
   const copy = COPY[stage];
   return (
     <div className="mx-auto flex max-w-xl flex-col items-center gap-1.5 text-center sm:flex-row sm:justify-center sm:gap-3 sm:text-left">
-      <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-brand-cyan">
+      <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.15em] text-brand-cyan">
         <span className="size-1.5 rounded-full bg-brand-cyan" aria-hidden />
         {copy.label}
       </span>

@@ -37,7 +37,7 @@ export async function HeroTeaser() {
     ) ?? "/iphone-18-preorder";
 
   return (
-    <section className="relative flex min-h-screen flex-col overflow-hidden bg-black">
+    <section className="relative flex min-h-dvh flex-col overflow-hidden bg-black">
       <Image
         src="/hero/home-background.png"
         alt=""
@@ -111,7 +111,7 @@ export async function HeroTeaser() {
 
       <div className="relative z-10 mx-auto flex w-full max-w-[100rem] items-center gap-4 px-4 py-6 sm:px-6 lg:px-10 xl:px-16">
         <span className="hidden h-px flex-1 bg-white/10 sm:block" aria-hidden />
-        <p className="min-w-0 flex-1 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35 sm:flex-none sm:text-[11px] sm:tracking-[0.3em]">
+        <p className="min-w-0 flex-1 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-white/35 sm:flex-none sm:text-[11px] sm:tracking-[0.3em]">
           Technology For A Brighter Tomorrow
         </p>
         <span className="hidden h-px flex-1 bg-white/10 sm:block" aria-hidden />
@@ -122,7 +122,7 @@ export async function HeroTeaser() {
           reference's margin note. */}
       <div className="pointer-events-none absolute right-6 top-1/2 hidden -translate-y-1/2 items-start gap-2.5 xl:flex">
         <span className="mt-0.5 h-14 w-[3px] rounded-full bg-brand" aria-hidden />
-        <ul className="space-y-1 text-right text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
+        <ul className="space-y-1 text-right text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">
           {SIDE_WORDS.map((word) => (
             <li key={word}>{word}</li>
           ))}

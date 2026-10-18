@@ -36,7 +36,7 @@ export function CategoryDiscovery() {
           <div className="relative z-10 flex items-start justify-between">
             <Apple className="size-6 text-ink" strokeWidth={1.5} />
             <div className="text-right">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-ink/40">One ecosystem.</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-ink/40">One ecosystem.</p>
               <span className="ml-auto mt-1.5 block h-[3px] w-8 rounded-full bg-brand" aria-hidden />
             </div>
           </div>
@@ -100,7 +100,7 @@ export function CategoryDiscovery() {
           <div className="relative z-10 flex items-start justify-between">
             <p className="text-base font-bold tracking-tight">SAMSUNG</p>
             <div className="text-right">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-white/40">Bold by design.</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/40">Bold by design.</p>
               <span className="ml-auto mt-1.5 block h-[3px] w-8 rounded-full bg-brand" aria-hidden />
             </div>
           </div>
@@ -149,7 +149,7 @@ export function CategoryDiscovery() {
 
       <div className="mx-auto mt-6 flex max-w-7xl items-center gap-4">
         <span className="hidden h-px flex-1 bg-ink/10 sm:block" aria-hidden />
-        <p className="min-w-0 flex-1 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/40 sm:flex-none sm:text-[11px] sm:tracking-[0.3em]">
+        <p className="min-w-0 flex-1 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-ink/40 sm:flex-none sm:text-[11px] sm:tracking-[0.3em]">
           Two Ecosystems. One Store.
         </p>
         <span className="hidden h-px flex-1 bg-ink/10 sm:block" aria-hidden />

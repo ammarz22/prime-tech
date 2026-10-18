@@ -50,7 +50,7 @@ export async function Footer() {
             <ul className="mt-3 space-y-2">
               {CATEGORY_NAV_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-white/55 transition hover:text-white">
+                  <Link href={link.href} className="inline-block py-1 text-sm text-white/55 transition hover:text-white">
                     {link.label}
                   </Link>
                 </li>
@@ -63,7 +63,7 @@ export async function Footer() {
             <ul className="mt-3 space-y-2">
               {SUPPORT_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-sm text-white/55 transition hover:text-white">
+                  <Link href={link.href} className="inline-block py-1 text-sm text-white/55 transition hover:text-white">
                     {link.label}
                   </Link>
                 </li>
@@ -77,7 +77,7 @@ export async function Footer() {
               {contact.phone && (
                 <li className="flex items-start gap-1.5">
                   <Phone className="mt-0.5 size-3.5 shrink-0" />
-                  <a href={`tel:${contact.phone}`} className="hover:text-white">
+                  <a href={`tel:${contact.phone}`} className="tap-area hover:text-white">
                     {contact.phone}
                   </a>
                 </li>
@@ -85,7 +85,7 @@ export async function Footer() {
               {contact.email && (
                 <li className="flex items-start gap-1.5">
                   <Mail className="mt-0.5 size-3.5 shrink-0" />
-                  <a href={`mailto:${contact.email}`} className="hover:text-white">
+                  <a href={`mailto:${contact.email}`} className="tap-area hover:text-white">
                     {contact.email}
                   </a>
                 </li>
@@ -124,7 +124,7 @@ export async function Footer() {
         </div>
 
         <div className="mt-6 flex flex-col items-center justify-center gap-2 border-t border-white/10 pt-4 text-center sm:flex-row">
-          <Link href="/privacy" className="text-[10px] text-white/40 transition hover:text-white/70">
+          <Link href="/privacy" className="tap-area text-[11px] text-white/40 transition hover:text-white/70">
             Privacy Policy
           </Link>
         </div>

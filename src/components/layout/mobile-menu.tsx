@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { Menu, X, ChevronRight, Heart } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
@@ -22,6 +22,16 @@ export function MobileMenu({ links, light = false }: MobileMenuProps) {
     () => false,
   );
   const otherLinks = links.filter((l) => l.href !== "/");
+
+  // Stop the page behind the open drawer from scrolling.
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
 
   // The navbar pill uses `backdrop-blur`, and `backdrop-filter` on an
   // ancestor creates a new containing block for `position: fixed`

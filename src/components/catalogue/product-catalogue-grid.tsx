@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Cpu, Camera, Smartphone, BatteryCharging, Sparkles, RotateCcw } from "lucide-react";
+import { ArrowRight, Cpu, Camera, Smartphone, BatteryCharging, Sparkles, RotateCcw, SlidersHorizontal, ChevronDown } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ImagePending } from "@/components/product/image-pending";
@@ -100,6 +100,7 @@ export function ProductCatalogueGrid({ products }: { products: ProductWithRelati
   const [maxPrice, setMaxPrice] = useState(priceCeiling);
   const [sort, setSort] = useState<(typeof SORT_OPTIONS)[number]["value"]>("latest");
   const [priceTouched, setPriceTouched] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const effectiveMaxPrice = priceTouched ? maxPrice : priceCeiling;
 
@@ -139,8 +140,21 @@ export function ProductCatalogueGrid({ products }: { products: ProductWithRelati
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-10 xl:px-16">
+            <button
+        type="button"
+        onClick={() => setFiltersOpen((o) => !o)}
+        aria-expanded={filtersOpen}
+        className="mb-4 flex h-11 w-full items-center justify-between rounded-xl border border-ink/10 bg-white px-4 text-sm font-medium text-ink lg:hidden"
+      >
+        <span className="flex items-center gap-2">
+          <SlidersHorizontal className="size-4" />
+          Filters
+          {hasActiveFilter && <span className="size-2 rounded-full bg-brand" aria-hidden />}
+        </span>
+        <ChevronDown className={cn("size-4 text-ink/40 transition-transform", filtersOpen && "rotate-180")} />
+      </button>
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[240px_1fr]">
-        <aside className="space-y-8">
+        <aside className={cn("space-y-8 rounded-2xl border border-ink/8 bg-white p-4 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0", !filtersOpen && "hidden lg:block")}>
           <div className="flex items-center justify-between">
             <p className="text-sm font-semibold text-ink">Filter</p>
             {hasActiveFilter && (
@@ -206,7 +220,7 @@ export function ProductCatalogueGrid({ products }: { products: ProductWithRelati
                       title={colour}
                       onClick={() => toggle(selectedColours, setSelectedColours, colour)}
                       className={cn(
-                        "size-7 rounded-full border-2 transition",
+                        "tap-area size-8 rounded-full border-2 transition sm:size-7",
                         active ? "border-brand" : "border-transparent hover:border-ink/20",
                       )}
                     >
@@ -242,12 +256,13 @@ export function ProductCatalogueGrid({ products }: { products: ProductWithRelati
         </aside>
 
         <div>
-          <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
             <p className="text-sm text-ink/55">
               Showing {filtered.length} product{filtered.length === 1 ? "" : "s"}
             </p>
+            <div className="flex w-full items-center gap-2 sm:w-auto">
             <Select value={sort} onValueChange={(v) => v && setSort(v as (typeof SORT_OPTIONS)[number]["value"])}>
-              <SelectTrigger className="w-[190px]">
+              <SelectTrigger className="h-10 w-full sm:h-8 sm:w-[190px]">
                 <SelectValue placeholder="Sort">
                   {(value: string) => `Sort by: ${SORT_OPTIONS.find((o) => o.value === value)?.label ?? value}`}
                 </SelectValue>
@@ -260,6 +275,7 @@ export function ProductCatalogueGrid({ products }: { products: ProductWithRelati
                 ))}
               </SelectContent>
             </Select>
+            </div>
           </div>
 
           {filtered.length === 0 ? (
@@ -281,7 +297,7 @@ export function ProductCatalogueGrid({ products }: { products: ProductWithRelati
                     {imageUrl ? (
                       <div className="relative aspect-square w-full bg-paper-soft">
                         {product.new_arrival && (
-                          <span className="absolute left-3 top-3 z-10 rounded-full bg-brand px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
+                          <span className="absolute left-3 top-3 z-10 rounded-full bg-brand px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
                             New
                           </span>
                         )}

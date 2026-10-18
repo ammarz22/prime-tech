@@ -42,7 +42,7 @@ function FeaturedProductCard({ product }: { product: ProductWithRelations }) {
         </svg>
 
         {product.new_arrival && (
-          <span className="absolute left-3 top-3 rounded-full bg-brand/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-brand">
+          <span className="absolute left-3 top-3 rounded-full bg-brand/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand">
             New
           </span>
         )}
@@ -102,7 +102,7 @@ export function FeaturedProducts({ products }: { products: ProductWithRelations[
           <div className="flex shrink-0 items-center gap-4">
             <Link
               href="/products"
-              className="flex items-center gap-1.5 text-sm font-medium text-ink/70 hover:text-ink"
+              className="tap-area flex items-center gap-1.5 text-sm font-medium text-ink/70 hover:text-ink"
             >
               View All Products
               <ArrowRight className="size-3.5" />
@@ -145,7 +145,7 @@ export function FeaturedProducts({ products }: { products: ProductWithRelations[
 
         <div className="mt-10 flex items-center gap-4">
           <span className="hidden h-px flex-1 bg-ink/10 sm:block" aria-hidden />
-          <p className="min-w-0 flex-1 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-ink/40 sm:flex-none sm:text-[11px] sm:tracking-[0.3em]">
+          <p className="min-w-0 flex-1 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-ink/40 sm:flex-none sm:text-[11px] sm:tracking-[0.3em]">
             Technology For A Brighter Tomorrow
           </p>
           <span className="hidden h-px flex-1 bg-ink/10 sm:block" aria-hidden />

@@ -59,7 +59,7 @@ export function FromPrimeTech() {
           </div>
           <Link
             href="/products"
-            className="flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-ink/30 underline-offset-4 transition hover:decoration-ink"
+            className="tap-area flex items-center gap-1.5 text-sm font-medium text-ink underline decoration-ink/30 underline-offset-4 transition hover:decoration-ink"
           >
             View All Articles
             <ArrowRight className="size-3.5" />
@@ -93,7 +93,7 @@ export function FromPrimeTech() {
 
                 <span
                   className={cn(
-                    "absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider",
+                    "absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wider",
                     item.badgeVariant === "solid" && "bg-brand text-white",
                     item.badgeVariant === "light" && "bg-white text-ink",
                     item.badgeVariant === "outline" && "border border-white/40 bg-white/10 text-white backdrop-blur-sm",

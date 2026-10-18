@@ -17,7 +17,7 @@ export async function AppleHero() {
   const ctaHref = whatsappLink(serviceEnquiryMessage("Apple products"), contact.whatsappNumber) ?? "#";
 
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden bg-ink pb-10 pt-32 text-white sm:pb-14 sm:pt-40">
+    <section className="relative flex min-h-dvh items-center overflow-hidden bg-ink pb-10 pt-32 text-white sm:pb-14 sm:pt-40">
       <Image
         src="/apple-page/hero-background.png"
         alt=""
@@ -58,7 +58,7 @@ export async function AppleHero() {
               <ArrowRight className="size-4" />
             </Button>
 
-            <p className="mt-8 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
+            <p className="mt-8 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">
               {TAGLINE_WORDS.map((word, i) => (
                 <span key={word} className="flex items-center gap-2.5">
                   {word}
@@ -95,7 +95,7 @@ export async function AppleHero() {
 
       <div className="pointer-events-none absolute right-6 top-1/2 hidden -translate-y-1/2 items-start gap-2.5 xl:flex">
         <span className="mt-0.5 h-14 w-[3px] rounded-full bg-brand" aria-hidden />
-        <ul className="space-y-1 text-right text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
+        <ul className="space-y-1 text-right text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">
           {SIDE_WORDS.map((word) => (
             <li key={word}>{word}</li>
           ))}

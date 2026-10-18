@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, LayoutGrid, Smartphone, Zap, Cable, BatteryCharging, Headphones, Plug, Package } from "lucide-react";
+import { ArrowRight, SlidersHorizontal, ChevronDown, LayoutGrid, Smartphone, Zap, Cable, BatteryCharging, Headphones, Plug, Package } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ImagePending } from "@/components/product/image-pending";
@@ -76,6 +76,7 @@ export function AccessoriesCatalog({ products }: { products: ProductWithRelation
   const [activeBrands, setActiveBrands] = useState<string[]>([]);
   const [maxPrice, setMaxPrice] = useState(priceCeiling);
   const [sort, setSort] = useState("latest");
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const hasActiveFilter = activeCategories.length > 0 || activeBrands.length > 0 || maxPrice < priceCeiling;
 
@@ -150,9 +151,22 @@ export function AccessoriesCatalog({ products }: { products: ProductWithRelation
         </div>
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[240px_1fr]">
+      <button
+        type="button"
+        onClick={() => setFiltersOpen((o) => !o)}
+        aria-expanded={filtersOpen}
+        className="mb-4 flex h-11 w-full items-center justify-between rounded-xl border border-ink/10 bg-white px-4 text-sm font-medium text-ink lg:hidden"
+      >
+        <span className="flex items-center gap-2">
+          <SlidersHorizontal className="size-4" />
+          Filters
+          {hasActiveFilter && <span className="size-2 rounded-full bg-brand" aria-hidden />}
+        </span>
+        <ChevronDown className={cn("size-4 text-ink/40 transition-transform", filtersOpen && "rotate-180")} />
+      </button>
+      <div className="mt-4 grid grid-cols-1 gap-10 lg:mt-8 lg:grid-cols-[240px_1fr]">
         {/* Filter sidebar */}
-        <aside className="space-y-8">
+        <aside className={cn("space-y-8 rounded-2xl border border-ink/8 bg-white p-4 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0", !filtersOpen && "hidden lg:block")}>
           <div className="flex items-center justify-between">
             <p className="text-sm font-semibold text-ink">Filter</p>
             {hasActiveFilter && (
@@ -214,12 +228,13 @@ export function AccessoriesCatalog({ products }: { products: ProductWithRelation
 
         {/* Product grid */}
         <div>
-          <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
             <p className="text-sm text-ink/55">
               Showing {filtered.length} product{filtered.length === 1 ? "" : "s"}
             </p>
+            <div className="flex w-full items-center gap-2 sm:w-auto">
             <Select value={sort} onValueChange={(v) => v && setSort(v)}>
-              <SelectTrigger className="w-[190px]">
+              <SelectTrigger className="h-10 w-full sm:h-8 sm:w-[190px]">
                 <SelectValue placeholder="Sort">
                   {(value: string) => `Sort by: ${SORT_OPTIONS.find((o) => o.value === value)?.label ?? value}`}
                 </SelectValue>
@@ -232,6 +247,7 @@ export function AccessoriesCatalog({ products }: { products: ProductWithRelation
                 ))}
               </SelectContent>
             </Select>
+            </div>
           </div>
 
           {filtered.length === 0 ? (

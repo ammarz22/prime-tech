@@ -176,6 +176,18 @@
     background-image: radial-gradient(color-mix(in oklch, currentColor 14%, transparent) 1px, transparent 1px);
     background-size: 22px 22px;
   }
+  /* Grows the tappable area ~8px in every direction on touch screens only,
+     without moving anything in the layout. */
+  .tap-area {
+    position: relative;
+  }
+  @media (pointer: coarse) {
+    .tap-area::after {
+      content: "";
+      position: absolute;
+      inset: -0.5rem;
+    }
+  }
   .animate-marquee {
     animation: marquee 22s linear infinite;
   }

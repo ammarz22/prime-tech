@@ -21,6 +21,7 @@ export function ProductGallery({
   const [index, setIndex] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
   const [viewing360, setViewing360] = useState(false);
+  const [touchX, setTouchX] = useState<number | null>(null);
   const has360 = Boolean(frames360 && frames360.length > 0);
 
   if (viewing360 && frames360) {
@@ -92,6 +93,13 @@ export function ProductGallery({
             role="group"
             aria-label={`${productName} image ${index + 1} of ${images.length}`}
             onKeyDown={handleKeyDown}
+            onTouchStart={(e) => setTouchX(e.touches[0].clientX)}
+            onTouchEnd={(e) => {
+              if (touchX == null) return;
+              const dx = e.changedTouches[0].clientX - touchX;
+              if (Math.abs(dx) > 40) (dx < 0 ? next : prev)();
+              setTouchX(null);
+            }}
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -128,7 +136,7 @@ export function ProductGallery({
             <button
               type="button"
               onClick={() => setFullscreen(true)}
-              className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full bg-ink/60 text-white opacity-0 backdrop-blur transition group-hover:opacity-100"
+              className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full bg-ink/60 text-white opacity-0 backdrop-blur transition group-hover:opacity-100 [@media(hover:none)]:opacity-100"
               aria-label="View fullscreen"
             >
               <Expand className="size-4" />
@@ -157,7 +165,7 @@ export function ProductGallery({
           </div>
 
           {images.length > 1 && (
-            <div className="mt-3 flex items-center justify-center gap-1.5">
+            <div className="mt-3 hidden items-center justify-center gap-1.5 sm:flex">
               {images.map((img, i) => (
                 <button
                   key={img.id}

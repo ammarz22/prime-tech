@@ -5,7 +5,7 @@ import { PrimeTechLogo } from "@/components/brand/prime-tech-logo";
 
 export default function NotFound() {
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-ink px-4 text-center text-white">
+    <div className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-ink px-4 text-center text-white">
       <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.12] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,black,transparent)]" />
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 size-[45vw] max-w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-25 blur-[100px]"

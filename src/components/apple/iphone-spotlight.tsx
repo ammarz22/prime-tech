@@ -70,7 +70,7 @@ export async function IphoneSpotlight() {
               <p className="mt-1 text-sm text-ink/55">Bigger. Brighter. Smarter.</p>
               <Link
                 href="/iphone-18-preorder"
-                className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand/80"
+                className="tap-area mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand/80"
               >
                 Explore now
                 <ArrowRight className="size-3.5" />

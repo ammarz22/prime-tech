@@ -194,7 +194,7 @@ export function BrandIntro() {
               {Math.round(progress)}%
             </span>
           </div>
-          <p className="animate-pulse text-[10px] font-medium uppercase tracking-[0.4em] text-white/40 sm:text-[11px]">
+          <p className="animate-pulse text-[11px] font-medium uppercase tracking-[0.4em] text-white/40 sm:text-[11px]">
             Loading a Brighter Tomorrow...
           </p>
         </motion.div>

@@ -16,7 +16,7 @@ export function ColomboBrandSection() {
         <p className="text-balance text-lg font-semibold tracking-tight sm:text-xl">
           Premium technology. Carefully selected.
         </p>
-        <p className="mt-1.5 text-[10px] font-medium uppercase tracking-[0.3em] text-white/50">Colombo, Sri Lanka</p>
+        <p className="mt-1.5 text-[11px] font-medium uppercase tracking-[0.3em] text-white/50">Colombo, Sri Lanka</p>
       </AnimatedSection>
     </section>
   );

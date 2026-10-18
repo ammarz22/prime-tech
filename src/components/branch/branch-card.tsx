@@ -28,7 +28,7 @@ export function BranchCard({ branch }: { branch: Branch }) {
         {branch.phone && (
           <div className="flex items-center gap-2.5">
             <Phone className="size-4 shrink-0" />
-            <a href={`tel:${branch.phone}`} className="hover:text-ink">
+            <a href={`tel:${branch.phone}`} className="tap-area hover:text-ink">
               {branch.phone}
             </a>
           </div>

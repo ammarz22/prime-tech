@@ -32,7 +32,7 @@ export function Iphone18PackageCard({
           <ImagePending className="aspect-video rounded-none border-0" label="Image Coming Soon" />
         )}
         {pkg.is_featured && (
-          <span className="absolute left-3 top-3 rounded-full bg-brand px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
+          <span className="absolute left-3 top-3 rounded-full bg-brand px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
             Most Popular
           </span>
         )}

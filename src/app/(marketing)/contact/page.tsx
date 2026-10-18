@@ -36,7 +36,7 @@ export default async function ContactPage() {
             />
             <div className="grid grid-cols-1 gap-3 pt-2 sm:grid-cols-2">
               {contact.phone && (
-                <a href={`tel:${contact.phone}`} className="flex items-center gap-3 text-sm hover:text-brand">
+                <a href={`tel:${contact.phone}`} className="tap-area flex items-center gap-3 py-1 text-sm hover:text-brand">
                   <Phone className="size-4.5 text-ink/40" />
                   {contact.phone}
                 </a>

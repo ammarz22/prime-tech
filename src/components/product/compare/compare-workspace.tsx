@@ -313,7 +313,7 @@ export function CompareWorkspace({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={`Search ${categoryLabel} models…`}
-            className="w-full rounded-full border border-ink/10 bg-white py-2 pl-9 pr-3 text-sm text-ink placeholder:text-ink/35 focus:border-brand/40 focus:outline-none"
+            className="w-full rounded-full border border-ink/10 bg-white py-2.5 pl-9 pr-3 text-base text-ink sm:py-2 sm:text-sm placeholder:text-ink/35 focus:border-brand/40 focus:outline-none"
           />
         </div>
       </div>

@@ -242,7 +242,7 @@ export function HelpMeChooseWizard({ whatsappNumber }: { whatsappNumber: string 
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-paper-soft px-4 pt-28 pb-16">
+    <div className="flex min-h-dvh items-center justify-center bg-paper-soft px-4 pt-28 pb-16">
       <div className="w-full max-w-xl">
         <div className="mb-8 flex items-center justify-center gap-1.5">
           {[1, 2, 3].map((s) => (

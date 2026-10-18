@@ -44,7 +44,7 @@ export function ProductCard({ product }: { product: ProductWithRelations }) {
             <ImagePending className="rounded-none border-0" />
           )}
           {product.new_arrival && (
-            <span className="absolute left-3 top-3 rounded-full bg-brand px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white">
+            <span className="absolute left-3 top-3 rounded-full bg-brand px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
               New
             </span>
           )}

@@ -32,7 +32,7 @@ export async function FeaturedSamsungProducts() {
           </div>
           <Link
             href="/products/samsung/galaxy-phones"
-            className="flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand/80"
+            className="tap-area flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand/80"
           >
             View all Samsung
             <ArrowRight className="size-3.5" />

@@ -9,7 +9,7 @@ import { AnimatedSection } from "@/components/motion/animated-section";
  */
 export function AccessoriesHero() {
   return (
-    <section className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-[#efece9] pb-0 pt-32 sm:pt-40 lg:flex-row lg:items-center lg:pt-16">
+    <section className="relative flex min-h-dvh flex-col justify-center overflow-hidden bg-[#efece9] pb-0 pt-32 sm:pt-40 lg:flex-row lg:items-center lg:pt-16">
       <Image
         src="/accessories-page/hero-background.jpg"
         alt=""

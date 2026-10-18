@@ -15,7 +15,7 @@ export function CatalogueTabs({
   categoryHref: (slug: string) => string;
 }) {
   return (
-    <nav className="sticky top-[72px] z-30 border-b border-ink/8 bg-paper/95 backdrop-blur-xl">
+    <nav className="z-30 border-b lg:sticky lg:top-[72px] border-ink/8 bg-paper/95 backdrop-blur-xl">
       <div className="overflow-x-auto px-4 py-3 [scrollbar-width:none] sm:px-6 lg:px-10 xl:px-16 [&::-webkit-scrollbar]:hidden">
         <div className="mx-auto flex w-max gap-3">
           {categories.map(({ slug, label, icon: Icon }) => {

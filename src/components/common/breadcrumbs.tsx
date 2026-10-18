@@ -15,7 +15,7 @@ export function Breadcrumbs({ items, className }: { items: BreadcrumbItem[]; cla
         return (
           <span key={`${item.label}-${i}`} className="flex items-center gap-1.5">
             {item.href && !isLast ? (
-              <Link href={item.href} className="hover:text-ink">
+              <Link href={item.href} className="tap-area hover:text-ink">
                 {item.label}
               </Link>
             ) : (

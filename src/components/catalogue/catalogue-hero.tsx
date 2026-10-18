@@ -64,7 +64,7 @@ export function CatalogueHero({
 
       <div className="pointer-events-none absolute right-6 top-1/2 z-10 hidden -translate-y-1/2 items-start gap-2.5 xl:flex">
         <span className="mt-0.5 h-14 w-[3px] rounded-full bg-brand" aria-hidden />
-        <ul className="space-y-1 text-right text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
+        <ul className="space-y-1 text-right text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">
           {category.heroSideWords.map((word) => (
             <li key={word}>{word}</li>
           ))}
