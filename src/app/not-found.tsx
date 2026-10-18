@@ -14,7 +14,7 @@ export default function NotFound() {
       />
 
       <Link href="/" className="relative mb-8">
-        <PrimeTechLogo className="h-10" dark />
+        <PrimeTechLogo className="h-10" />
       </Link>
 
       <div className="relative flex size-16 items-center justify-center rounded-full border border-white/15 bg-white/5">

@@ -60,7 +60,7 @@ export function Navbar({ contact }: { contact?: Pick<EffectiveContact, "phone" |
         >
           <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="Prime Tech home">
             <span id="prime-navbar-logo" className="inline-flex">
-              <PrimeTechLogo className="h-8 sm:h-9" dark={dark} />
+              <PrimeTechLogo className="h-8 w-auto sm:h-9" wordmarkClassName={dark ? "text-white" : undefined} />
             </span>
           </Link>
 
