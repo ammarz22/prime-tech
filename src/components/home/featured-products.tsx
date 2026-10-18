@@ -1,23 +1,12 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { StaggerGroup, StaggerItem } from "@/components/motion/animated-section";
-import { cn } from "@/lib/utils";
 import { cardImageUrl } from "@/lib/utils/card-image";
 import type { ProductWithRelations } from "@/types/database";
-
-const FILTERS = [
-  { label: "All", test: () => true },
-  { label: "iPhone", test: (p: ProductWithRelations) => p.category?.slug === "iphone" },
-  { label: "Mac", test: (p: ProductWithRelations) => p.category?.slug === "mac" },
-  { label: "iPad", test: (p: ProductWithRelations) => p.category?.slug === "ipad" },
-  { label: "Watch", test: (p: ProductWithRelations) => p.category?.slug === "apple-watch" },
-  { label: "Samsung", test: (p: ProductWithRelations) => p.product_group === "OTHER", divider: true },
-  { label: "Accessories", test: (p: ProductWithRelations) => p.category?.slug === "accessories" },
-] as const;
 
 /** A card built around a soft neutral "stage" behind the product photo
  * (echoing the ecosystem cards' swoosh treatment) instead of the old
@@ -84,15 +73,11 @@ function FeaturedProductCard({ product }: { product: ProductWithRelations }) {
   );
 }
 
-/** Homepage-only featured carousel, restyled around a pill-shaped filter
- * bar and a soft-staged 6-across card row. */
+/** Homepage-only featured carousel — a fixed, curated line-up of the site's
+ * most prominent products (already selected by the homepage itself), shown
+ * as a soft-staged card row rather than behind a category filter. */
 export function FeaturedProducts({ products }: { products: ProductWithRelations[] }) {
-  const [active, setActive] = useState<(typeof FILTERS)[number]["label"]>("All");
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const filtered = useMemo(() => {
-    const filter = FILTERS.find((f) => f.label === active) ?? FILTERS[0];
-    return products.filter(filter.test);
-  }, [products, active]);
 
   const scrollByCard = (direction: 1 | -1) => {
     const el = scrollerRef.current;
@@ -112,24 +97,6 @@ export function FeaturedProducts({ products }: { products: ProductWithRelations[
               Featured <span className="text-brand">Products</span>
             </h2>
             <p className="mt-1 text-sm text-ink/55">The latest. The greatest. All in one place.</p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-1 rounded-full border border-ink/10 bg-paper-soft/60 p-1.5">
-            {FILTERS.map((f) => (
-              <span key={f.label} className="flex items-center">
-                <button
-                  type="button"
-                  onClick={() => setActive(f.label)}
-                  className={cn(
-                    "shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-medium transition",
-                    active === f.label ? "bg-brand text-white" : "text-ink/60 hover:text-ink",
-                  )}
-                >
-                  {f.label}
-                </button>
-                {"divider" in f && f.divider && <span className="mx-1 h-4 w-px bg-ink/15" aria-hidden />}
-              </span>
-            ))}
           </div>
 
           <div className="flex shrink-0 items-center gap-4">
@@ -167,16 +134,13 @@ export function FeaturedProducts({ products }: { products: ProductWithRelations[
             className="grid grid-flow-col auto-cols-[minmax(200px,1fr)] gap-4 overflow-x-auto pb-2 sm:auto-cols-[minmax(0,1fr)] sm:[grid-template-columns:repeat(6,minmax(0,1fr))] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             <StaggerGroup className="contents">
-              {filtered.slice(0, 6).map((product) => (
+              {products.map((product) => (
                 <StaggerItem key={product.id} className="h-full">
                   <FeaturedProductCard product={product} />
                 </StaggerItem>
               ))}
             </StaggerGroup>
           </div>
-          {filtered.length === 0 && (
-            <p className="py-8 text-center text-xs text-ink/50">No products in this category yet.</p>
-          )}
         </div>
 
         <div className="mt-10 flex items-center gap-4">

@@ -13,6 +13,9 @@ import { Breadcrumbs, type BreadcrumbItem } from "@/components/common/breadcrumb
 import { ViewTracker } from "@/components/product/view-tracker";
 import { getApprovedReviews } from "@/lib/db/reviews";
 import { getProduct360Frames } from "@/lib/db/product-360";
+import { APPLE_CATALOGUE_CATEGORIES } from "@/lib/config/apple-catalogue";
+import { SAMSUNG_CATALOGUE_CATEGORIES } from "@/lib/config/samsung-catalogue";
+import { findCategoryForSlug } from "@/lib/utils/catalogue-lookup";
 import type { ProductWithRelations, Branch } from "@/types/database";
 
 export async function ProductDetail({
@@ -33,6 +36,13 @@ export async function ProductDetail({
     getProduct360Frames(product.id),
   ]);
 
+  const isApple = product.product_group === "APPLE";
+  const compareCategories = (isApple ? APPLE_CATALOGUE_CATEGORIES : SAMSUNG_CATALOGUE_CATEGORIES).filter(
+    (c) => c.slug !== "accessories",
+  );
+  const compareCategory = findCategoryForSlug(compareCategories, product.category?.slug);
+  const compareHref = `/products/compare?group=${isApple ? "apple" : "samsung"}&category=${compareCategory.slug}&device=${product.slug}`;
+
   return (
     <div className="pt-28">
       <ViewTracker productId={product.id} />
@@ -50,7 +60,7 @@ export async function ProductDetail({
         </div>
 
         <Link
-          href={`/products/compare?group=${product.product_group === "APPLE" ? "apple" : "samsung"}&product=${product.id}`}
+          href={compareHref}
           className="group mb-4 flex items-center justify-between gap-4 rounded-2xl border border-ink/8 bg-paper-soft p-5 transition hover:border-brand/30"
         >
           <div className="flex items-center gap-3">
