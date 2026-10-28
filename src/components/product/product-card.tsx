@@ -16,7 +16,7 @@ import type { ProductWithRelations } from "@/types/database";
 export function ProductCard({ product }: { product: ProductWithRelations }) {
   const primaryImage = product.images.find((img) => img.is_primary) ?? product.images[0];
   const cardUrl = cardImageUrl(product.slug, null);
-  const availability = product.variants[0]?.availability ?? "coming_soon";
+  const availability = product.variants[0]?.availability ?? "available_on_request";
   const displayPrice = getDisplayPrice(product);
   const href =
     product.product_group === "APPLE" ? `/products/apple/product/${product.slug}` : `/products/${product.slug}`;

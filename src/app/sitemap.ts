@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/products/apple",
     "/products/samsung",
     "/products/compare",
-    "/iphone-18-preorder",
+    "/iphone-18",
     "/services",
     "/about",
     "/contact",

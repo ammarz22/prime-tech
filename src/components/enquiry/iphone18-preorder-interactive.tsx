@@ -18,7 +18,7 @@ export function Iphone18PreorderInteractive({
   showPackages: boolean;
   available: boolean;
 }) {
-  const heading = available ? "Enquire About the iPhone 18 Series" : "Chat About Pre-Order";
+  const heading = available ? "Order the iPhone 18 Series" : "Chat About Pre-Order";
 
   return (
     <>
@@ -27,7 +27,7 @@ export function Iphone18PreorderInteractive({
           <AnimatedSection>
             <SectionHeading
               eyebrow={available ? "Packages" : "Pre-Order Packages"}
-              title="Choose How You Reserve"
+              title={available ? "Choose Your Package" : "Choose How You Reserve"}
               align="center"
               className="mx-auto"
             />

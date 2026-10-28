@@ -69,7 +69,7 @@ export async function IphoneSpotlight() {
               <p className="text-xl font-semibold tracking-tight text-ink">iPhone 18 Pro Max</p>
               <p className="mt-1 text-sm text-ink/55">Bigger. Brighter. Smarter.</p>
               <Link
-                href="/iphone-18-preorder"
+                href="/iphone-18"
                 className="tap-area mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:text-brand/80"
               >
                 Explore now

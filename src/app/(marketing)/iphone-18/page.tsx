@@ -6,7 +6,6 @@ import { SectionHeading } from "@/components/common/section-heading";
 import { Breadcrumbs } from "@/components/common/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/product/product-card";
-import { CampaignStageNotice } from "@/components/enquiry/campaign-stage-notice";
 import { Iphone18Journey } from "@/components/enquiry/iphone18-journey";
 import { Iphone18OfficialTrailer } from "@/components/enquiry/iphone18-official-trailer";
 import { Iphone18TrustSection } from "@/components/enquiry/iphone18-trust-section";
@@ -32,32 +31,32 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const FAQS = [
   {
-    q: "When is the iPhone 18 Series available?",
-    a: "Apple announced the lineup on September 9, 2026. Pre-orders for iPhone 18 Pro, iPhone 18 Pro Max, Apple Watch Series 12 and Apple Watch Ultra 4 open September 12, arriving September 18. iPhone Duo pre-orders open October 16, arriving October 23.",
+    q: "Is the iPhone 18 Series available now?",
+    a: "Yes. Apple announced the lineup on September 9, 2026 and the iPhone 18 Pro, iPhone 18 Pro Max and iPhone Duo are now on sale. Stock for each model, colour and storage is confirmed with you on WhatsApp.",
   },
   {
     q: "Can I ask about a specific model, colour or storage?",
     a: "Yes — just mention what you're interested in when you message us on WhatsApp.",
   },
   {
-    q: "Is payment required to register interest?",
+    q: "Do I have to pay to enquire?",
     a: "No. Messaging Prime Tech on WhatsApp is free and non-binding — we'll confirm real Sri Lankan pricing and availability before you commit to anything.",
   },
   {
-    q: "Does registering interest guarantee me stock?",
-    a: "It puts you at the front of the conversation once local stock is confirmed, but it isn't a binding reservation until you and Prime Tech agree on the details over WhatsApp.",
+    q: "Does enquiring reserve stock for me?",
+    a: "Not on its own. Stock is held for you once you and Prime Tech agree on the details over WhatsApp.",
   },
   {
     q: "Will Prime Tech's price match Apple's global price?",
     a: "No — Sri Lankan retail pricing reflects import costs and differs from Apple's global launch price. We'll confirm your local price directly on WhatsApp rather than publish an estimate that could mislead you.",
   },
   {
-    q: "When will pre-order packages become available?",
-    a: "Packages (device bundles, accessories, benefits) are added once Prime Tech finalises real bundle contents — you'll see them appear on this page directly.",
+    q: "Are there bundles or packages?",
+    a: "Device bundles (accessories, benefits) appear on this page when Prime Tech has them listed. If none are shown, ask us on WhatsApp.",
   },
   {
-    q: "Is a deposit required to pre-order?",
-    a: "No deposit is required to register interest. Any payment terms for an actual order are agreed directly with you on WhatsApp once pricing is confirmed.",
+    q: "Is a deposit required to order?",
+    a: "Any payment terms are agreed directly with you on WhatsApp once pricing is confirmed.",
   },
 ];
 
@@ -102,50 +101,49 @@ export default async function IPhone18PreorderPage() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-ink pb-16 pt-32 text-white sm:pt-40">
+      <section className="relative overflow-hidden bg-ink pb-10 pt-28 text-white sm:pb-14 sm:pt-36 lg:pb-12 lg:pt-32">
         <div className="bg-grid pointer-events-none absolute inset-0 opacity-[0.15] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_30%,black,transparent)]" />
         <div
           className="pointer-events-none absolute left-1/2 top-0 size-[50vw] max-w-[700px] -translate-x-1/2 rounded-full opacity-30 blur-[120px]"
           style={{ background: "radial-gradient(circle, var(--brand) 0%, transparent 70%)" }}
           aria-hidden
         />
-        {/* Apple's own official iPhone 18 Pro photo (Burgundy), published
-            after the September 9, 2026 announcement. Faded at the edges via
-            mask-image so its black background blends into the hero instead
-            of sitting in a visible box. Hidden below `lg` so it never
-            competes with the hero text, matching the homepage hero's
-            pattern. */}
-        <div className="pointer-events-none absolute -right-10 top-1/2 hidden w-[560px] -translate-y-1/2 [mask-image:radial-gradient(ellipse_65%_65%_at_50%_50%,black_45%,transparent_85%)] lg:block xl:right-4 xl:w-[680px]">
-          <Image
-            src="/iphone-18/burgundy-hero.png"
-            alt="iPhone 18 Pro in Burgundy"
-            width={2048}
-            height={1152}
-            sizes="680px"
-            className="w-full"
-            priority
-          />
-        </div>
 
-        <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:mx-0 lg:max-w-lg lg:pl-6 lg:text-left xl:pl-12">
-          <AnimatedSection>
+        <div className="relative mx-auto grid max-w-7xl items-center gap-x-4 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:px-10 xl:px-16">
+          <AnimatedSection className="mx-auto max-w-4xl text-center lg:mx-0 lg:max-w-none lg:text-left">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-brand-cyan">{hero.eyebrow}</p>
-            <h1 className="text-balance text-5xl font-semibold tracking-tight sm:text-7xl lg:text-6xl">iPhone 18 Series</h1>
+            <h1 className="text-balance text-5xl font-semibold tracking-tight sm:text-7xl lg:text-6xl xl:text-7xl">
+              iPhone 18 Series
+            </h1>
             {/* A plain anchor, not next/link — this either scrolls to an
                 in-page target (Link doesn't reliably do that on click) or
                 opens WhatsApp directly, neither of which is a route change. */}
             <Button
               render={<a href={ctaHref} {...(!scrollToLineup && { target: "_blank", rel: "noopener noreferrer" })} />}
               size="lg"
-              className="mt-9 h-12 gap-2 rounded-full px-7 text-base"
+              className="mt-8 h-12 gap-2 rounded-full px-7 text-base"
             >
               {hero.ctaLabel}
               <ArrowRight className="size-4" />
             </Button>
-            <div className="mt-10 lg:flex lg:justify-start [&_>_div]:lg:mx-0 [&_>_div]:lg:justify-start">
-              <CampaignStageNotice stage={stage} />
-            </div>
           </AnimatedSection>
+
+          {/* Apple's own official iPhone 18 Pro photo (Burgundy), published
+              after the September 9, 2026 announcement. Faded at the edges via
+              mask-image so its black background blends into the hero instead
+              of sitting in a visible box. Hidden below `lg` so it never
+              competes with the hero text. */}
+          <div className="pointer-events-none relative hidden [mask-image:radial-gradient(ellipse_62%_68%_at_50%_50%,black_40%,transparent_88%)] lg:block">
+            <Image
+              src="/iphone-18/burgundy-hero.png"
+              alt="iPhone 18 Pro in Burgundy"
+              width={2048}
+              height={1152}
+              sizes="(min-width: 1280px) 640px, 50vw"
+              className="w-full"
+              priority
+            />
+          </div>
         </div>
       </section>
 
@@ -158,12 +156,6 @@ export default async function IPhone18PreorderPage() {
           <AnimatedSection>
             <div className="flex flex-wrap items-end justify-between gap-4">
               <SectionHeading eyebrow="Explore the Lineup" title="The iPhone 18 Series" />
-              <div className="mb-1 flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-ink/50">
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="size-1.5 rounded-full bg-emerald-500" aria-hidden />
-                  Confirmed by Apple
-                </span>
-              </div>
             </div>
           </AnimatedSection>
           <StaggerGroup className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
@@ -190,7 +182,7 @@ export default async function IPhone18PreorderPage() {
       {wearables.length > 0 && (
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <SectionHeading eyebrow="Wearables & Audio" title="Also Announced September 9" />
+            <SectionHeading eyebrow="Wearables & Audio" title="Apple Watch & AirPods" />
           </AnimatedSection>
           <div className="mt-10">
             <ProductGrid products={wearables} />

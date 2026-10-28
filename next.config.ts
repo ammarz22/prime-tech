@@ -21,6 +21,8 @@ const nextConfig: NextConfig = {
       { source: "/products/apple/product/iphone-air", destination: "/products/apple#iphone", permanent: true },
       // Comparison is now a shared, brand-agnostic tool.
       { source: "/products/apple/compare", destination: "/products/compare?group=apple", permanent: true },
+      // The pre-order season is over — the iPhone 18 page is now a plain order page.
+      { source: "/iphone-18-preorder", destination: "/iphone-18", permanent: true },
     ];
   },
 };

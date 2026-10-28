@@ -17,7 +17,7 @@ const QUICK_LINKS = [
   { label: "Products", href: "/products" },
   { label: "Apple", href: "/products/apple" },
   { label: "Samsung Galaxy", href: "/products/samsung" },
-  { label: "iPhone 18 Pre-Order", href: "/iphone-18-preorder" },
+  { label: "iPhone 18 Series", href: "/iphone-18" },
   { label: "Services", href: "/services" },
   { label: "Visit Us", href: "/branches" },
 ];

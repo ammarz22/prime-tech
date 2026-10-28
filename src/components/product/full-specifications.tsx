@@ -26,10 +26,7 @@ export function FullSpecifications({ slug }: { slug: string }) {
   return (
     <div className="border-t border-ink/8 py-14">
       <div className="flex items-end justify-between gap-4">
-        <div>
-          <h2 className="text-xl font-semibold">Specifications</h2>
-          <p className="mt-1.5 text-sm text-ink/50">Sourced from official manufacturer specifications.</p>
-        </div>
+        <h2 className="text-xl font-semibold">Specifications</h2>
       </div>
 
       <Accordion className="mt-8 grid grid-cols-1 items-start gap-x-8 gap-y-3 sm:grid-cols-2" defaultValue={[]}>

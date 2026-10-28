@@ -2,9 +2,9 @@ import { ShieldCheck, MessageCircleHeart, Eye, Store } from "lucide-react";
 import { AnimatedSection } from "@/components/motion/animated-section";
 
 const POINTS = [
-  { icon: ShieldCheck, title: "No Payment Required", description: "Registering interest is free and non-binding." },
+  { icon: ShieldCheck, title: "Free to Enquire", description: "Messaging us is free and non-binding." },
   { icon: MessageCircleHeart, title: "A Real Person, Not a Bot", description: "Every WhatsApp chat is answered by Prime Tech staff." },
-  { icon: Eye, title: "Transparent About What's Confirmed", description: "We never present a rumour as a fact." },
+  { icon: Eye, title: "Confirmed Price & Stock", description: "Real Sri Lankan pricing and availability, confirmed before you commit." },
   { icon: Store, title: "A Genuine Colombo Retailer", description: "Delivery and collection details are arranged directly with you on WhatsApp." },
 ] as const;
 

@@ -34,7 +34,7 @@ export async function HeroTeaser() {
     whatsappLink(
       preorderEnquiryMessage({ model: "iPhone 18 Pro Max", available: stage === "available" }),
       contact.whatsappNumber,
-    ) ?? "/iphone-18-preorder";
+    ) ?? "/iphone-18";
 
   return (
     <section className="relative flex min-h-dvh flex-col overflow-hidden bg-black">

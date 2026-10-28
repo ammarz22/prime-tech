@@ -16,7 +16,7 @@ const SPECS = [
 /** The homepage's dark cinematic contrast beat — the same real iPhone 18
  * Pro Max photography as the hero, restaged against near-black with a
  * restrained brand-red glow, and the full official trailer one scroll away
- * on `/iphone-18-preorder`. Styled as a contained, rounded card (matching
+ * on `/iphone-18`. Styled as a contained, rounded card (matching
  * the Apple/Samsung split's card language) rather than a full-bleed bar,
  * so it reads as one more card in the homepage's set instead of a
  * leftover full-width section from an earlier pass. */
@@ -56,7 +56,7 @@ export function IphoneEighteenCampaign() {
             </dl>
 
             <Button
-              render={<Link href="/iphone-18-preorder" />}
+              render={<Link href="/iphone-18" />}
               size="lg"
               className="mt-7 h-11 gap-2 rounded-full px-6 text-sm"
             >

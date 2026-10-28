@@ -14,8 +14,8 @@ import { cn } from "@/lib/utils";
 const ITEMS = [
   {
     title: "iPhone 18",
-    subtitle: "What to expect",
-    href: "/iphone-18-preorder",
+    subtitle: "Now available",
+    href: "/iphone-18",
     image: "/iphone-18/burgundy-hero.png",
     badge: "Featured",
     badgeVariant: "solid",

@@ -32,7 +32,7 @@ function toRow(data: Iphone18PackageInput) {
 
 function revalidatePackagePaths() {
   revalidatePath("/admin/iphone18-packages");
-  revalidatePath("/iphone-18-preorder");
+  revalidatePath("/iphone-18");
 }
 
 export async function createPackageAction(input: Iphone18PackageInput): Promise<ActionResult> {
