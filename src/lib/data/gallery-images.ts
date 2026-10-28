@@ -14,7 +14,7 @@ export const CURATED_GALLERIES: Record<string, CuratedGalleryImage[]> = {
   ],
   "airpods-max": [
     { url: "/gallery/airpods-max/1.jpg", colour: "Starlight" },
-    { url: "/gallery/airpods-max/2.jpg", colour: "Sky Blue" },
+    { url: "/gallery/airpods-max/2.jpg", colour: "Blue" },
     { url: "/gallery/airpods-max/3.jpg", colour: "Purple" },
     { url: "/gallery/airpods-max/4.jpg", colour: "Midnight" },
     { url: "/gallery/airpods-max/5.jpg", colour: "Orange" },

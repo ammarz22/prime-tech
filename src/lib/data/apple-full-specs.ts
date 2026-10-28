@@ -759,43 +759,59 @@ export const APPLE_FULL_SPECS: Record<string, FullSpecGroup[]> = {
       label: "Display",
       rows: [
         { label: "Size", value: "11\" or 13\" Liquid Retina" },
-        { label: "Refresh Rate", value: "60Hz, True Tone, wide colour (P3), anti-reflective coating" },
+        { label: "Resolution", value: "11-inch: 2360 × 1640; 13-inch: 2732 × 2048 (264 ppi)" },
+        { label: "Brightness", value: "11-inch: 500 nits; 13-inch: 600 nits. P3 wide colour, True Tone" },
       ],
     },
     {
       label: "Performance",
       rows: [
-        { label: "Chip", value: "Apple M3 — 8-core CPU, up to 10-core GPU" },
+        { label: "Chip", value: "Apple M4, 8-core CPU (3 performance + 5 efficiency), 9-core GPU" },
         { label: "Neural Engine", value: "16-core Neural Engine" },
+        { label: "Memory", value: "12GB unified memory" },
+        { label: "Storage", value: "128GB, 256GB, 512GB or 1TB" },
       ],
     },
     {
       label: "Camera",
       rows: [
-        { label: "Rear", value: "12MP Wide, ƒ/1.8" },
-        { label: "Front", value: "12MP Center Stage, ƒ/2.4, landscape" },
+        { label: "Rear", value: "12MP Wide, ƒ/1.8, 4K video up to 60fps" },
+        { label: "Front", value: "12MP Center Stage, ƒ/2.0, 1080p video" },
       ],
     },
     {
       label: "Battery",
-      rows: [{ label: "Battery Life", value: "Up to 10 hours of surfing the web or watching video" }],
+      rows: [
+        { label: "Battery Life", value: "Up to 10 hours of web browsing or video on Wi-Fi (up to 9 hours on cellular)" },
+      ],
     },
     {
       label: "Design",
-      rows: [{ label: "Colours", value: "Space Grey, Blue, Purple, Starlight" }],
+      rows: [
+        { label: "Colours", value: "Blue, Purple, Starlight, Space Gray" },
+      ],
     },
     {
       label: "Connectivity",
       rows: [
-        { label: "Wi-Fi", value: "Wi-Fi 6E, or 5G cellular option" },
-        { label: "Port", value: "USB-C, USB 3 speeds" },
-        { label: "Biometrics", value: "Touch ID" },
-        { label: "Accessories", value: "Apple Pencil Pro and Magic Keyboard support" },
+        { label: "Wireless", value: "Wi-Fi 7, Bluetooth 6, Thread" },
+        { label: "Cellular", value: "Wi-Fi + Cellular models: 5G (sub-6GHz), Gigabit LTE, eSIM only (no physical SIM)" },
+        { label: "Port", value: "USB-C, USB 3 speeds up to 10Gb/s" },
+        { label: "Apple Pencil", value: "Supports Apple Pencil Pro and Apple Pencil (USB-C), sold separately" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Size", value: "11-inch: 247.6 × 178.5 × 6.1 mm; 13-inch: 280.6 × 214.9 × 6.1 mm" },
+        { label: "Weight", value: "11-inch: 464 g (Wi-Fi), 465 g (cellular); 13-inch: 616 g (Wi-Fi), 617 g (cellular)" },
       ],
     },
     {
       label: "What's in the Box",
-      rows: [{ label: "Included", value: "iPad Air, USB-C Charge Cable" }],
+      rows: [
+        { label: "Included", value: "iPad Air, USB-C Charge Cable (1 m), 20W USB-C Power Adapter" },
+      ],
     },
   ],
   "ipad-mini": [
@@ -1370,6 +1386,333 @@ export const APPLE_FULL_SPECS: Record<string, FullSpecGroup[]> = {
       label: "What's in the Box",
       rows: [
         { label: "Included", value: "iPad, USB-C Charge Cable (1 m), 20W USB-C Power Adapter" },
+      ],
+    },
+  ],
+  "airpods-max": [
+    {
+      label: "Audio",
+      rows: [
+        { label: "Chip", value: "Apple H2 headphone chip in each ear cup" },
+        { label: "Noise Control", value: "Active Noise Cancellation, Transparency mode, Adaptive Audio, Conversation Awareness, Voice Isolation" },
+        { label: "Sound", value: "Apple-designed dynamic driver with a custom high dynamic range amplifier, Personalized Spatial Audio with dynamic head tracking, Adaptive EQ, Personalized Volume" },
+        { label: "Microphones", value: "Nine microphones — eight for Active Noise Cancellation and three for voice pickup" },
+        { label: "Sensors", value: "Optical, position, case-detect and accelerometer sensors in each ear cup; gyroscope in the left ear cup" },
+      ],
+    },
+    {
+      label: "Battery",
+      rows: [
+        { label: "Battery Life", value: "Up to 20 hours of listening time on a single charge with Active Noise Cancellation on" },
+        { label: "Fast Charge", value: "5 minutes of charging for around 1.5 hours of listening" },
+        { label: "Case", value: "Smart Case keeps the battery in an ultra-low-power state while stored" },
+      ],
+    },
+    {
+      label: "Design",
+      rows: [
+        { label: "Controls", value: "Digital Crown (volume, play/pause, calls, Siri, skip) and a listening mode button" },
+        { label: "Colours", value: "Midnight, Starlight, Blue, Purple, Orange" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Bluetooth", value: "Bluetooth 5.3" },
+        { label: "Wired", value: "USB-C — Lossless Audio and ultra-low-latency audio over a wired USB-C connection with compatible content" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Size", value: "168.6 × 83.4 × 187.3 mm" },
+        { label: "Weight", value: "386.2 g headphones, 134.5 g Smart Case" },
+      ],
+    },
+    {
+      label: "What's in the Box",
+      rows: [
+        { label: "Included", value: "AirPods Max 2, Smart Case, USB-C Charge Cable, documentation" },
+      ],
+    },
+  ],
+  "apple-watch-hermes": [
+    {
+      label: "Display",
+      rows: [
+        { label: "Size", value: "42mm or 46mm case, Always-On Retina LTPO3 OLED" },
+        { label: "Resolution", value: "42mm: 374 × 446; 46mm: 416 × 496 (326 ppi)" },
+        { label: "Brightness", value: "Up to 2000 nits peak" },
+        { label: "Glass", value: "Sapphire crystal" },
+      ],
+    },
+    {
+      label: "Performance",
+      rows: [
+        { label: "Chip", value: "Apple S11, 64-bit dual-core processor, 4-core Neural Engine" },
+        { label: "Storage", value: "64GB" },
+      ],
+    },
+    {
+      label: "Health",
+      rows: [
+        { label: "Sensors", value: "Health Sensing System — second-generation electrical heart sensor, always-on optical heart sensor, blood oxygen sensor, temperature sensor" },
+        { label: "Other Sensors", value: "Compass, always-on altimeter, high-g accelerometer, gyroscope, ambient light sensor, depth gauge (6m), water temperature sensor" },
+      ],
+    },
+    {
+      label: "Battery",
+      rows: [
+        { label: "Battery Life", value: "Up to 24 hours normal use, up to 38 hours in Low Power Mode" },
+        { label: "Workouts", value: "Up to 10 hours of workout tracking" },
+        { label: "Fast Charge", value: "About 80% in roughly 30 minutes" },
+      ],
+    },
+    {
+      label: "Design",
+      rows: [
+        { label: "Build", value: "Titanium case with a Hermès band" },
+        { label: "Water Resistance", value: "50 metres (ISO 22810:2010), IP6X dust resistance" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Cellular", value: "Optional 5G RedCap and LTE" },
+        { label: "Wi-Fi", value: "Wi-Fi 4 (802.11n), 2.4GHz and 5GHz" },
+        { label: "Bluetooth", value: "Bluetooth 5.3, second-generation Ultra Wideband" },
+        { label: "GPS", value: "Precision L1 GPS" },
+        { label: "Compatibility", value: "iPhone 11 or later running iOS 27 or later" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Size", value: "42mm: 42 × 37 × 9.7 mm; 46mm: 46 × 40 × 9.7 mm" },
+        { label: "Weight", value: "Titanium: 36.5 g (42mm), 44.9 g (46mm)" },
+      ],
+    },
+  ],
+  "apple-pencil": [
+    {
+      label: "Design",
+      rows: [
+        { label: "Length", value: "155 mm" },
+        { label: "Diameter", value: "8.9 mm" },
+        { label: "Weight", value: "20.5 g" },
+      ],
+    },
+    {
+      label: "Performance",
+      rows: [
+        { label: "Features", value: "Pixel-perfect precision, low latency, tilt sensitivity; hover on select iPad Pro and iPad Air models" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Pairing", value: "Bluetooth, via the USB-C connector" },
+        { label: "Charging", value: "Pairs and charges with a USB-C Charge Cable; attaches magnetically to the side of iPad for storage" },
+      ],
+    },
+    {
+      label: "Compatibility",
+      rows: [
+        { label: "iPad Pro", value: "13-inch (M5, M4); 12.9-inch (3rd–6th generation); 11-inch (M5, M4, 1st–4th generation)" },
+        { label: "iPad Air", value: "13-inch (M4, M3, M2); 11-inch (M4, M3, M2); 4th and 5th generation" },
+        { label: "iPad / iPad mini", value: "iPad (A16), iPad (10th generation), iPad mini (A17 Pro and A20 Pro), iPad mini (6th generation)" },
+        { label: "Requires", value: "iPadOS 17.1.1 or later" },
+      ],
+    },
+    {
+      label: "What's in the Box",
+      rows: [
+        { label: "Included", value: "Apple Pencil (USB-C)" },
+      ],
+    },
+  ],
+  "apple-pencil-pro": [
+    {
+      label: "Design",
+      rows: [
+        { label: "Length", value: "166 mm" },
+        { label: "Diameter", value: "8.9 mm" },
+        { label: "Weight", value: "19.15 g" },
+      ],
+    },
+    {
+      label: "Performance",
+      rows: [
+        { label: "Features", value: "Squeeze to switch tools, barrel roll, haptic feedback, hover, double tap, pressure and tilt sensitivity, Find My support" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Pairing", value: "Bluetooth" },
+        { label: "Charging", value: "Attaches, pairs and charges magnetically on the side of iPad" },
+      ],
+    },
+    {
+      label: "Compatibility",
+      rows: [
+        { label: "iPad Pro", value: "13-inch (M5, M4); 11-inch (M5, M4)" },
+        { label: "iPad Air", value: "13-inch (M4, M3, M2); 11-inch (M4, M3, M2)" },
+        { label: "iPad mini", value: "iPad mini (A17 Pro and A20 Pro)" },
+        { label: "Requires", value: "iPadOS 17.5 or later" },
+      ],
+    },
+    {
+      label: "What's in the Box",
+      rows: [
+        { label: "Included", value: "Apple Pencil Pro" },
+      ],
+    },
+  ],
+  "magic-keyboard-air": [
+    {
+      label: "Design",
+      rows: [
+        { label: "Models", value: "11-inch and 13-inch, each in White or Black" },
+        { label: "Build", value: "Floating cantilever hinge with multiple viewing angles; folds into a case that protects the front and back of iPad" },
+        { label: "Keys", value: "14-key function row, scissor mechanism with 1 mm key travel" },
+        { label: "Trackpad", value: "Large glass trackpad with Multi-Touch gesture and iPadOS cursor support" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Connector", value: "USB-C with pass-through charging for the iPad Air, freeing the iPad's own port" },
+      ],
+    },
+    {
+      label: "Compatibility",
+      rows: [
+        { label: "11-inch", value: "iPad Air 11-inch (M4, M3, M2); iPad Air (5th and 4th generation)" },
+        { label: "13-inch", value: "iPad Air 13-inch (M4, M3, M2)" },
+        { label: "Requires", value: "iPadOS 18.3 or later" },
+      ],
+    },
+  ],
+  "magic-keyboard-pro": [
+    {
+      label: "Design",
+      rows: [
+        { label: "Models", value: "11-inch and 13-inch, each in White or Black" },
+        { label: "Build", value: "Floating cantilever hinge, machined aluminum hinge and aluminum palm rest; folds into a case that protects iPad" },
+        { label: "Keys", value: "Backlit keys, 14-key function row, scissor mechanism with 1 mm key travel" },
+        { label: "Trackpad", value: "Large glass trackpad with haptic feedback and Multi-Touch gesture support" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Connector", value: "USB-C with pass-through charging" },
+      ],
+    },
+    {
+      label: "Compatibility",
+      rows: [
+        { label: "11-inch", value: "iPad Pro 11-inch (M5 and M4)" },
+        { label: "13-inch", value: "iPad Pro 13-inch (M5 and M4)" },
+        { label: "Requires", value: "iPadOS 17.4 or later" },
+      ],
+    },
+  ],
+  "magic-keyboard-folio": [
+    {
+      label: "Design",
+      rows: [
+        { label: "Build", value: "Two-piece design — a detachable keyboard and a back panel that attach magnetically, with an adjustable stand" },
+        { label: "Keys", value: "14-key function row, scissor mechanism with 1 mm key travel" },
+        { label: "Trackpad", value: "Large click-anywhere trackpad with Multi-Touch gesture and iPadOS cursor support" },
+      ],
+    },
+    {
+      label: "Compatibility",
+      rows: [
+        { label: "Works With", value: "iPad (A16) and iPad (10th generation)" },
+        { label: "Requires", value: "iPadOS 18.3 or later" },
+      ],
+    },
+  ],
+  "magsafe-charger": [
+    {
+      label: "Design",
+      rows: [
+        { label: "Cable", value: "1 m, Model A3502" },
+      ],
+    },
+    {
+      label: "Performance",
+      rows: [
+        { label: "Charging", value: "Magnetically aligned MagSafe wireless charging for compatible iPhone models" },
+        { label: "Power Adapter", value: "Requires a USB-C power adapter (sold separately)" },
+      ],
+    },
+  ],
+  "power-adapter-40w": [
+    {
+      label: "Performance",
+      rows: [
+        { label: "Output", value: "40W sustained, up to 60W maximum, adjustable voltage supply" },
+        { label: "Port", value: "One USB-C" },
+        { label: "Input", value: "100–240V AC, 50–60Hz, single phase" },
+        { label: "Model", value: "A3351" },
+      ],
+    },
+    {
+      label: "Compatibility",
+      rows: [
+        { label: "Fast Charging", value: "Apple says iPhone 18 Pro, iPhone 18 Pro Max and iPhone Duo fast charge with a 60W-or-higher adapter and a 60W-rated USB-C cable; iPhone 17 models need at least 40W" },
+      ],
+    },
+  ],
+  "power-adapter-35w-dual": [
+    {
+      label: "Performance",
+      rows: [
+        { label: "Output", value: "35W maximum combined across two USB-C ports" },
+        { label: "Ports", value: "Two USB-C" },
+        { label: "Power Sharing", value: "Mac laptop + iPhone or iPad: up to 17.5W each. iPhone + iPad: up to 17.5W each. Mac laptop or iPhone + Apple Watch or AirPods: up to 27.5W and 7.5W" },
+      ],
+    },
+    {
+      label: "Compatibility",
+      rows: [
+        { label: "Works With", value: "iPhone, iPad, Apple Watch, AirPods and Mac; recommended for MacBook Air and MacBook Neo" },
+      ],
+    },
+  ],
+  "usb-c-cable-240w": [
+    {
+      label: "Design",
+      rows: [
+        { label: "Length", value: "2 m" },
+        { label: "Connectors", value: "USB-C on both ends" },
+      ],
+    },
+    {
+      label: "Performance",
+      rows: [
+        { label: "Charging", value: "Up to 240W" },
+        { label: "Data", value: "USB 2 speeds for syncing and data transfer" },
+      ],
+    },
+  ],
+  "usb-c-cable-60w": [
+    {
+      label: "Design",
+      rows: [
+        { label: "Length", value: "1 m" },
+        { label: "Connectors", value: "USB-C on both ends" },
+      ],
+    },
+    {
+      label: "Performance",
+      rows: [
+        { label: "Charging", value: "Up to 60W" },
+        { label: "Data", value: "USB 2 speeds for syncing and data transfer" },
       ],
     },
   ],
