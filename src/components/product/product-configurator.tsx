@@ -22,6 +22,9 @@ const TRUST_ITEMS = [
   { icon: Headset, label: "Expert Guidance" },
 ] as const;
 
+const CONFIG_DIMENSIONS = ["chip", "screen_size", "memory", "storage", "sim_type", "colour"] as const;
+type ConfigDimension = (typeof CONFIG_DIMENSIONS)[number];
+
 function dimension<K extends keyof ProductVariant>(variants: ProductVariant[], key: K) {
   const values = Array.from(new Set(variants.map((v) => v[key]).filter(Boolean)));
   return values as NonNullable<ProductVariant[K]>[];
@@ -40,117 +43,57 @@ export function ProductConfigurator({
    * can switch to that variant's photo. */
   onVariantChange?: (variant: ProductVariant | undefined) => void;
 }) {
-  const chips = dimension(variants, "chip");
-  const [selectedChip, setSelectedChip] = useState<string | null>(chips[0] ?? null);
+  // Each dimension's options come from the variants still matching every
+  // earlier pick, and a pick that no longer exists falls back to the first
+  // option — so changing one choice keeps the others whenever they remain
+  // valid. Only dimensions with more than one value constrain the match;
+  // resolveVariant never guesses a nearest match, so a missing combination
+  // shows "Configuration Not Available" rather than a wrong price.
+  const [picks, setPicks] = useState<Partial<Record<ConfigDimension, string>>>({});
 
-  const byChip = chips.length > 1 ? variants.filter((v) => v.chip === selectedChip) : variants;
+  let pool = variants;
+  const options = {} as Record<ConfigDimension, string[]>;
+  const active = {} as Record<ConfigDimension, string | null>;
+  for (const dim of CONFIG_DIMENSIONS) {
+    const values = dimension(pool, dim);
+    const pick = picks[dim];
+    const current = pick && values.includes(pick) ? pick : (values[0] ?? null);
+    options[dim] = values;
+    active[dim] = current;
+    if (values.length > 1) pool = pool.filter((v) => v[dim] === current);
+  }
 
-  const screenSizes = dimension(byChip, "screen_size");
-  const [selectedScreenSize, setSelectedScreenSize] = useState<string | null>(screenSizes[0] ?? null);
+  const chips = options.chip;
+  const screenSizes = options.screen_size;
+  const memories = options.memory;
+  const storages = options.storage;
+  const simTypes = options.sim_type;
+  const colours = options.colour;
+  const selectedChip = active.chip;
+  const selectedScreenSize = active.screen_size;
+  const selectedMemory = active.memory;
+  const selectedStorage = active.storage;
+  const selectedSimType = active.sim_type;
+  const selectedColour = active.colour;
 
-  const byScreenSize = screenSizes.length > 1 ? byChip.filter((v) => v.screen_size === selectedScreenSize) : byChip;
-
-  const storages = dimension(byScreenSize, "storage");
-  const [selectedStorage, setSelectedStorage] = useState<string | null>(storages[0] ?? null);
-
-  const byStorage = storages.length > 1 ? byScreenSize.filter((v) => v.storage === selectedStorage) : byScreenSize;
-
-  const simTypes = dimension(byStorage, "sim_type");
-  const [selectedSimType, setSelectedSimType] = useState<string | null>(simTypes[0] ?? null);
-
-  const bySimType = simTypes.length > 1 ? byStorage.filter((v) => v.sim_type === selectedSimType) : byStorage;
-
-  const colours = dimension(bySimType, "colour");
-  const [selectedColour, setSelectedColour] = useState<string | null>(colours[0] ?? null);
-
-  // Only constrain on dimensions this product actually has more than one
-  // value for — resolveVariant never guesses a nearest match, so a missing
-  // combination shows "Configuration Not Available" rather than a wrong price.
   const selected = resolveVariant(variants, {
     chip: chips.length > 1 ? selectedChip : undefined,
     screenSize: screenSizes.length > 1 ? selectedScreenSize : undefined,
+    memory: memories.length > 1 ? selectedMemory : undefined,
     storage: storages.length > 1 ? selectedStorage : undefined,
     simType: simTypes.length > 1 ? selectedSimType : undefined,
     colour: colours.length > 1 ? selectedColour : undefined,
   });
 
-  // Changing a dimension keeps the user's other selections whenever they're
-  // still valid for the new combination, and only falls back to the first
-  // available option when the prior pick genuinely doesn't exist anymore —
-  // switching storage shouldn't silently reset a colour that's still in stock.
-  function handleChipSelect(chip: string) {
-    setSelectedChip(chip);
-    const nextByChip = variants.filter((v) => v.chip === chip);
-    const nextScreenSizes = dimension(nextByChip, "screen_size");
-    const nextScreenSize =
-      selectedScreenSize && nextScreenSizes.includes(selectedScreenSize) ? selectedScreenSize : (nextScreenSizes[0] ?? null);
-    setSelectedScreenSize(nextScreenSize);
-    const nextByScreenSize = nextScreenSizes.length > 1 ? nextByChip.filter((v) => v.screen_size === nextScreenSize) : nextByChip;
-    const nextStorages = dimension(nextByScreenSize, "storage");
-    const nextStorage = selectedStorage && nextStorages.includes(selectedStorage) ? selectedStorage : (nextStorages[0] ?? null);
-    setSelectedStorage(nextStorage);
-    const nextByStorage = nextStorages.length > 1 ? nextByScreenSize.filter((v) => v.storage === nextStorage) : nextByScreenSize;
-    const nextSimTypes = dimension(nextByStorage, "sim_type");
-    const nextSimType = selectedSimType && nextSimTypes.includes(selectedSimType) ? selectedSimType : (nextSimTypes[0] ?? null);
-    setSelectedSimType(nextSimType);
-    const nextBySimType = nextSimTypes.length > 1 ? nextByStorage.filter((v) => v.sim_type === nextSimType) : nextByStorage;
-    const nextColours = dimension(nextBySimType, "colour");
-    setSelectedColour(selectedColour && nextColours.includes(selectedColour) ? selectedColour : (nextColours[0] ?? null));
-  }
-
-  function handleScreenSizeSelect(screenSize: string) {
-    setSelectedScreenSize(screenSize);
-    const nextByScreenSize = byChip.filter((v) => v.screen_size === screenSize);
-    const nextStorages = dimension(nextByScreenSize, "storage");
-    const nextStorage = selectedStorage && nextStorages.includes(selectedStorage) ? selectedStorage : (nextStorages[0] ?? null);
-    setSelectedStorage(nextStorage);
-    const nextByStorage = nextStorages.length > 1 ? nextByScreenSize.filter((v) => v.storage === nextStorage) : nextByScreenSize;
-    const nextSimTypes = dimension(nextByStorage, "sim_type");
-    const nextSimType = selectedSimType && nextSimTypes.includes(selectedSimType) ? selectedSimType : (nextSimTypes[0] ?? null);
-    setSelectedSimType(nextSimType);
-    const nextBySimType = nextSimTypes.length > 1 ? nextByStorage.filter((v) => v.sim_type === nextSimType) : nextByStorage;
-    const nextColours = dimension(nextBySimType, "colour");
-    setSelectedColour(selectedColour && nextColours.includes(selectedColour) ? selectedColour : (nextColours[0] ?? null));
-  }
-
-  function handleStorageSelect(storage: string) {
-    setSelectedStorage(storage);
-    const nextByStorage = byScreenSize.filter((v) => v.storage === storage);
-    const nextSimTypes = dimension(nextByStorage, "sim_type");
-    const nextSimType = selectedSimType && nextSimTypes.includes(selectedSimType) ? selectedSimType : (nextSimTypes[0] ?? null);
-    setSelectedSimType(nextSimType);
-    const nextBySimType = nextSimTypes.length > 1 ? nextByStorage.filter((v) => v.sim_type === nextSimType) : nextByStorage;
-    const nextColours = dimension(nextBySimType, "colour");
-    setSelectedColour(selectedColour && nextColours.includes(selectedColour) ? selectedColour : (nextColours[0] ?? null));
-  }
-
-  function handleSimTypeSelect(simType: string) {
-    setSelectedSimType(simType);
-    const nextBySimType = byStorage.filter((v) => v.sim_type === simType);
-    const nextColours = dimension(nextBySimType, "colour");
-    setSelectedColour(selectedColour && nextColours.includes(selectedColour) ? selectedColour : (nextColours[0] ?? null));
-  }
-
-  function isScreenSizeAvailable(screenSize: string) {
-    return byChip.some((v) => v.screen_size === screenSize);
-  }
-
-  function isStorageAvailable(storage: string) {
-    return byScreenSize.some((v) => v.storage === storage);
-  }
-
-  function isSimTypeAvailable(simType: string) {
-    return byStorage.some((v) => v.sim_type === simType);
-  }
-
-  function isColourAvailable(colour: string) {
-    return bySimType.some((v) => v.colour === colour);
+  function pick(dim: ConfigDimension, value: string) {
+    setPicks((prev) => ({ ...prev, [dim]: value }));
   }
 
   const configurationLabel = selected
     ? [
         selected.screen_size && `Size: ${selected.screen_size}`,
         selected.colour && `Colour: ${selected.colour}`,
+        selected.memory && `Memory: ${selected.memory}`,
         selected.storage && `Storage: ${selected.storage}`,
         selected.sim_type && `SIM Type: ${selected.sim_type}`,
         selected.chip && `Chip: ${selected.chip}`,
@@ -194,7 +137,7 @@ export function ProductConfigurator({
           <p className="mb-2.5 text-sm font-medium text-ink">Choose your chip</p>
           <div className="flex flex-wrap gap-2">
             {chips.map((chip) => (
-              <BoxOption key={chip} active={chip === selectedChip} onClick={() => handleChipSelect(chip)}>
+              <BoxOption key={chip} active={chip === selectedChip} onClick={() => pick("chip", chip)}>
                 {chip}
               </BoxOption>
             ))}
@@ -210,10 +153,22 @@ export function ProductConfigurator({
               <BoxOption
                 key={screenSize}
                 active={screenSize === selectedScreenSize}
-                disabled={!isScreenSizeAvailable(screenSize)}
-                onClick={() => handleScreenSizeSelect(screenSize)}
+                onClick={() => pick("screen_size", screenSize)}
               >
                 {screenSize}
+              </BoxOption>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {memories.length > 1 && (
+        <div>
+          <p className="mb-2.5 text-sm font-medium text-ink">Choose your memory</p>
+          <div className="flex flex-wrap gap-2">
+            {memories.map((memory) => (
+              <BoxOption key={memory} active={memory === selectedMemory} onClick={() => pick("memory", memory)}>
+                {memory}
               </BoxOption>
             ))}
           </div>
@@ -228,8 +183,7 @@ export function ProductConfigurator({
               <BoxOption
                 key={storage}
                 active={storage === selectedStorage}
-                disabled={!isStorageAvailable(storage)}
-                onClick={() => handleStorageSelect(storage)}
+                onClick={() => pick("storage", storage)}
               >
                 {storage}
               </BoxOption>
@@ -246,8 +200,7 @@ export function ProductConfigurator({
               <BoxOption
                 key={simType}
                 active={simType === selectedSimType}
-                disabled={!isSimTypeAvailable(simType)}
-                onClick={() => handleSimTypeSelect(simType)}
+                onClick={() => pick("sim_type", simType)}
               >
                 {simType}
               </BoxOption>
@@ -264,8 +217,7 @@ export function ProductConfigurator({
               <ColourOption
                 key={colour}
                 active={colour === selectedColour}
-                disabled={!isColourAvailable(colour)}
-                onClick={() => setSelectedColour(colour)}
+                onClick={() => pick("colour", colour)}
                 swatch={getColourSwatch(colour)}
                 label={colour}
               />

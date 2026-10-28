@@ -608,48 +608,67 @@ export const APPLE_FULL_SPECS: Record<string, FullSpecGroup[]> = {
       label: "Display",
       rows: [
         { label: "Size", value: "14.2\" Liquid Retina XDR" },
-        { label: "Resolution", value: "3024 × 1964" },
-        { label: "Brightness", value: "Up to 1600 nits peak HDR, 1000 nits sustained, ProMotion up to 120Hz" },
+        { label: "Resolution", value: "3024 × 1964 at 254 ppi" },
+        { label: "Brightness", value: "XDR up to 1000 nits sustained, 1600 nits peak (HDR); 1 billion colours, P3, True Tone, ProMotion up to 120Hz; nano-texture option" },
       ],
     },
     {
       label: "Performance",
       rows: [
-        { label: "M5", value: "10-core CPU, 10-core GPU · 16/24/32GB memory" },
-        { label: "M5 Pro", value: "Up to 18-core CPU, 20-core GPU · 24GB up to 64/128GB memory" },
-        { label: "M5 Max", value: "18-core CPU, up to 40-core GPU · 24–36GB up to 128GB memory" },
+        { label: "Chip", value: "Apple M6 (12-core CPU, 12-core GPU), Apple M5 Pro (15-core CPU, 16-core GPU; configurable to 18-core CPU, 20-core GPU) or Apple M5 Max (18-core CPU, 32-core GPU; configurable to 40-core GPU)" },
+        { label: "Neural Engine", value: "M6: dual 16-core. M5 Pro and M5 Max: 16-core" },
+        { label: "Memory", value: "M6: 16GB, 24GB or 32GB. M5 Pro: 24GB, 48GB or 64GB. M5 Max: 36GB, 48GB, 64GB or 128GB" },
+        { label: "Storage", value: "M6 and M5 Pro: 1TB, 2TB or 4TB. M5 Max: 2TB, 4TB or 8TB" },
+      ],
+    },
+    {
+      label: "Camera",
+      rows: [
+        { label: "Front", value: "12MP Center Stage camera with Desk View, 1080p HD video" },
+      ],
+    },
+    {
+      label: "Audio",
+      rows: [
+        { label: "Speakers", value: "Six-speaker sound system with force-cancelling woofers, Spatial Audio" },
+        { label: "Microphones", value: "Studio-quality three-mic array with Voice Isolation and Wide Spectrum modes; 3.5mm headphone jack" },
       ],
     },
     {
       label: "Battery",
-      rows: [{ label: "Battery Life", value: "Up to 24 hours" }],
+      rows: [
+        { label: "Battery Life", value: "Up to 24 hours video streaming (M6), 22 hours (M5 Pro), 20 hours (M5 Max)" },
+        { label: "Wireless Web", value: "Up to 16 hours (M6), 14 hours (M5 Pro), 13 hours (M5 Max)" },
+        { label: "Charging", value: "72.4Wh battery; fast charge with a 96W or higher USB-C power adapter" },
+      ],
     },
     {
       label: "Design",
       rows: [
-        { label: "Cooling", value: "Vapor-chamber cooling on Pro/Max configurations" },
+        { label: "Keyboard", value: "Backlit Magic Keyboard with Touch ID, 12 full-height function keys, Force Touch trackpad" },
         { label: "Colours", value: "Space Black, Silver" },
       ],
     },
     {
       label: "Connectivity",
       rows: [
-        { label: "Wi-Fi", value: "Wi-Fi 6E" },
-        { label: "Bluetooth", value: "Bluetooth 5.3" },
-        { label: "Ports", value: "3× Thunderbolt, HDMI, SDXC card slot, MagSafe 3, headphone jack" },
+        { label: "Ports", value: "M6: three Thunderbolt 4 ports. M5 Pro and M5 Max: three Thunderbolt 5 ports. MagSafe 3, SDXC card slot, HDMI" },
+        { label: "Wireless", value: "Wi-Fi 7, Bluetooth 6, Thread, Apple N1 wireless chip" },
+        { label: "External Displays", value: "M6: up to two. M5 Pro: up to three. M5 Max: up to four" },
       ],
     },
     {
-      label: "Audio",
-      rows: [{ label: "Sound", value: "6-speaker system with force-cancelling woofers, Spatial Audio, studio-quality 3-mic array" }],
-    },
-    {
       label: "Dimensions",
-      rows: [{ label: "Size", value: "312.6 × 221.2 × 15.5 mm, from 1.55 kg" }],
+      rows: [
+        { label: "Size", value: "12.31 × 8.71 × 0.61 in (31.26 × 22.12 × 1.55 cm)" },
+        { label: "Weight", value: "1.55 kg (M6), 1.60 kg (M5 Pro), 1.62 kg (M5 Max)" },
+      ],
     },
     {
       label: "What's in the Box",
-      rows: [{ label: "Included", value: "MacBook Pro 14\", USB-C Power Adapter, USB-C Charge Cable" }],
+      rows: [
+        { label: "Included", value: "70W USB-C Power Adapter (96W with the M5 Pro 18-core CPU or M5 Max), USB-C to MagSafe 3 cable (2 m)" },
+      ],
     },
   ],
   "macbook-pro-16": [
@@ -657,100 +676,147 @@ export const APPLE_FULL_SPECS: Record<string, FullSpecGroup[]> = {
       label: "Display",
       rows: [
         { label: "Size", value: "16.2\" Liquid Retina XDR" },
-        { label: "Resolution", value: "3456 × 2234" },
-        { label: "Brightness", value: "Up to 1600 nits peak HDR, 1000 nits sustained, ProMotion up to 120Hz" },
+        { label: "Resolution", value: "3456 × 2234 at 254 ppi" },
+        { label: "Brightness", value: "XDR up to 1000 nits sustained, 1600 nits peak (HDR); 1 billion colours, P3, True Tone, ProMotion up to 120Hz; nano-texture option" },
       ],
     },
     {
       label: "Performance",
       rows: [
-        { label: "M5 Pro", value: "Up to 18-core CPU, 20-core GPU · 24GB up to 64/128GB memory" },
-        { label: "M5 Max", value: "18-core CPU, up to 40-core GPU · 24–36GB up to 128GB memory" },
-        { label: "Note", value: "16\" is only offered with M5 Pro or M5 Max — no base M5 option" },
+        { label: "Chip", value: "Apple M5 Pro (18-core CPU, 20-core GPU) or Apple M5 Max (18-core CPU, 32-core or 40-core GPU)" },
+        { label: "Neural Engine", value: "16-core Neural Engine" },
+        { label: "Memory", value: "M5 Pro: 24GB, 48GB or 64GB. M5 Max: 36GB, 48GB, 64GB or 128GB" },
+        { label: "Storage", value: "M5 Pro: 1TB, 2TB or 4TB. M5 Max: 2TB, 4TB or 8TB" },
+      ],
+    },
+    {
+      label: "Camera",
+      rows: [
+        { label: "Front", value: "12MP Center Stage camera with Desk View, 1080p HD video" },
+      ],
+    },
+    {
+      label: "Audio",
+      rows: [
+        { label: "Speakers", value: "Six-speaker sound system with force-cancelling woofers, Spatial Audio" },
+        { label: "Microphones", value: "Studio-quality three-mic array with Voice Isolation and Wide Spectrum modes; 3.5mm headphone jack" },
       ],
     },
     {
       label: "Battery",
-      rows: [{ label: "Battery Life", value: "Up to 24 hours" }],
+      rows: [
+        { label: "Battery Life", value: "Up to 24 hours video streaming (M5 Pro), 22 hours (M5 Max)" },
+        { label: "Wireless Web", value: "Up to 17 hours (M5 Pro), 16 hours (M5 Max)" },
+        { label: "Charging", value: "100Wh battery; fast charge with a 140W or higher USB-C power adapter" },
+      ],
     },
     {
       label: "Design",
       rows: [
-        { label: "Cooling", value: "Vapor-chamber cooling" },
+        { label: "Keyboard", value: "Backlit Magic Keyboard with Touch ID, 12 full-height function keys, Force Touch trackpad" },
         { label: "Colours", value: "Space Black, Silver" },
       ],
     },
     {
       label: "Connectivity",
       rows: [
-        { label: "Wi-Fi", value: "Wi-Fi 6E" },
-        { label: "Bluetooth", value: "Bluetooth 5.3" },
-        { label: "Ports", value: "3× Thunderbolt, HDMI, SDXC card slot, MagSafe 3, headphone jack" },
+        { label: "Ports", value: "Three Thunderbolt 5 ports, MagSafe 3, SDXC card slot, HDMI" },
+        { label: "Wireless", value: "Wi-Fi 7, Bluetooth 6, Thread, Apple N1 wireless chip" },
+        { label: "External Displays", value: "M5 Pro: up to three. M5 Max: up to four" },
       ],
     },
     {
-      label: "Audio",
-      rows: [{ label: "Sound", value: "6-speaker system with force-cancelling woofers, Spatial Audio" }],
-    },
-    {
       label: "Dimensions",
-      rows: [{ label: "Size", value: "355.7 × 248.1 × 16.8 mm, from 2.14 kg" }],
+      rows: [
+        { label: "Size", value: "14.01 × 9.77 × 0.66 in (35.57 × 24.81 × 1.68 cm)" },
+        { label: "Weight", value: "2.14 kg (M5 Pro), 2.15 kg (M5 Max)" },
+      ],
     },
     {
       label: "What's in the Box",
-      rows: [{ label: "Included", value: "MacBook Pro 16\", USB-C Power Adapter, USB-C Charge Cable" }],
+      rows: [
+        { label: "Included", value: "140W USB-C Power Adapter, USB-C to MagSafe 3 cable (2 m)" },
+      ],
     },
   ],
   "mac-mini": [
     {
       label: "Performance",
       rows: [
-        { label: "M4", value: "10-core CPU, up to 10-core GPU · 16GB up to 32GB memory" },
-        { label: "M4 Pro", value: "Up to 14-core CPU, 20-core GPU · 24GB up to 64GB memory" },
+        { label: "Chip", value: "Apple M6 (12-core CPU, 12-core GPU) or Apple M5 Pro (15-core CPU, 16-core GPU; configurable to 18-core CPU, 20-core GPU)" },
+        { label: "Neural Engine", value: "M6: dual 16-core Neural Engine. M5 Pro: 16-core Neural Engine" },
+        { label: "Memory", value: "M6: 16GB, 24GB or 32GB. M5 Pro: 24GB, 48GB or 64GB" },
+        { label: "Storage", value: "M6: 256GB, 512GB, 1TB or 2TB. M5 Pro: 512GB, 1TB, 2TB, 4TB or 8TB" },
+        { label: "Memory Bandwidth", value: "M6: 153GB/s (170GB/s with 24GB or 32GB). M5 Pro: 307GB/s" },
       ],
-    },
-    {
-      label: "Design",
-      rows: [{ label: "Build", value: "10 × 10 × 5 cm aluminum unibody" }],
     },
     {
       label: "Connectivity",
       rows: [
-        { label: "Wi-Fi", value: "Wi-Fi 6E" },
-        { label: "Bluetooth", value: "Bluetooth 5.3" },
-        { label: "Ports", value: "Thunderbolt 4 (2–3 ports), HDMI 2.1, Gigabit/10Gb Ethernet option, 2× USB-A" },
-        { label: "Displays", value: "Supports up to three displays" },
+        { label: "Front Ports", value: "Two USB-C ports (USB 3, up to 10Gb/s), 3.5mm headphone jack" },
+        { label: "Back Ports", value: "Three Thunderbolt ports (M6: Thunderbolt 4; M5 Pro: Thunderbolt 5), HDMI, 2.5Gb Ethernet (configurable to 10Gb)" },
+        { label: "Wireless", value: "Wi-Fi 7, Bluetooth 6, Thread, Apple N1 wireless chip" },
+        { label: "Displays", value: "Up to three external displays" },
+      ],
+    },
+    {
+      label: "Design",
+      rows: [
+        { label: "Colours", value: "Silver" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Size", value: "50 × 127 × 127 mm" },
+        { label: "Weight", value: "0.67 kg (M6), 0.73 kg (M5 Pro)" },
       ],
     },
     {
       label: "What's in the Box",
-      rows: [{ label: "Included", value: "Mac mini, Power Cord" }],
+      rows: [
+        { label: "Included", value: "Mac mini, power cord (1.8 m)" },
+      ],
     },
   ],
   "mac-studio": [
     {
       label: "Performance",
       rows: [
-        { label: "M4 Max", value: "Up to 16-core CPU, 40-core GPU · up to 128GB memory" },
-        { label: "M3 Ultra", value: "Up to 32-core CPU, 80-core GPU · up to 512GB memory" },
+        { label: "Chip", value: "Apple M5 Max (18-core CPU, 32-core GPU; configurable to 40-core GPU) or Apple M5 Ultra (30-core CPU, 64-core GPU; configurable to 36-core CPU, 80-core GPU)" },
+        { label: "Neural Engine", value: "M5 Max: 16-core. M5 Ultra: 32-core" },
+        { label: "Memory", value: "M5 Max: 36GB, 48GB, 64GB or 128GB. M5 Ultra: 96GB, 256GB or 512GB" },
+        { label: "Storage", value: "M5 Max: 512GB to 8TB. M5 Ultra: 1TB to 16TB" },
+        { label: "Memory Bandwidth", value: "M5 Max: 460GB/s (614GB/s with the 40-core GPU). M5 Ultra: 1.2TB/s" },
       ],
-    },
-    {
-      label: "Design",
-      rows: [{ label: "Build", value: "19.7 × 19.7 × 9.5 cm aluminum enclosure" }],
     },
     {
       label: "Connectivity",
       rows: [
-        { label: "Wi-Fi", value: "Wi-Fi 6E" },
-        { label: "Bluetooth", value: "Bluetooth 5.3" },
-        { label: "Ports", value: "Thunderbolt 5, 10Gb Ethernet, HDMI, SDXC card slot" },
-        { label: "Displays", value: "Supports up to eight displays" },
+        { label: "Back Ports", value: "Four Thunderbolt 5 ports, two USB-A ports (up to 5Gb/s), HDMI 2.1, 10Gb Ethernet, 3.5mm headphone jack" },
+        { label: "Front Ports", value: "M5 Max: two USB-C ports (up to 10Gb/s). M5 Ultra: two Thunderbolt 5 ports. SDXC card slot on both" },
+        { label: "Wireless", value: "Wi-Fi 7, Bluetooth 6, Thread, Apple N1 wireless chip" },
+        { label: "Displays", value: "M5 Max: up to five external displays. M5 Ultra: up to eight external displays" },
+      ],
+    },
+    {
+      label: "Design",
+      rows: [
+        { label: "Colours", value: "Silver" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Size", value: "95 × 197 × 197 mm" },
+        { label: "Weight", value: "2.7 kg (M5 Max), 3.6 kg (M5 Ultra)" },
       ],
     },
     {
       label: "What's in the Box",
-      rows: [{ label: "Included", value: "Mac Studio, Power Cord" }],
+      rows: [
+        { label: "Included", value: "Mac Studio, power cord" },
+      ],
     },
   ],
   // ------------------------------------------------------------------ iPad
@@ -818,47 +884,60 @@ export const APPLE_FULL_SPECS: Record<string, FullSpecGroup[]> = {
     {
       label: "Display",
       rows: [
-        { label: "Size", value: "8.3\" Liquid Retina" },
-        { label: "Resolution", value: "2266 × 1488 at 326 ppi" },
+        { label: "Size", value: "8.5\" Super Retina XDR OLED" },
+        { label: "Resolution", value: "2316 × 1512 at 326 ppi" },
+        { label: "Brightness", value: "Up to 1200 nits HDR peak, P3 wide colour, True Tone; nano-texture option on 256GB and 512GB models" },
       ],
     },
     {
       label: "Performance",
       rows: [
-        { label: "Chip", value: "Apple A17 Pro — 6-core CPU, 5-core GPU" },
-        { label: "Neural Engine", value: "16-core Neural Engine" },
+        { label: "Chip", value: "Apple A20 Pro — 5-core CPU (128GB, 256GB) or 6-core CPU (512GB), 7-core GPU" },
+        { label: "Neural Engine", value: "16-core Neural Engine (dual 16-core on 512GB)" },
+        { label: "Storage", value: "128GB, 256GB or 512GB" },
       ],
     },
     {
       label: "Camera",
       rows: [
-        { label: "Rear", value: "12MP Wide, ƒ/1.8" },
-        { label: "Front", value: "12MP Center Stage, ƒ/2.4" },
+        { label: "Rear", value: "12MP Wide, ƒ/1.8, 4K video up to 60fps" },
+        { label: "Front", value: "12MP landscape Center Stage camera, ƒ/2.0, 1080p video" },
       ],
     },
     {
       label: "Battery",
-      rows: [{ label: "Battery Life", value: "Up to 10 hours of surfing the web or watching video" }],
+      rows: [
+        { label: "Battery Life", value: "Up to 10 hours of web browsing or video on Wi-Fi (up to 9 hours on cellular)" },
+        { label: "Fast Charge", value: "About 50% in 30 minutes with a 35W or higher adapter (sold separately)" },
+      ],
     },
     {
       label: "Design",
-      rows: [{ label: "Colours", value: "Space Grey, Blue, Purple, Starlight" }],
+      rows: [
+        { label: "Colours", value: "Midnight, Starlight" },
+      ],
     },
     {
       label: "Connectivity",
       rows: [
-        { label: "Wi-Fi", value: "Wi-Fi 6E, or 5G cellular option" },
-        { label: "Biometrics", value: "Touch ID" },
-        { label: "Accessories", value: "Apple Pencil Pro support" },
+        { label: "Wireless", value: "Wi-Fi 7, Bluetooth 6, Thread" },
+        { label: "Cellular", value: "Wi-Fi + Cellular models: Apple C2 modem, 5G (sub-6GHz), Gigabit LTE, eSIM only" },
+        { label: "Port", value: "USB-C" },
+        { label: "Apple Pencil", value: "Supports Apple Pencil Pro and Apple Pencil (USB-C), sold separately" },
       ],
     },
     {
       label: "Dimensions",
-      rows: [{ label: "Size", value: "195.4 × 134.8 × 6.3 mm, 293 g (Wi-Fi)" }],
+      rows: [
+        { label: "Size", value: "195.3 × 132.6 × 5.4 mm" },
+        { label: "Weight", value: "255 g (Wi-Fi), 263 g (Wi-Fi + Cellular)" },
+      ],
     },
     {
       label: "What's in the Box",
-      rows: [{ label: "Included", value: "iPad mini, USB-C Charge Cable" }],
+      rows: [
+        { label: "Included", value: "iPad mini, USB-C Charge Cable (1 m), 20W USB-C Power Adapter" },
+      ],
     },
   ],
   "ipad-pro": [

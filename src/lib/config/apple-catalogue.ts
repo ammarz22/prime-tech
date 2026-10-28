@@ -33,7 +33,7 @@ export const APPLE_CATALOGUE_CATEGORIES: CatalogueCategory[] = [
     heroTitle: "Mac",
     heroSubtitle: "Built to go beyond.",
     heroDescription:
-      "Power for work, creativity and everything in between — from the entry MacBook Neo to the M5 Max MacBook Pro and M3 Ultra Mac Studio.",
+      "Power for work, creativity and everything in between — from the entry MacBook Neo to the M5 Max MacBook Pro and M5 Ultra Mac Studio.",
     heroBackground: "/apple-page/mac-background.png",
     heroDevice: "/apple-page/mac-device-cutout.png",
     heroSideWords: ["Faster", "Lighter", "Further", "Beyond"],
