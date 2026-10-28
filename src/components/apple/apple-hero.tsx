@@ -28,8 +28,8 @@ export async function AppleHero() {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
 
-      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10 xl:px-16">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-8">
+      <div className="relative mx-auto w-full max-w-[84rem] px-4 sm:px-6 lg:px-10 xl:px-12">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)] lg:gap-4">
           <AnimatedSection>
             <p className="text-xs font-semibold uppercase leading-relaxed tracking-[0.25em] text-white/50">
               More Than Devices.
@@ -38,29 +38,29 @@ export async function AppleHero() {
             </p>
             <span className="mt-3 block h-[3px] w-9 rounded-full bg-brand" aria-hidden />
 
-            <h1 className="mt-6 text-6xl font-bold tracking-tight text-white sm:text-7xl lg:text-8xl">Apple</h1>
-            <p className="mt-2 text-2xl font-semibold leading-tight tracking-tight text-white/90 sm:text-3xl">
+            <h1 className="mt-5 text-6xl font-bold tracking-tight text-white sm:text-7xl">Apple</h1>
+            <p className="mt-2 text-2xl font-semibold leading-tight tracking-tight text-white/90 sm:text-[1.7rem]">
               Everything Apple.
               <br />
               In one place.
             </p>
-            <p className="mt-5 max-w-sm text-sm text-white/55 sm:text-base">
+            <p className="mt-4 max-w-sm text-sm text-white/55 sm:text-base">
               The latest devices. Genuine products. Expert guidance. Only at Prime Tech.
             </p>
 
             <Button
               render={<a href={ctaHref} target="_blank" rel="noopener noreferrer" />}
               size="lg"
-              className="mt-8 h-12 gap-2 rounded-full bg-white px-6 text-sm text-ink hover:bg-white/90"
+              className="mt-6 h-12 gap-2 rounded-full bg-white px-6 text-sm text-ink hover:bg-white/90"
             >
               <MessageCircle className="size-4" />
               Shop on WhatsApp
               <ArrowRight className="size-4" />
             </Button>
 
-            <p className="mt-8 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">
+            <p className="mt-7 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/40">
               {TAGLINE_WORDS.map((word, i) => (
-                <span key={word} className="flex items-center gap-2.5">
+                <span key={word} className="flex items-center gap-2">
                   {word}
                   {i < TAGLINE_WORDS.length - 1 && <span aria-hidden>&middot;</span>}
                 </span>
@@ -84,7 +84,7 @@ export async function AppleHero() {
                 src="/apple-page/hero-device-cutout.png"
                 alt="MacBook Pro, iPhone, iPad Pro, Apple Watch and AirPods"
                 fill
-                sizes="60vw"
+                sizes="(min-width: 1280px) 760px, 55vw"
                 priority
                 className="object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
               />
@@ -93,7 +93,7 @@ export async function AppleHero() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute right-6 top-1/2 hidden -translate-y-1/2 items-start gap-2.5 xl:flex">
+      <div className="pointer-events-none absolute right-6 top-1/2 hidden -translate-y-1/2 items-start gap-2.5 2xl:flex">
         <span className="mt-0.5 h-14 w-[3px] rounded-full bg-brand" aria-hidden />
         <ul className="space-y-1 text-right text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">
           {SIDE_WORDS.map((word) => (
