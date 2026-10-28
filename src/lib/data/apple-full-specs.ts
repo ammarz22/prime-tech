@@ -11,11 +11,12 @@
  * by configuration, so they're kept here rather than duplicated per
  * variant row. Not reviews or marketing copy — spec facts only.
  *
- * Apple Watch Series 12, Apple Watch Ultra 4, AirPods 5, iPhone 18 Pro,
- * iPhone 18 Pro Max and iPhone Duo were announced by Apple on 2026-09-09
- * but had not yet reached full pre-order spec pages at time of writing —
- * their entries here are limited to what Apple has actually disclosed in
- * the announcement, not padded out with invented figures.
+ * iPhone 18 Pro, iPhone 18 Pro Max, iPhone Duo, Apple Watch Series 12,
+ * Apple Watch Ultra 4, AirPods 5, AirPods Pro 3, the 2026 iMac (Apple M6) and
+ * iPad (A16) were added from Apple's own spec pages (apple.com/iphone-18-pro/
+ * specs, /iphone-duo/specs, /apple-watch-series-12/specs, /apple-watch-ultra-4/
+ * specs, /airpods-5/specs, /airpods-pro/specs, /imac/specs, /ipad-10.9/specs)
+ * on 2026-10-28. AirPods 4 battery figures were corrected against Apple Support.
  */
 
 export interface FullSpecGroup {
@@ -293,48 +294,215 @@ export const APPLE_FULL_SPECS: Record<string, FullSpecGroup[]> = {
   // ------------------------------------------------------- iPhone 18 (new)
   "iphone-18-pro": [
     {
+      label: "Display",
+      rows: [
+        { label: "Size", value: "6.3\" all-screen OLED" },
+        { label: "Resolution", value: "2622 × 1206 at 460 ppi" },
+        { label: "Refresh Rate", value: "ProMotion, up to 120Hz" },
+        { label: "Brightness", value: "Up to 3000 nits peak outdoor brightness" },
+        { label: "Durability", value: "Ceramic Shield 2 front, Ceramic Shield back" },
+      ],
+    },
+    {
       label: "Performance",
-      rows: [{ label: "Chip", value: "Apple A20 Pro" }],
+      rows: [
+        { label: "Chip", value: "Apple A20 Pro, 6-core CPU (2 super cores + 4 efficiency cores)" },
+        { label: "GPU", value: "7-core GPU with Neural Accelerators, hardware-accelerated ray tracing" },
+        { label: "Neural Engine", value: "Dual 16-core Neural Engine" },
+        { label: "Storage", value: "256GB, 512GB, 1TB or 2TB" },
+      ],
     },
     {
       label: "Camera",
-      rows: [{ label: "Rear System", value: "48MP variable-aperture main camera" }],
+      rows: [
+        { label: "Rear System", value: "48MP Fusion — Main (24 mm, variable aperture ƒ/1.48–ƒ/4.0), Telephoto (100 mm, ƒ/2.8), Ultra Wide (13 mm, ƒ/2.2)" },
+        { label: "Optical Zoom", value: "2x optical zoom out, 4x optical, and an 8x optical-quality telephoto crop (200 mm); digital zoom up to 40x" },
+        { label: "Front Camera", value: "18MP Center Stage, ƒ/1.9" },
+        { label: "Video", value: "4K Dolby Vision up to 120fps; ProRes RAW and Apple Log 2" },
+      ],
+    },
+    {
+      label: "Battery",
+      rows: [
+        { label: "Video Playback", value: "Up to 36 hours" },
+        { label: "Typical Use", value: "Up to 24 hours" },
+        { label: "Streamed Video", value: "Up to 33 hours" },
+        { label: "Fast Charge", value: "Up to 50% in around 15 minutes with a 60W-capable adapter (sold separately)" },
+        { label: "Wireless", value: "MagSafe and Qi2, each up to 25W" },
+      ],
+    },
+    {
+      label: "Design",
+      rows: [
+        { label: "Build", value: "Aluminum unibody, Ceramic Shield 2 front, Ceramic Shield back" },
+        { label: "Water Resistance", value: "IP68 (6m for up to 30 minutes)" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Cellular", value: "5G (sub-6GHz and mmWave), Gigabit LTE, dual eSIM only (no physical SIM)" },
+        { label: "Wi-Fi", value: "Wi-Fi 7 (802.11be)" },
+        { label: "Bluetooth", value: "Bluetooth 6" },
+        { label: "Other", value: "Apple C2 modem, second-generation Ultra Wideband, NFC, Thread" },
+        { label: "Satellite", value: "Emergency SOS, Roadside Assistance, Messages and Find My via satellite" },
+        { label: "Port", value: "USB-C, USB 3 speeds up to 10Gb/s" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Size", value: "150.0 × 71.9 × 8.75 mm" },
+        { label: "Weight", value: "211 g" },
+      ],
     },
     {
       label: "What's in the Box",
-      rows: [{ label: "Included", value: "iPhone 18 Pro, USB-C to USB-C Cable" }],
+      rows: [
+        { label: "Included", value: "iPhone 18 Pro, USB-C Charge Cable (1 m)" },
+      ],
     },
   ],
   "iphone-18-pro-max": [
     {
+      label: "Display",
+      rows: [
+        { label: "Size", value: "6.9\" all-screen OLED" },
+        { label: "Resolution", value: "2868 × 1320 at 460 ppi" },
+        { label: "Refresh Rate", value: "ProMotion, up to 120Hz" },
+        { label: "Brightness", value: "Up to 3000 nits peak outdoor brightness" },
+        { label: "Durability", value: "Ceramic Shield 2 front, Ceramic Shield back" },
+      ],
+    },
+    {
       label: "Performance",
-      rows: [{ label: "Chip", value: "Apple A20 Pro" }],
+      rows: [
+        { label: "Chip", value: "Apple A20 Pro, 6-core CPU (2 super cores + 4 efficiency cores)" },
+        { label: "GPU", value: "7-core GPU with Neural Accelerators, hardware-accelerated ray tracing" },
+        { label: "Neural Engine", value: "Dual 16-core Neural Engine" },
+        { label: "Storage", value: "256GB, 512GB, 1TB or 2TB" },
+      ],
     },
     {
       label: "Camera",
-      rows: [{ label: "Rear System", value: "48MP variable-aperture main camera" }],
+      rows: [
+        { label: "Rear System", value: "48MP Fusion — Main (24 mm, variable aperture ƒ/1.48–ƒ/4.0), Telephoto (100 mm, ƒ/2.8), Ultra Wide (13 mm, ƒ/2.2)" },
+        { label: "Optical Zoom", value: "2x optical zoom out, 4x optical, and an 8x optical-quality telephoto crop (200 mm); digital zoom up to 40x" },
+        { label: "Front Camera", value: "18MP Center Stage, ƒ/1.9" },
+        { label: "Video", value: "4K Dolby Vision up to 120fps; ProRes RAW and Apple Log 2" },
+      ],
     },
     {
-      label: "Storage",
-      rows: [{ label: "Configurations", value: "Starts at 256GB" }],
+      label: "Battery",
+      rows: [
+        { label: "Video Playback", value: "Up to 45 hours" },
+        { label: "Typical Use", value: "Up to 30 hours" },
+        { label: "Streamed Video", value: "Up to 40 hours" },
+        { label: "Fast Charge", value: "Up to 50% in around 15 minutes with a 60W-capable adapter (sold separately)" },
+        { label: "Wireless", value: "MagSafe and Qi2, each up to 25W" },
+      ],
+    },
+    {
+      label: "Design",
+      rows: [
+        { label: "Build", value: "Aluminum unibody, Ceramic Shield 2 front, Ceramic Shield back" },
+        { label: "Water Resistance", value: "IP68 (6m for up to 30 minutes)" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Cellular", value: "5G (sub-6GHz and mmWave), Gigabit LTE, dual eSIM only (no physical SIM)" },
+        { label: "Wi-Fi", value: "Wi-Fi 7 (802.11be)" },
+        { label: "Bluetooth", value: "Bluetooth 6" },
+        { label: "Other", value: "Apple C2 modem, second-generation Ultra Wideband, NFC, Thread" },
+        { label: "Satellite", value: "Emergency SOS, Roadside Assistance, Messages and Find My via satellite" },
+        { label: "Port", value: "USB-C, USB 3 speeds up to 10Gb/s" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Size", value: "163.4 × 78.0 × 8.75 mm" },
+        { label: "Weight", value: "249 g" },
+      ],
     },
     {
       label: "What's in the Box",
-      rows: [{ label: "Included", value: "iPhone 18 Pro Max, USB-C to USB-C Cable" }],
+      rows: [
+        { label: "Included", value: "iPhone 18 Pro Max, USB-C Charge Cable (1 m)" },
+      ],
     },
   ],
   "iphone-duo": [
     {
-      label: "Design",
-      rows: [{ label: "Form Factor", value: "Apple's first foldable iPhone, book-style folding display" }],
+      label: "Display",
+      rows: [
+        { label: "Size", value: "7.6\" foldable OLED inner display, 5.4\" OLED outer display" },
+        { label: "Resolution", value: "Inner 1878 × 2670 at 430 ppi; outer 1398 × 2034 at 460 ppi" },
+        { label: "Refresh Rate", value: "ProMotion, up to 120Hz on both displays" },
+        { label: "Brightness", value: "1000 nits typical, 1600 nits HDR peak, 3000 nits peak outdoor brightness" },
+        { label: "Durability", value: "Ceramic Shield 2 front, Ceramic Shield back" },
+      ],
     },
     {
-      label: "Storage",
-      rows: [{ label: "Configurations", value: "Starts at 256GB" }],
+      label: "Performance",
+      rows: [
+        { label: "Chip", value: "Apple A20 Pro, 6-core CPU (2 performance + 4 efficiency cores)" },
+        { label: "GPU", value: "7-core GPU with Neural Accelerators, hardware-accelerated ray tracing" },
+        { label: "Neural Engine", value: "Dual 16-core Neural Engine" },
+        { label: "Storage", value: "256GB, 512GB, 1TB or 2TB" },
+      ],
+    },
+    {
+      label: "Camera",
+      rows: [
+        { label: "Rear System", value: "48MP Fusion Main (26 mm, ƒ/1.6) + 12MP 2x Telephoto (52 mm, ƒ/1.6) + 48MP Fusion Ultra Wide (13 mm, ƒ/2.2)" },
+        { label: "Front Camera", value: "Outer: 12MP Center Stage, ƒ/2.2. Inner: under-display camera, ƒ/1.8" },
+        { label: "Video", value: "4K Dolby Vision up to 120fps; Cinematic mode up to 4K at 60fps" },
+      ],
+    },
+    {
+      label: "Battery",
+      rows: [
+        { label: "Video Playback", value: "Up to 44 hours (outer display), up to 31 hours (inner display)" },
+        { label: "Typical Use", value: "Up to 24 hours" },
+        { label: "Fast Charge", value: "Around 50% in about 20 minutes with a 60W-capable adapter (sold separately)" },
+        { label: "Wireless", value: "MagSafe and Qi2, each up to 25W" },
+      ],
+    },
+    {
+      label: "Design",
+      rows: [
+        { label: "Build", value: "Titanium foldable design with a 3D-printed hinge cover in 100% recycled titanium" },
+        { label: "Water Resistance", value: "IP68 (6m for up to 30 minutes)" },
+        { label: "Colours", value: "Night Sky, Star White" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Cellular", value: "5G (sub-6GHz and mmWave), Gigabit LTE, dual eSIM only (no physical SIM)" },
+        { label: "Wi-Fi", value: "Wi-Fi 7" },
+        { label: "Bluetooth", value: "Bluetooth 6" },
+        { label: "Other", value: "Apple C2 modem, second-generation Ultra Wideband, NFC, Thread" },
+        { label: "Satellite", value: "Emergency SOS, Roadside Assistance, Messages and Find My via satellite" },
+        { label: "Port", value: "USB-C, USB 3 speeds up to 10Gb/s" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Open", value: "164.6 × 117.8 × 5.2 mm" },
+        { label: "Closed", value: "84.1 × 117.8 × 11.3 mm" },
+        { label: "Weight", value: "254 g" },
+      ],
     },
     {
       label: "What's in the Box",
-      rows: [{ label: "Included", value: "iPhone Duo, USB-C to USB-C Cable" }],
+      rows: [
+        { label: "Included", value: "iPhone Duo, USB-C Charge Cable (1 m)" },
+      ],
     },
   ],
   // -------------------------------------------------------------- MacBook
@@ -798,8 +966,65 @@ export const APPLE_FULL_SPECS: Record<string, FullSpecGroup[]> = {
   ],
   "apple-watch-series-12": [
     {
+      label: "Display",
+      rows: [
+        { label: "Size", value: "42mm or 46mm case, Always-On Retina LTPO3 OLED" },
+        { label: "Resolution", value: "42mm: 374 × 446; 46mm: 416 × 496 (326 ppi)" },
+        { label: "Brightness", value: "Up to 2000 nits peak" },
+        { label: "Glass", value: "Ceramic Shield 2 on aluminum cases; sapphire crystal on titanium and ceramic cases" },
+      ],
+    },
+    {
+      label: "Performance",
+      rows: [
+        { label: "Chip", value: "Apple S11, 64-bit dual-core processor, 4-core Neural Engine" },
+        { label: "Storage", value: "64GB" },
+      ],
+    },
+    {
+      label: "Health",
+      rows: [
+        { label: "Sensors", value: "Health Sensing System — second-generation electrical heart sensor, always-on optical heart sensor, blood oxygen sensor, temperature sensor" },
+        { label: "Other Sensors", value: "Compass, always-on altimeter, high-g accelerometer, gyroscope, ambient light sensor, depth gauge (6m), water temperature sensor" },
+      ],
+    },
+    {
+      label: "Battery",
+      rows: [
+        { label: "Battery Life", value: "Up to 24 hours normal use, up to 38 hours in Low Power Mode" },
+        { label: "Workouts", value: "Up to 10 hours of workout tracking" },
+        { label: "Fast Charge", value: "About 80% in roughly 30 minutes" },
+      ],
+    },
+    {
       label: "Design",
-      rows: [{ label: "Note", value: "Announced by Apple on 2026-09-09 — full spec sheet not yet published" }],
+      rows: [
+        { label: "Build", value: "Aluminum (Dark Bronze, Light Gold, Black, Space Gray), titanium (Radiant Gold, Natural) or ceramic (Pearl White, Night Blue) case" },
+        { label: "Water Resistance", value: "50 metres (ISO 22810:2010), IP6X dust resistance" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Cellular", value: "Optional 5G RedCap and LTE" },
+        { label: "Wi-Fi", value: "Wi-Fi 4 (802.11n), 2.4GHz and 5GHz" },
+        { label: "Bluetooth", value: "Bluetooth 5.3, second-generation Ultra Wideband" },
+        { label: "GPS", value: "Precision L1 GPS" },
+        { label: "Compatibility", value: "iPhone 11 or later running iOS 27 or later" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Size", value: "42mm: 42 × 37 × 9.7 mm; 46mm: 46 × 40 × 9.7 mm (aluminum and titanium)" },
+        { label: "Weight", value: "Aluminum GPS: 32.2 g (42mm), 39.5 g (46mm); titanium: 36.5 g (42mm), 44.9 g (46mm)" },
+      ],
+    },
+    {
+      label: "What's in the Box",
+      rows: [
+        { label: "Included", value: "Apple Watch Series 12, Band, Apple Watch Magnetic Fast Charger to USB-C Cable (1 m)" },
+      ],
     },
   ],
   "apple-watch-ultra-3": [
@@ -842,8 +1067,66 @@ export const APPLE_FULL_SPECS: Record<string, FullSpecGroup[]> = {
   ],
   "apple-watch-ultra-4": [
     {
+      label: "Display",
+      rows: [
+        { label: "Size", value: "49mm case, Always-On Retina LTPO3 OLED" },
+        { label: "Resolution", value: "422 × 514 (326 ppi)" },
+        { label: "Brightness", value: "Up to 3000 nits peak" },
+        { label: "Glass", value: "Flat sapphire crystal" },
+      ],
+    },
+    {
+      label: "Performance",
+      rows: [
+        { label: "Chip", value: "Apple S11, 64-bit dual-core processor, 4-core Neural Engine" },
+        { label: "Storage", value: "64GB" },
+      ],
+    },
+    {
+      label: "Health",
+      rows: [
+        { label: "Sensors", value: "Second-generation electrical heart sensor, always-on optical heart sensor, blood oxygen sensor, temperature sensor" },
+        { label: "Other Sensors", value: "Depth gauge, water temperature sensor, compass, always-on altimeter, high-g accelerometer, gyroscope, ambient light sensor" },
+      ],
+    },
+    {
+      label: "Battery",
+      rows: [
+        { label: "Battery Life", value: "Up to 50 hours normal use, up to 84 hours in Low Power Mode" },
+        { label: "Workouts", value: "Up to 18 hours (standard), 25 hours (Extended), 45 hours (Max Extended)" },
+        { label: "Fast Charge", value: "About 80% in around 45 minutes" },
+      ],
+    },
+    {
       label: "Design",
-      rows: [{ label: "Note", value: "Announced by Apple on 2026-09-09 — full spec sheet not yet published" }],
+      rows: [
+        { label: "Build", value: "Grade 5 titanium case in Natural or Black" },
+        { label: "Water Resistance", value: "100 metres (ISO 22810:2010); recreational scuba to 40m with a compatible app; IP6X dust resistance" },
+        { label: "Durability", value: "Tested to MIL-STD 810H" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Cellular", value: "Optional RedCap and LTE" },
+        { label: "Wi-Fi", value: "Wi-Fi 4 (802.11n), 2.4GHz and 5GHz" },
+        { label: "Bluetooth", value: "Bluetooth 5.3, second-generation Ultra Wideband" },
+        { label: "GPS", value: "Dual-frequency GPS" },
+        { label: "Compatibility", value: "iPhone 11 or later running iOS 27 or later" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Size", value: "49 × 44 × 12 mm" },
+        { label: "Weight", value: "63.0 g (Natural), 63.1 g (Black)" },
+      ],
+    },
+    {
+      label: "What's in the Box",
+      rows: [
+        { label: "Included", value: "Apple Watch Ultra 4, Band, Apple Watch Magnetic Fast Charger to USB-C Cable (1 m)" },
+      ],
     },
   ],
   // ------------------------------------------------------------- AirPods
@@ -858,14 +1141,16 @@ export const APPLE_FULL_SPECS: Record<string, FullSpecGroup[]> = {
     {
       label: "Battery",
       rows: [
-        { label: "Battery Life", value: "Up to 5 hours listening (4 hours with ANC enabled)" },
-        { label: "Case", value: "USB-C charging case, up to 20 additional hours (30 hours on the ANC model)" },
+        { label: "Battery Life", value: "Up to 5 hours listening (up to 4 hours with ANC on)" },
+        { label: "Case", value: "Up to 30 hours total with the USB-C charging case (up to 20 hours with ANC on)" },
         { label: "Fast Charge", value: "5 minutes in the case for about 1 hour of listening" },
       ],
     },
     {
       label: "Design",
-      rows: [{ label: "Water Resistance", value: "IP54 dust, sweat and water resistant (earbuds and case)" }],
+      rows: [
+        { label: "Water Resistance", value: "IP54 dust, sweat and water resistant (earbuds and case)" },
+      ],
     },
     {
       label: "Connectivity",
@@ -876,13 +1161,216 @@ export const APPLE_FULL_SPECS: Record<string, FullSpecGroup[]> = {
     },
     {
       label: "What's in the Box",
-      rows: [{ label: "Included", value: "AirPods 4, USB-C Charging Case, USB-C Charge Cable" }],
+      rows: [
+        { label: "Included", value: "AirPods 4, USB-C Charging Case, USB-C Charge Cable" },
+      ],
     },
   ],
   "airpods-5": [
     {
       label: "Audio",
-      rows: [{ label: "Note", value: "Announced by Apple on 2026-09-09 — full spec sheet not yet published" }],
+      rows: [
+        { label: "Chip", value: "Apple H2" },
+        { label: "Noise Control", value: "Active Noise Cancellation, Adaptive Audio, Transparency, Conversation Awareness, Voice Isolation" },
+        { label: "Sound", value: "Custom high-excursion Apple driver and high dynamic range amplifier, Personalized Spatial Audio with dynamic head tracking, Adaptive EQ" },
+        { label: "Sensors", value: "Dual beamforming microphones, inward-facing microphone, optical in-ear sensor, motion- and speech-detecting accelerometers, force sensor" },
+      ],
+    },
+    {
+      label: "Battery",
+      rows: [
+        { label: "Battery Life", value: "Up to 4 hours with ANC on, up to 6 hours with noise control off (5 and 7 hours with the Wireless Charging Case model)" },
+        { label: "Case", value: "Up to 20 hours total with ANC on (22 hours with the Wireless Charging Case)" },
+        { label: "Fast Charge", value: "5 minutes in the case for about 1 hour of listening" },
+      ],
+    },
+    {
+      label: "Design",
+      rows: [
+        { label: "Water Resistance", value: "IP57 dust, sweat and water resistant (not permanent; may decrease with wear)" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Bluetooth", value: "Bluetooth 5.3" },
+        { label: "Charging", value: "USB-C case; the Wireless Charging Case model also charges with an Apple Watch charger or Qi-certified chargers" },
+        { label: "Models", value: "AirPods 5; AirPods 5 with Wireless Charging Case" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Earbud", value: "30.2 × 18.3 × 18.1 mm, 4.3 g" },
+        { label: "Charging Case", value: "46.2 × 50.1 × 21.2 mm, 32.3 g (34.7 g for the Wireless Charging Case)" },
+      ],
+    },
+    {
+      label: "What's in the Box",
+      rows: [
+        { label: "Included", value: "AirPods 5, USB-C Charging Case, documentation" },
+      ],
+    },
+  ],
+  "airpods-pro-3": [
+    {
+      label: "Audio",
+      rows: [
+        { label: "Chip", value: "Apple H2 (earbuds); second-generation Ultra Wideband chip in the MagSafe Charging Case" },
+        { label: "Noise Control", value: "Active Noise Cancellation, Adaptive Audio, Transparency mode, Voice Isolation" },
+        { label: "Sound", value: "Custom high-excursion Apple driver and high dynamic range amplifier, Personalized Spatial Audio with dynamic head tracking, Adaptive EQ" },
+        { label: "Sensors", value: "Heart rate sensor for workouts, skin-detect sensor, dual beamforming microphones, inward-facing microphone, motion- and speech-detecting accelerometers" },
+      ],
+    },
+    {
+      label: "Battery",
+      rows: [
+        { label: "Battery Life", value: "Up to 8 hours with ANC on (up to 7.5 hours with Spatial Audio and head tracking, up to 6.5 hours with heart rate sensing)" },
+        { label: "Case", value: "Up to 24 hours total with ANC on" },
+        { label: "Fast Charge", value: "5 minutes in the case for around 1 hour of listening" },
+      ],
+    },
+    {
+      label: "Design",
+      rows: [
+        { label: "Water Resistance", value: "IP57 dust, sweat and water resistant (earbuds and case)" },
+        { label: "Ear Tips", value: "Silicone, five sizes (XXS, XS, S, M, L)" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Bluetooth", value: "Bluetooth 5.3" },
+        { label: "Charging", value: "MagSafe Charging Case (USB-C) — works with MagSafe, Apple Watch and Qi-certified chargers or USB-C; includes a speaker for Find My" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Earbud", value: "30.9 × 19.2 × 27.0 mm, 5.55 g" },
+        { label: "Charging Case", value: "47.2 × 62.2 × 21.8 mm, 43.99 g" },
+      ],
+    },
+    {
+      label: "What's in the Box",
+      rows: [
+        { label: "Included", value: "AirPods Pro 3, MagSafe Charging Case (USB-C), five sizes of silicone ear tips, documentation (USB-C Charge Cable sold separately)" },
+      ],
+    },
+  ],
+  "imac": [
+    {
+      label: "Display",
+      rows: [
+        { label: "Size", value: "24\" 4.5K Retina display (23.5\" actual diagonal)" },
+        { label: "Resolution", value: "4480 × 2520 at 218 ppi" },
+        { label: "Brightness", value: "500 nits, P3 wide colour, True Tone, 1 billion colours; nano-texture glass optional on the 12-core model" },
+      ],
+    },
+    {
+      label: "Performance",
+      rows: [
+        { label: "Chip", value: "Apple M6 with a 10-core or 12-core CPU and matching GPU" },
+        { label: "Neural Engine", value: "Dual 16-core Neural Engine, Neural Accelerators, hardware-accelerated ray tracing" },
+        { label: "Memory", value: "16GB unified memory (10-core: up to 24GB; 12-core: up to 32GB)" },
+        { label: "Storage", value: "256GB SSD (10-core: up to 1TB; 12-core: up to 2TB)" },
+      ],
+    },
+    {
+      label: "Camera",
+      rows: [
+        { label: "Front", value: "12MP Center Stage camera with Desk View support, 1080p HD video" },
+      ],
+    },
+    {
+      label: "Audio",
+      rows: [
+        { label: "Speakers", value: "Six-speaker system with force-cancelling woofers, Spatial Audio for Dolby Atmos" },
+        { label: "Microphones", value: "Three-mic array with beamforming; 3.5mm headphone jack" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Ports", value: "10-core: two Thunderbolt / USB 4 ports; 12-core: four Thunderbolt 4 ports and 2.5Gb Ethernet" },
+        { label: "Wireless", value: "Wi-Fi 7, Bluetooth 6, Thread, Apple N1 wireless chip" },
+      ],
+    },
+    {
+      label: "Design",
+      rows: [
+        { label: "Colours", value: "Blue, Purple, Pink, Orange, Yellow, Green, Silver" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Size", value: "Width 54.7 cm, height 46.1 cm" },
+        { label: "Weight", value: "4.42 kg (10-core), 4.44 kg (12-core)" },
+      ],
+    },
+    {
+      label: "What's in the Box",
+      rows: [
+        { label: "Included", value: "iMac, Magic Keyboard (with Touch ID on the 12-core model), Magic Mouse, 143W power adapter, 2m power cord, USB-C charge cable" },
+      ],
+    },
+  ],
+  "ipad-11": [
+    {
+      label: "Display",
+      rows: [
+        { label: "Size", value: "11\" Liquid Retina IPS display" },
+        { label: "Resolution", value: "2360 × 1640 at 264 ppi" },
+        { label: "Brightness", value: "500 nits, True Tone, fingerprint-resistant coating" },
+      ],
+    },
+    {
+      label: "Performance",
+      rows: [
+        { label: "Chip", value: "Apple A16, 5-core CPU, 4-core GPU, 16-core Neural Engine" },
+        { label: "Storage", value: "128GB, 256GB or 512GB" },
+      ],
+    },
+    {
+      label: "Camera",
+      rows: [
+        { label: "Rear", value: "12MP Wide, ƒ/1.8, Smart HDR 4, 4K video up to 60fps" },
+        { label: "Front", value: "12MP landscape Center Stage camera, ƒ/2.4, 1080p video" },
+      ],
+    },
+    {
+      label: "Battery",
+      rows: [
+        { label: "Battery Life", value: "Up to 10 hours of web browsing or video on Wi-Fi (up to 9 hours on cellular)" },
+      ],
+    },
+    {
+      label: "Connectivity",
+      rows: [
+        { label: "Wireless", value: "Wi-Fi 6 (802.11ax), Bluetooth 5.3; Wi-Fi + Cellular models add 5G (sub-6GHz) and Gigabit LTE (eSIM only)" },
+        { label: "Port", value: "USB-C, Smart Connector" },
+        { label: "Apple Pencil", value: "Supports Apple Pencil (USB-C); Apple Pencil (1st generation) with a USB-C to Apple Pencil Adapter" },
+      ],
+    },
+    {
+      label: "Design",
+      rows: [
+        { label: "Colours", value: "Silver, Blue, Pink, Yellow" },
+      ],
+    },
+    {
+      label: "Dimensions",
+      rows: [
+        { label: "Size", value: "248.6 × 179.5 × 7 mm" },
+        { label: "Weight", value: "477 g (Wi-Fi), 481 g (Wi-Fi + Cellular)" },
+      ],
+    },
+    {
+      label: "What's in the Box",
+      rows: [
+        { label: "Included", value: "iPad, USB-C Charge Cable (1 m), 20W USB-C Power Adapter" },
+      ],
     },
   ],
   // ---------------------------------------------------------- Accessories
