@@ -84,8 +84,7 @@ export default async function SalesDashboardPage({ searchParams }: { searchParam
         <div className="flex items-center gap-3.5">
           <Image src="/brand/icon-new.png" alt="Prime Tech" width={48} height={48} className="size-12 rounded-xl" priority />
           <div>
-            <Image src="/brand/logo-redesigned.png" alt="Prime Tech" width={482} height={97} className="h-5 w-auto" priority />
-            <h1 className="mt-1.5 text-2xl font-semibold tracking-tight">Sales Dashboard</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">Sales Dashboard</h1>
             <p className="text-sm text-ink/55">{range.label} · figures update as you add sales</p>
           </div>
         </div>
