@@ -15,7 +15,15 @@ function normalise(row: Record<string, unknown>): Invoice {
     tax_percent: n(row.tax_percent),
     total: n(row.total),
     items: items.map(
-      (i): InvoiceItem => ({ desc: String(i.desc ?? ""), qty: n(i.qty), unit_price: n(i.unit_price) }),
+      (i): InvoiceItem => ({
+        desc: String(i.desc ?? ""),
+        qty: n(i.qty),
+        unit_price: n(i.unit_price),
+        sale_kind: i.sale_kind === "phone" || i.sale_kind === "accessory" ? i.sale_kind : null,
+        sale_id: typeof i.sale_id === "string" ? i.sale_id : null,
+        unit_cost: i.unit_cost === null || i.unit_cost === undefined ? null : n(i.unit_cost),
+        linked: i.linked === true,
+      }),
     ),
   };
 }

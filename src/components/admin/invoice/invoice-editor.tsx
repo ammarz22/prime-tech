@@ -6,21 +6,53 @@ import { useRouter } from "next/navigation";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { ArrowLeft, Eye, Loader2, Pencil, Plus, Printer, Save, X } from "lucide-react";
+import { ArrowLeft, Eye, ListPlus, Loader2, Pencil, Plus, Printer, Save, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { InvoicePaper, ScaledPaper, type PaperBusiness } from "@/components/admin/invoice/invoice-paper";
 import { BTN, CONTROL, Field } from "@/components/admin/sales/shared";
-import { saveInvoiceAction } from "@/lib/actions/admin-invoices";
+import { AddFromSalesDialog } from "@/components/admin/invoice/add-from-sales-dialog";
+import { saveInvoiceAction, type PickableSale } from "@/lib/actions/admin-invoices";
 import { BANK_CHARGE_RE, bankChargeItem, type InvoiceDraft } from "@/lib/utils/invoice";
+import { detectSaleKind } from "@/lib/utils/sale-detect";
 import { invoiceSchema, type InvoiceInput } from "@/lib/validations/invoice";
 import { invoiceTotals } from "@/lib/utils/invoice";
 import { lkr } from "@/lib/utils/sales-format";
-import type { TrackerSettings } from "@/types/database";
+import type { InvoiceItem, TrackerSettings } from "@/types/database";
 import { cn } from "@/lib/utils";
 
 const finite = (n: unknown) => (typeof n === "number" && Number.isFinite(n) ? n : 0);
+
+type FormItem = InvoiceInput["items"][number];
+
+/** An editor line from a stored/pre-filled invoice line. `mainSaleId` is the sale this invoice belongs to. */
+function toFormItem(item: InvoiceItem, mainSaleId: string | null): FormItem {
+  const linkedExtra = !!item.sale_id && item.sale_id !== mainSaleId;
+  return {
+    desc: item.desc,
+    qty: item.qty,
+    unit_price: item.unit_price,
+    record: linkedExtra,
+    recordKind: linkedExtra && item.sale_kind ? item.sale_kind : "auto",
+    unitCost: item.unit_cost != null ? String(item.unit_cost) : "",
+    saleKind: item.sale_kind ?? "",
+    saleId: item.sale_id ?? "",
+    linked: !!item.linked,
+  };
+}
+
+const NEW_ITEM: FormItem = {
+  desc: "",
+  qty: 1,
+  unit_price: 0,
+  record: false,
+  recordKind: "auto",
+  unitCost: "",
+  saleKind: "",
+  saleId: "",
+  linked: false,
+};
 
 export function InvoiceEditor({
   initial,
@@ -36,6 +68,7 @@ export function InvoiceEditor({
 }) {
   const router = useRouter();
   const [view, setView] = useState<"edit" | "preview">("edit");
+  const [pickerOpen, setPickerOpen] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
   const [saving, setSaving] = useState<"save" | "print" | null>(null);
   const isNew = !initial.id;
@@ -49,7 +82,7 @@ export function InvoiceEditor({
       customerPhone: initial.customerPhone,
       customerEmail: initial.customerEmail,
       customerAddress: initial.customerAddress,
-      items: initial.items,
+      items: initial.items.map((i) => toFormItem(i, initial.saleId)),
       discount: initial.discount,
       taxPercent: initial.taxPercent,
       paymentMethod: initial.paymentMethod,
@@ -63,6 +96,7 @@ export function InvoiceEditor({
     control,
     handleSubmit,
     getValues,
+    setValue,
     formState: { errors },
   } = form;
   const { fields, append, remove, replace } = useFieldArray({ control, name: "items" });
@@ -76,10 +110,31 @@ export function InvoiceEditor({
   const totals = invoiceTotals(items, finite(watched.discount), finite(watched.taxPercent));
   const bankPct = Number(settings.bank_charge_percent) || 3;
 
+  /** Adds sales picked in the dialog as invoice lines already linked to those sales. */
+  function addPickedSales(sales: PickableSale[]) {
+    const kept = getValues("items").filter((i) => i.desc.trim() || i.unit_price);
+    const added: FormItem[] = sales.map((s) => ({
+      desc: s.desc,
+      qty: s.qty,
+      unit_price: s.unitPrice,
+      record: true,
+      recordKind: s.kind,
+      unitCost: String(s.unitCost),
+      saleKind: s.kind,
+      saleId: s.id,
+      linked: true,
+    }));
+    replace([...kept, ...added]);
+    // First customer name from the picks, if the invoice doesn't have one yet.
+    const name = sales.map((s) => s.customer?.trim()).find(Boolean);
+    if (name && !getValues("customerName").trim()) setValue("customerName", name, { shouldDirty: true });
+    toast.success(`${sales.length} ${sales.length === 1 ? "sale" : "sales"} added to the invoice`);
+  }
+
   function addBankCharge() {
     const current = getValues("items").filter((i) => !BANK_CHARGE_RE.test(i.desc ?? ""));
     const base = current.reduce((sum, i) => sum + finite(i.qty) * finite(i.unit_price), 0);
-    replace([...current, bankChargeItem(base, bankPct)]);
+    replace([...current, toFormItem(bankChargeItem(base, bankPct), null)]);
   }
 
   async function save(values: InvoiceInput, andPrint: boolean) {
@@ -92,6 +147,7 @@ export function InvoiceEditor({
       return;
     }
     toast.success(`${result.invoiceNo} saved`);
+    if (result.warning) toast.warning(result.warning, { duration: 12000 });
     if (andPrint) router.push(`/admin/invoices/${result.id}/print`);
     else if (isNew) router.replace(`/admin/invoices/${result.id}`);
     else router.refresh();
@@ -213,8 +269,19 @@ export function InvoiceEditor({
           <section className="space-y-3">
             <h2 className="text-[11px] font-bold uppercase tracking-[0.14em] text-ink/45">Items</h2>
             <div className="space-y-3">
-              {fields.map((field, i) => (
+              {fields.map((field, i) => {
+                const line = watched.items?.[i];
+                const isMain = !!field.saleId && field.saleId === initial.saleId;
+                const isBankCharge = BANK_CHARGE_RE.test((line?.desc ?? field.desc ?? "").trim());
+                const recording = !!line?.record;
+                const detected = detectSaleKind(line?.desc ?? "");
+                const kind = line?.recordKind && line.recordKind !== "auto" ? line.recordKind : detected;
+                const itemErrors = errors.items?.[i];
+                return (
                 <div key={field.id} className="space-y-2.5 rounded-xl border border-ink/10 bg-paper-soft p-3">
+                  <input type="hidden" {...register(`items.${i}.saleKind`)} />
+                  <input type="hidden" {...register(`items.${i}.saleId`)} />
+                  <input type="checkbox" hidden {...register(`items.${i}.linked`)} />
                   <Field label="Description" htmlFor={`item-desc-${i}`} error={errors.items?.[i]?.desc?.message}>
                     <Textarea id={`item-desc-${i}`} rows={2} placeholder="iPhone 17 Pro 256GB – Silver" {...register(`items.${i}.desc`)} />
                   </Field>
@@ -236,11 +303,90 @@ export function InvoiceEditor({
                       <X className="size-4" />
                     </Button>
                   </div>
+
+                  {isMain ? (
+                    <p className="rounded-lg bg-ink/5 px-3 py-2 text-xs text-ink/55">
+                      This is the {field.saleKind === "accessory" ? "accessory" : "phone"} sale you&apos;re invoicing — it&apos;s already in
+                      your sales.
+                    </p>
+                  ) : isBankCharge ? null : (
+                    <div className="space-y-2.5 border-t border-ink/8 pt-2.5">
+                      <label className="flex min-h-11 cursor-pointer items-center gap-2.5 text-[13px] font-semibold text-ink/80 sm:min-h-8">
+                        <input type="checkbox" className="size-5 accent-[var(--brand)] sm:size-4" {...register(`items.${i}.record`)} />
+                        Also record this in sales
+                      </label>
+                      {recording && (
+                        <div className="space-y-2.5 rounded-lg bg-paper p-2.5">
+                          <p className="text-xs text-ink/60">
+                            {field.linked ? (
+                              <>
+                                Picked from your <b className="text-ink">{kind === "phone" ? "Phone Sales" : "Accessories"}</b> — it&apos;s linked to this
+                                invoice, so editing it here updates the sale.
+                              </>
+                            ) : (
+                            <>Detected as{" "}
+                            <b className={kind === "phone" ? "text-brand" : "text-ink"}>
+                              {kind === "phone" ? "a phone sale" : "an accessory sale"}
+                            </b>
+                            {line?.recordKind === "auto" ? "" : " (you chose this)"} — it&apos;ll be added to{" "}
+                            {kind === "phone" ? "Phone Sales" : "Accessories"} with this invoice&apos;s customer and date.</>
+                            )}
+                          </p>
+                          <div className="grid grid-cols-2 gap-2">
+                            <Field label="Cost each (Rs)" htmlFor={`item-cost-${i}`} required error={itemErrors?.unitCost?.message}>
+                              <Input
+                                id={`item-cost-${i}`}
+                                type="number"
+                                inputMode="decimal"
+                                min={0}
+                                step="any"
+                                placeholder="0"
+                                className={CONTROL}
+                                aria-invalid={!!itemErrors?.unitCost}
+                                {...register(`items.${i}.unitCost`)}
+                              />
+                            </Field>
+                            {!field.linked && (
+                            <Field label="Type" htmlFor={`item-kind-${i}`}>
+                              <select
+                                id={`item-kind-${i}`}
+                                className={cn(
+                                  "w-full rounded-lg border border-input bg-transparent px-2.5 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm",
+                                  CONTROL,
+                                )}
+                                {...register(`items.${i}.recordKind`)}
+                              >
+                                <option value="auto">Auto ({detected === "phone" ? "phone" : "accessory"})</option>
+                                <option value="phone">Phone</option>
+                                <option value="accessory">Accessory</option>
+                              </select>
+                            </Field>
+                            )}
+                          </div>
+                          {field.saleId && !field.linked && (
+                            <p className="text-xs text-ink/45">Already in your sales — changes here update it.</p>
+                          )}
+                        </div>
+                      )}
+                      {!recording && field.saleId && (
+                        <p className="text-xs text-amber-700">
+                          {field.linked
+                            ? "Saving will take this off the invoice's sales link — the sale itself stays in your sales."
+                            : "Saving will remove this item's sale record, since it's unticked."}
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </div>
-              ))}
+                );
+              })}
             </div>
             <div className="flex flex-wrap gap-2">
-              <Button type="button" variant="outline" className={`${BTN} flex-1 border-dashed`} onClick={() => append({ desc: "", qty: 1, unit_price: 0 })}>
+              <Button type="button" className={`${BTN} w-full gap-1.5`} onClick={() => setPickerOpen(true)}>
+                <ListPlus className="size-4" />
+                Add from your sales
+              </Button>
+              <Button type="button" variant="outline" className={`${BTN} flex-1 border-dashed`} onClick={() => append(NEW_ITEM)}>
                 <Plus className="size-4" />
                 Add item
               </Button>
@@ -267,6 +413,15 @@ export function InvoiceEditor({
             <h2 className="text-[11px] font-bold uppercase tracking-[0.14em] text-ink/45">Notes / terms</h2>
             <Textarea aria-label="Notes and terms" rows={6} {...register("notes")} />
           </section>
+
+          <AddFromSalesDialog
+            open={pickerOpen}
+            onOpenChange={setPickerOpen}
+            invoiceDate={watched.invoiceDate || initial.invoiceDate}
+            customerName={watched.customerName ?? ""}
+            excludeIds={[initial.saleId, ...(watched.items ?? []).map((i) => i?.saleId)].filter((v): v is string => !!v)}
+            onAdd={addPickedSales}
+          />
 
           <datalist id="dl-inv-pay">
             {settings.payment_methods.map((m) => (

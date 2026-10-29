@@ -78,7 +78,9 @@ export function blankInvoice(settings: Pick<TrackerSettings, "terms">): InvoiceD
 
 /** Pre-fills a new invoice from a phone sale. */
 export function invoiceFromPhoneSale(sale: PhoneSale, settings: TrackerSettings): InvoiceDraft {
-  const items: InvoiceItem[] = [{ desc: phoneInvoiceDesc(sale), qty: 1, unit_price: Number(sale.selling_price) }];
+  const items: InvoiceItem[] = [
+    { desc: phoneInvoiceDesc(sale), qty: 1, unit_price: Number(sale.selling_price), sale_kind: "phone", sale_id: sale.id },
+  ];
   if (isInstallment(sale.payment_method)) {
     const pct = Number(settings.bank_charge_percent) || 3;
     items.push(bankChargeItem(items[0].qty * items[0].unit_price, pct));
@@ -100,7 +102,9 @@ export function invoiceFromPhoneSale(sale: PhoneSale, settings: TrackerSettings)
 
 /** Pre-fills a new invoice from an accessory sale. */
 export function invoiceFromAccessorySale(sale: AccessorySale, settings: TrackerSettings): InvoiceDraft {
-  const items: InvoiceItem[] = [{ desc: sale.name, qty: Number(sale.qty) || 1, unit_price: Number(sale.unit_price) }];
+  const items: InvoiceItem[] = [
+    { desc: sale.name, qty: Number(sale.qty) || 1, unit_price: Number(sale.unit_price), sale_kind: "accessory", sale_id: sale.id },
+  ];
   if (isInstallment(sale.payment_method)) {
     const pct = Number(settings.bank_charge_percent) || 3;
     items.push(bankChargeItem(items[0].qty * items[0].unit_price, pct));
@@ -123,6 +127,16 @@ export function invoiceFileTitle(invoiceNo: string, customerName: string | null 
   return `${invoiceNo}${customerName ? " - " + customerName : ""}`.replace(/[\\/:*?"<>|]/g, "");
 }
 
+/**
+ * Invoices made before lines could be linked to sales have no link on the line
+ * that came from the invoice's own sale — it is always the first line, so mark it.
+ */
+function markMainLine(inv: Invoice): InvoiceItem[] {
+  if (!inv.sale_id || !inv.sale_kind) return inv.items;
+  if (inv.items.some((i) => i.sale_id === inv.sale_id)) return inv.items;
+  return inv.items.map((item, index) => (index === 0 ? { ...item, sale_kind: inv.sale_kind, sale_id: inv.sale_id } : item));
+}
+
 /** The editor's working copy of a saved invoice. */
 export function draftFromInvoice(inv: Invoice): InvoiceDraft {
   return {
@@ -134,7 +148,7 @@ export function draftFromInvoice(inv: Invoice): InvoiceDraft {
     customerPhone: inv.customer_phone ?? "",
     customerEmail: inv.customer_email ?? "",
     customerAddress: inv.customer_address ?? "",
-    items: inv.items,
+    items: markMainLine(inv),
     discount: inv.discount,
     taxPercent: inv.tax_percent,
     paymentMethod: inv.payment_method ?? "",

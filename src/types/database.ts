@@ -239,6 +239,13 @@ export interface InvoiceItem {
   desc: string;
   qty: number;
   unit_price: number;
+  /** Set when this line is recorded in the sales tabs (a phone or accessory sale). */
+  sale_kind?: SaleKind | null;
+  sale_id?: string | null;
+  /** Cost per item, kept so the line can be edited later. */
+  unit_cost?: number | null;
+  /** True when the line was picked from a sale that already existed (so removing it only detaches the sale). */
+  linked?: boolean;
 }
 
 export interface Invoice {
