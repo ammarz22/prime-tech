@@ -227,3 +227,120 @@ export interface ProductWithRelations extends Product {
   variants: ProductVariant[];
   images: ProductImage[];
 }
+
+// ---------------------------------------------------------------------------
+// Sales tracker (admin only — see supabase/migrations/0009_sales_tracker.sql)
+// Money columns come back from PostgREST as numbers.
+// ---------------------------------------------------------------------------
+
+export type SaleKind = "phone" | "accessory";
+
+export interface InvoiceItem {
+  desc: string;
+  qty: number;
+  unit_price: number;
+}
+
+export interface Invoice {
+  id: string;
+  invoice_no: string;
+  invoice_date: string;
+  due_date: string | null;
+  customer_name: string | null;
+  customer_phone: string | null;
+  customer_email: string | null;
+  customer_address: string | null;
+  items: InvoiceItem[];
+  discount: number;
+  tax_percent: number;
+  total: number;
+  payment_method: string | null;
+  notes: string | null;
+  sale_kind: SaleKind | null;
+  sale_id: string | null;
+  created_at: string;
+  updated_at: string;
+  created_by: string | null;
+}
+
+export interface PhoneSale {
+  id: string;
+  sale_date: string;
+  model: string;
+  storage: string | null;
+  colour: string | null;
+  model_no: string | null;
+  serial_no: string | null;
+  imei: string | null;
+  customer_name: string | null;
+  customer_phone: string | null;
+  customer_address: string | null;
+  customer_email: string | null;
+  supplier: string | null;
+  cost_price: number;
+  selling_price: number;
+  profit: number;
+  payment_method: string | null;
+  notes: string | null;
+  invoice_id: string | null;
+  created_at: string;
+  updated_at: string;
+  created_by: string | null;
+}
+
+export interface AccessorySale {
+  id: string;
+  sale_date: string;
+  name: string;
+  type: string | null;
+  qty: number;
+  customer_name: string | null;
+  customer_phone: string | null;
+  supplier: string | null;
+  unit_cost: number;
+  unit_price: number;
+  total_cost: number;
+  total_sale: number;
+  profit: number;
+  payment_method: string | null;
+  notes: string | null;
+  invoice_id: string | null;
+  created_at: string;
+  updated_at: string;
+  created_by: string | null;
+}
+
+export interface BusinessExpense {
+  id: string;
+  expense_date: string;
+  category: string;
+  description: string | null;
+  paid_to: string | null;
+  amount: number;
+  payment_method: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+  created_by: string | null;
+}
+
+export interface TrackerSettings {
+  id: 1;
+  address: string | null;
+  phone: string | null;
+  email: string | null;
+  footer: string | null;
+  terms: string | null;
+  bank_details: string | null;
+  invoice_prefix: string;
+  next_invoice_number: number;
+  bank_charge_percent: number;
+  suppliers: string[];
+  payment_methods: string[];
+  accessory_types: string[];
+  expense_categories: string[];
+}
+
+/** A sale row joined with the number of the invoice made for it (if any). */
+export type PhoneSaleRow = PhoneSale & { invoice: { invoice_no: string } | null };
+export type AccessorySaleRow = AccessorySale & { invoice: { invoice_no: string } | null };
