@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { EASE_PRIME } from "@/lib/motion";
+import { markIntroSeen } from "@/lib/intro-session";
 
 /** Total time the loader spends going 0% → 100%. Change this one number to
  * retime the whole intro — everything else (the exit sequence) is timed
@@ -18,10 +18,10 @@ const EXIT_DURATION_MS = 1300;
 
 type Phase = "playing" | "exiting" | "done";
 
-/** Fired the instant the intro starts clearing away (loader hits 100%, or
- * the visitor hits Skip) so `HomeReveal` can animate the homepage in at
- * exactly that moment, instead of it just sitting there fully-formed and
- * static the moment the intro fades. */
+/** Fired the instant the intro starts clearing away (loader hits 100%) so
+ * `HomeReveal` can animate the homepage in at exactly that moment, instead
+ * of it just sitting there fully-formed and static the moment the intro
+ * fades. */
 const INTRO_EXITING_EVENT = "pt-intro-exiting";
 
 /** One copy of the sliding brand statement; two of these sit side by side
@@ -45,10 +45,9 @@ function MarqueeGroup() {
  * The site's cinematic opening sequence — the supplied brand photograph as a
  * full-bleed backdrop, the wordmark resolving in from a blur, an infinite
  * sliding brand statement, then a real 0→100% loading bar before the whole
- * scene fades to reveal the homepage. Plays on every visit (no
- * session-skip) and is always skippable — skipping still runs the same
- * exit fade rather than unmounting instantly, so there's never a blank
- * flash before the homepage appears. Fires `pt-intro-exiting` the moment
+ * scene fades to reveal the homepage. It plays only on the first screen of a
+ * browser session (see `lib/intro-session`), never when someone clicks the logo
+ * to come back, and has no skip button. Fires `pt-intro-exiting` the moment
  * it starts clearing away so `HomeReveal` can animate the homepage in at
  * that exact moment instead of it just sitting there static. The loading
  * bar's progress is decorative pacing for this reveal, not tied to actual
@@ -61,6 +60,11 @@ export function BrandIntro() {
   const [phase, setPhase] = useState<Phase>("playing");
   const [progress, setProgress] = useState(0);
   const rafRef = useRef<number | null>(null);
+
+  // Once it has started, the visitor has had their first screen for this session.
+  useEffect(() => {
+    markIntroSeen();
+  }, []);
 
   useEffect(() => {
     if (!shouldPlay) return;
@@ -87,12 +91,6 @@ export function BrandIntro() {
     const t = setTimeout(() => setPhase("done"), EXIT_DURATION_MS);
     return () => clearTimeout(t);
   }, [phase]);
-
-  function skip() {
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    window.dispatchEvent(new Event(INTRO_EXITING_EVENT));
-    setPhase("exiting");
-  }
 
   if (!shouldPlay || phase === "done") return null;
 
@@ -143,17 +141,6 @@ export function BrandIntro() {
           </p>
         </motion.div>
       </motion.div>
-
-      {!exiting && (
-        <button
-          type="button"
-          onClick={skip}
-          className="absolute right-5 top-5 z-20 flex items-center gap-1.5 rounded-full border border-white/15 px-3.5 py-2 text-xs font-medium text-white/60 transition hover:border-white/30 hover:text-white sm:right-8 sm:top-8"
-        >
-          Skip
-          <X className="size-3.5" />
-        </button>
-      )}
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex flex-col items-center px-6 pb-[12vh] sm:pb-[15vh]">
         <motion.div

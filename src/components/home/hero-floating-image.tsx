@@ -4,12 +4,15 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
-/** The hero product shot — a real photo already exported with a proper
- * alpha-transparent background (no studio backdrop to mask out), so it
- * just floats directly on the hero's own background. A soft blurred
- * ellipse beneath it grounds it with a contact shadow, and a diagonal
- * light sweep glints across it periodically. Disabled under reduced
- * motion. */
+/** Fades the photo's own studio backdrop out toward every edge, so it melts
+ * into the hero instead of sitting there as a visible square. */
+const EDGE_FEATHER =
+  "linear-gradient(to right, transparent, #000 18%, #000 82%, transparent), linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent)";
+
+/** The hero product shot. The photo has its own dark burgundy backdrop, so it
+ * is feathered into the hero's background rather than cut out. A soft blurred
+ * ellipse beneath it grounds it with a contact shadow, and a diagonal light
+ * sweep glints across it periodically. Disabled under reduced motion. */
 export function HeroFloatingImage({ src, alt }: { src: string; alt: string }) {
   const reduced = useReducedMotion();
 
@@ -28,7 +31,20 @@ export function HeroFloatingImage({ src, alt }: { src: string; alt: string }) {
         animate={reduced ? undefined : { y: [0, -12, 0] }}
         transition={reduced ? undefined : { duration: 6, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Image src={src} alt={alt} fill priority sizes="(min-width: 1024px) 45vw, 90vw" className="object-contain" />
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority
+          sizes="(min-width: 1024px) 45vw, 90vw"
+          className="object-contain"
+          style={{
+            maskImage: EDGE_FEATHER,
+            WebkitMaskImage: EDGE_FEATHER,
+            maskComposite: "intersect",
+            WebkitMaskComposite: "source-in",
+          }}
+        />
       </motion.div>
 
       {!reduced && (

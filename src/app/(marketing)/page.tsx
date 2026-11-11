@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { BrandIntro } from "@/components/home/brand-intro";
 import { HomeReveal } from "@/components/home/home-reveal";
 import { HeroTeaser } from "@/components/home/hero-teaser";
@@ -9,8 +10,12 @@ import { WhyPrimeTech } from "@/components/home/why-prime-tech";
 import { HelpMeChooseCta } from "@/components/home/help-me-choose-cta";
 import { FromPrimeTech } from "@/components/home/from-prime-tech";
 import { getProducts } from "@/lib/db/products";
+import { INTRO_COOKIE } from "@/lib/intro-session";
 
 export default async function HomePage() {
+  // The opening animation is for the first screen of a session only — not when
+  // someone clicks the logo to come back to the homepage.
+  const playIntro = !(await cookies()).has(INTRO_COOKIE);
   const [appleFeatured, samsungFeatured] = await Promise.all([
     getProducts({ productGroup: "APPLE", featured: true, sort: "featured", limit: 16 }),
     getProducts({ productGroup: "OTHER", featured: true, sort: "featured", limit: 16 }),
@@ -31,8 +36,8 @@ export default async function HomePage() {
 
   return (
     <>
-      <BrandIntro />
-      <HomeReveal>
+      {playIntro && <BrandIntro />}
+      <HomeReveal playIntro={playIntro}>
         <HeroTeaser />
         <TrustStrip />
         <CategoryDiscovery />

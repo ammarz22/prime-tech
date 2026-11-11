@@ -10,11 +10,13 @@ import { EASE_PRIME } from "@/lib/motion";
  * away (its `pt-intro-exiting` event), so the two feel like one continuous
  * reveal instead of the intro just vanishing onto an already-static page.
  * Starts already-revealed when the intro won't play at all (reduced
- * motion), and has a generous timeout fallback so content is never stuck
+ * motion, or a visitor who has already seen it this session), and has a generous timeout fallback so content is never stuck
  * invisible if the event is somehow missed.
  */
-export function HomeReveal({ children }: { children: React.ReactNode }) {
-  const reduced = useReducedMotion();
+export function HomeReveal({ children, playIntro = true }: { children: React.ReactNode; playIntro?: boolean }) {
+  const reducedMotion = useReducedMotion();
+  // No intro to wait for -> show the page straight away, no fade.
+  const reduced = reducedMotion || !playIntro;
   const [revealed, setRevealed] = useState(reduced);
 
   useEffect(() => {
